@@ -61,7 +61,7 @@ export const patchFolderSchema = z.object({
 });
 
 export const shareFileSchema = z.object({
-  email: z.string().trim().email(),
+  email: z.string().trim().toLowerCase().email(),
 });
 
 export const listFoldersQuerySchema = z.object({

@@ -54,4 +54,9 @@ describe("shareFileSchema", () => {
   it("rejects a non-email string", () => {
     expect(() => shareFileSchema.parse({ email: "not-an-email" })).toThrow()
   })
+
+  it("lowercases a mixed-case email", () => {
+    const result = shareFileSchema.parse({ email: "Person@Example.com" })
+    expect(result.email).toBe("person@example.com")
+  })
 })
