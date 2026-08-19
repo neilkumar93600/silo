@@ -45,13 +45,7 @@ const VIEW_MODE_KEY = "silo-view-mode"
 
 type Mode = { type: "recent" } | { type: "starred" } | { type: "shared" } | { type: "folder"; folderId: string }
 
-async function fetchModeContents(mode: Mode, query: string): Promise<FolderContents> {
-  const q = query.trim()
-  if (q) {
-    // A search spans every folder, so it ignores the current mode entirely.
-    const res = await listFiles({ q })
-    return { folder: null, parents: [], folders: [], files: res.items }
-  }
+async function fetchModeContents(mode: Mode): Promise<FolderContents> {
   if (mode.type === "recent") {
     const res = await listFiles()
     return { folder: null, parents: [], folders: [], files: res.items }
@@ -99,7 +93,7 @@ export function FileManager({ query, mode }: { query: string; mode: Mode }) {
 
   const refresh = useCallback(async () => {
     try {
-      const res = await fetchModeContents(mode, query)
+      const res = await fetchModeContents(mode)
       setCurrentFolder(res.folder)
       setParents(res.parents)
       setFolders(res.folders)
@@ -108,13 +102,13 @@ export function FileManager({ query, mode }: { query: string; mode: Mode }) {
       toast.error(err instanceof ApiError ? err.message : "Could not load your files")
       setFiles([])
     }
-  }, [mode, query])
+  }, [mode])
 
   useFolderSync(folderId ?? null, refresh)
 
   useEffect(() => {
     let ignore = false
-    fetchModeContents(mode, query)
+    fetchModeContents(mode)
       .then((res) => {
         if (ignore) return
         setCurrentFolder(res.folder)
@@ -132,7 +126,7 @@ export function FileManager({ query, mode }: { query: string; mode: Mode }) {
       ignore = true
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mode.type, mode.type === "folder" ? mode.folderId : null, query])
+  }, [mode.type, mode.type === "folder" ? mode.folderId : null])
 
   async function handleToggleVisibility(file: FileRecord) {
     const next = file.visibility === "public" ? "private" : "public"
@@ -267,9 +261,8 @@ export function FileManager({ query, mode }: { query: string; mode: Mode }) {
     return sorted
   }, [files, query, sortKey, sortDirection])
 
-  const searching = query.trim().length > 0
   const isEmpty = files !== null && files.length === 0 && folders.length === 0
-  const isRootHero = !searching && isFolderMode && mode.folderId === "root" && parents.length === 0 && isEmpty
+  const isRootHero = isFolderMode && mode.folderId === "root" && parents.length === 0 && isEmpty
 
   return (
     <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-6 p-4 md:p-8">
@@ -304,15 +297,13 @@ export function FileManager({ query, mode }: { query: string; mode: Mode }) {
               </div>
             ) : (
               <div className="py-12 text-center font-mono text-sm text-ash-wisp">
-                {searching
-                  ? `No files match "${query}".`
-                  : mode.type === "recent"
-                    ? "No files uploaded yet."
-                    : mode.type === "starred"
-                      ? "Nothing starred yet."
-                      : mode.type === "shared"
-                        ? "Nothing shared with you yet."
-                        : "Nothing here yet. Use the New button in the sidebar."}
+                {mode.type === "recent"
+                  ? "No files uploaded yet."
+                  : mode.type === "starred"
+                    ? "Nothing starred yet."
+                    : mode.type === "shared"
+                      ? "Nothing shared with you yet."
+                      : "Nothing here yet. Use the New button in the sidebar."}
               </div>
             )
           ) : files.length === 0 ? (
