@@ -18,7 +18,7 @@ vi.mock("../src/lib/s3.js", () => ({
 }));
 
 const { db } = await import("../src/db/index.js");
-const { addShare, removeShare, listShares } = await import("../src/services/shares.service.js");
+const { addShare, removeShare, listShares, listSharedWithMe } = await import("../src/services/shares.service.js");
 
 const OWNER_ID = "user-owner";
 const OTHER_ID = "user-intruder";
@@ -143,5 +143,24 @@ describe("listShares", () => {
     await expect(listShares("file-1", OTHER_ID)).rejects.toMatchObject({
       status: 403,
     });
+  });
+});
+
+describe("listSharedWithMe", () => {
+  // Note: the `chainable()` mock resolves to whatever result it's given
+  // regardless of what conditions are actually passed to `.where(...)`, so
+  // this can't spy on the real query and prove a trashed file is excluded
+  // at the SQL level. The most this mocking style can meaningfully verify
+  // is that a normal (non-trashed) row still comes back correctly shaped —
+  // i.e. the query-shape change didn't break the mapping to `sharedBy`.
+  it("returns files shared with the user, tagged with who shared them", async () => {
+    const row = fileRow();
+    vi.mocked(db.select).mockReturnValueOnce(
+      chainable([{ file: row, sharedByName: "Owner Name", sharedByEmail: "owner@example.com" }]),
+    );
+
+    const result = await listSharedWithMe(RECIPIENT_ID);
+
+    expect(result.files).toEqual([{ ...row, sharedBy: { name: "Owner Name", email: "owner@example.com" } }]);
   });
 });

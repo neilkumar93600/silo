@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { and, eq } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { db } from "../db/index.js";
 import { fileShares } from "../db/schema/file-shares.js";
 import { files } from "../db/schema/files.js";
@@ -45,7 +45,13 @@ export async function listSharedWithMe(userId: string) {
     .from(fileShares)
     .innerJoin(files, eq(fileShares.fileId, files.id))
     .innerJoin(user, eq(fileShares.sharedByUserId, user.id))
-    .where(eq(fileShares.sharedWithUserId, userId));
+    .where(
+      and(
+        eq(fileShares.sharedWithUserId, userId),
+        eq(files.status, "uploaded"),
+        isNull(files.deletedAt),
+      ),
+    );
 
   return {
     files: rows.map((row) => ({ ...row.file, sharedBy: { name: row.sharedByName, email: row.sharedByEmail } })),

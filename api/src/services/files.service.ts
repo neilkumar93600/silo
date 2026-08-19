@@ -123,7 +123,7 @@ export async function getAccessibleFileOrThrow(fileId: string, userId: string) {
     .from(fileShares)
     .where(and(eq(fileShares.fileId, fileId), eq(fileShares.sharedWithUserId, userId)))
     .limit(1);
-  if (!share) throw Errors.forbidden();
+  if (!share || file.deletedAt) throw Errors.forbidden();
 
   return file;
 }
