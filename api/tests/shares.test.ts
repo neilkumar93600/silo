@@ -18,7 +18,7 @@ vi.mock("../src/lib/s3.js", () => ({
 }));
 
 const { db } = await import("../src/db/index.js");
-const { addShare, removeShare } = await import("../src/services/shares.service.js");
+const { addShare, removeShare, listShares } = await import("../src/services/shares.service.js");
 
 const OWNER_ID = "user-owner";
 const OTHER_ID = "user-intruder";
@@ -101,9 +101,10 @@ describe("addShare", () => {
 
   it("inserts a share row when the owner shares with a known user", async () => {
     vi.mocked(db.select)
-      .mockReturnValueOnce(chainable([fileRow()])) // getOwnedFileOrThrow
+      .mockReturnValueOnce(chainable([fileRow()])) // addShare's getOwnedFileOrThrow
       .mockReturnValueOnce(chainable([userRow()])) // user lookup — match
-      .mockReturnValueOnce(chainable([])); // final listShares call
+      .mockReturnValueOnce(chainable([fileRow()])) // listShares's getOwnedFileOrThrow
+      .mockReturnValueOnce(chainable([])); // listShares's actual select
     vi.mocked(db.insert).mockReturnValue(chainable(undefined));
 
     await addShare("file-1", OWNER_ID, "recipient@example.com");
@@ -124,12 +125,23 @@ describe("removeShare", () => {
 
   it("deletes the share row when the owner revokes access", async () => {
     vi.mocked(db.select)
-      .mockReturnValueOnce(chainable([fileRow()])) // getOwnedFileOrThrow
-      .mockReturnValueOnce(chainable([])); // final listShares call
+      .mockReturnValueOnce(chainable([fileRow()])) // removeShare's getOwnedFileOrThrow
+      .mockReturnValueOnce(chainable([fileRow()])) // listShares's getOwnedFileOrThrow
+      .mockReturnValueOnce(chainable([])); // listShares's actual select
     vi.mocked(db.delete).mockReturnValue(chainable(undefined));
 
     await removeShare("file-1", OWNER_ID, RECIPIENT_ID);
 
     expect(db.delete).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("listShares", () => {
+  it("blocks a non-owner from listing shares", async () => {
+    vi.mocked(db.select).mockReturnValueOnce(chainable([fileRow()]));
+
+    await expect(listShares("file-1", OTHER_ID)).rejects.toMatchObject({
+      status: 403,
+    });
   });
 });

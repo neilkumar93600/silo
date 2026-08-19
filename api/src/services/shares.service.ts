@@ -8,8 +8,8 @@ import { Errors } from "../lib/errors.js";
 import { getOwnedFileOrThrow } from "./files.service.js";
 
 export async function listShares(fileId: string, ownerId: string) {
-  // Ownership verification is delegated to the caller (addShare/removeShare)
-  // to avoid redundant db.select calls for the test mock sequence
+  await getOwnedFileOrThrow(fileId, ownerId);
+
   return db
     .select({ userId: user.id, name: user.name, email: user.email, sharedAt: fileShares.createdAt })
     .from(fileShares)
