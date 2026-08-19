@@ -1,6 +1,19 @@
 "use client"
 
-import { MoreHorizontalIcon, DownloadIcon, Trash2Icon, LinkIcon, PencilIcon, Share2Icon, InfoIcon, FolderInputIcon, StarIcon, StarOffIcon } from "lucide-react"
+import {
+  MoreHorizontalIcon,
+  DownloadIcon,
+  Trash2Icon,
+  LinkIcon,
+  PencilIcon,
+  Share2Icon,
+  InfoIcon,
+  FolderInputIcon,
+  StarIcon,
+  StarOffIcon,
+  CheckIcon,
+  SparklesIcon,
+} from "lucide-react"
 import type { FileRecord } from "@/lib/api"
 import { formatBytes, formatDate } from "@/lib/format"
 import { FileTypeBadge } from "@/components/shared/file-icon"
@@ -14,9 +27,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useAssistant } from "@/components/layout/assistant-context"
+import { cn } from "@/lib/utils"
 
 interface FileTableProps {
   files: FileRecord[]
+  selectedIds?: Set<string>
+  onToggleSelect?: (fileId: string) => void
+  onToggleSelectAll?: () => void
   onPreview: (file: FileRecord) => void
   onToggleVisibility: (file: FileRecord) => void
   onDownload: (file: FileRecord) => void
@@ -45,16 +63,21 @@ export function RowActions({
   FileTableProps,
   "onDownload" | "onCopyLink" | "onDelete" | "onRename" | "onShare" | "onShowInfo" | "onMove" | "onToggleStar" | "readOnly"
 >) {
+  const { askAboutFile } = useAssistant()
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
         render={
-          <Button variant="ghost" size="icon-sm" className="text-silver-smoke hover:text-paper-white">
+          <Button variant="ghost" size="icon-sm" className="text-silver-smoke hover:text-paper-white cursor-pointer">
             <MoreHorizontalIcon />
           </Button>
         }
       />
       <DropdownMenuContent align="end" className="border-lavender-mist bg-eclipse-black text-paper-white">
+        <DropdownMenuItem onClick={() => askAboutFile(file)} className="hover:bg-void-plum hover:text-laser-violet text-laser-violet font-medium">
+          <SparklesIcon data-icon="inline-start" className="size-4 text-laser-violet" />
+          Ask Silvi
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => onDownload(file)} className="hover:bg-void-plum hover:text-laser-violet">
           <DownloadIcon data-icon="inline-start" />
           Download
@@ -106,6 +129,9 @@ export function RowActions({
 
 export function FileTable({
   files,
+  selectedIds = new Set(),
+  onToggleSelect,
+  onToggleSelectAll,
   onPreview,
   onToggleVisibility,
   onDownload,
@@ -118,12 +144,34 @@ export function FileTable({
   onToggleStar,
   readOnly = false,
 }: FileTableProps) {
+  const allSelected = files.length > 0 && files.every((f) => selectedIds.has(f.id))
+  const someSelected = files.some((f) => selectedIds.has(f.id))
+
   return (
     <>
       {/* Desktop */}
       <Table className="hidden md:table">
         <TableHeader>
           <TableRow className="border-b border-lavender-mist hover:bg-transparent">
+            {onToggleSelectAll && (
+              <TableHead className="w-10 pl-4">
+                <button
+                  type="button"
+                  onClick={onToggleSelectAll}
+                  className={cn(
+                    "flex size-4.5 items-center justify-center rounded-md border transition-all cursor-pointer",
+                    allSelected
+                      ? "border-laser-violet bg-laser-violet text-white"
+                      : someSelected
+                        ? "border-laser-violet bg-laser-violet/40 text-white"
+                        : "border-lavender-mist bg-eclipse-black text-transparent hover:border-laser-violet"
+                  )}
+                  aria-label={allSelected ? "Deselect all" : "Select all"}
+                >
+                  <CheckIcon className="size-3 stroke-[3]" />
+                </button>
+              </TableHead>
+            )}
             <TableHead className="font-mono text-[11px] tracking-[0.05em] uppercase text-ash-wisp">Name</TableHead>
             <TableHead className="font-mono text-[11px] tracking-[0.05em] uppercase text-ash-wisp">Size</TableHead>
             <TableHead className="font-mono text-[11px] tracking-[0.05em] uppercase text-ash-wisp">Uploaded</TableHead>
@@ -132,99 +180,153 @@ export function FileTable({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {files.map((file, index) => (
-            <TableRow
-              key={file.id}
-              className="border-b border-lavender-mist/40 transition-colors hover:bg-void-plum/60 animate-in fade-in-0 slide-in-from-bottom-1 fill-mode-backwards"
-              style={{ animationDelay: `${Math.min(index, 10) * 30}ms`, animationDuration: "200ms" }}
-            >
-              <TableCell className="max-w-64">
-                <button
-                  onClick={() => onPreview(file)}
-                  className="group flex items-center gap-3 truncate text-left font-medium"
-                >
-                  <FileTypeBadge mimeType={file.mimeType} />
-                  <span className="truncate text-paper-white group-hover:text-laser-violet transition-colors">{file.originalName}</span>
-                </button>
-              </TableCell>
-              <TableCell className="font-mono text-[12px] text-silver-smoke">{formatBytes(file.sizeBytes)}</TableCell>
-              <TableCell className="font-mono text-[12px] text-ash-wisp">{formatDate(file.createdAt)}</TableCell>
-              <TableCell>
-                <div className="flex items-center gap-2">
-                  {readOnly ? (
-                    file.visibility === "public" ? (
-                      <Badge variant="secondary" className="rounded-full bg-laser-violet/20 border border-laser-violet/40 px-2 py-0.5 text-[10px] font-mono text-laser-violet">
-                        Public
-                      </Badge>
-                    ) : (
-                      <span className="font-mono text-[11px] text-ash-wisp">Private</span>
-                    )
-                  ) : (
-                    <>
-                      <Switch checked={file.visibility === "public"} onCheckedChange={() => onToggleVisibility(file)} />
-                      {file.visibility === "public" && (
+          {files.map((file, index) => {
+            const isSelected = selectedIds.has(file.id)
+
+            return (
+              <TableRow
+                key={file.id}
+                draggable
+                onDragStart={(e) => {
+                  e.dataTransfer.setData("application/silo-file-id", file.id)
+                  e.dataTransfer.setData("text/plain", file.id)
+                }}
+                className={cn(
+                  "border-b border-lavender-mist/40 transition-colors hover:bg-void-plum/60 animate-in fade-in-0 slide-in-from-bottom-1 fill-mode-backwards",
+                  isSelected && "bg-void-plum/80"
+                )}
+                style={{ animationDelay: `${Math.min(index, 10) * 30}ms`, animationDuration: "200ms" }}
+              >
+                {onToggleSelect && (
+                  <TableCell className="w-10 pl-4">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        onToggleSelect(file.id)
+                      }}
+                      className={cn(
+                        "flex size-4.5 items-center justify-center rounded-md border transition-all cursor-pointer",
+                        isSelected
+                          ? "border-laser-violet bg-laser-violet text-white shadow-sm"
+                          : "border-lavender-mist/80 bg-eclipse-black text-transparent hover:border-laser-violet"
+                      )}
+                      aria-label={isSelected ? "Deselect file" : "Select file"}
+                    >
+                      <CheckIcon className="size-3 stroke-[3]" />
+                    </button>
+                  </TableCell>
+                )}
+                <TableCell className="max-w-64">
+                  <button
+                    onClick={() => onPreview(file)}
+                    className="group flex items-center gap-3 truncate text-left font-medium cursor-pointer"
+                  >
+                    <FileTypeBadge mimeType={file.mimeType} />
+                    <span className="truncate text-paper-white group-hover:text-laser-violet transition-colors">
+                      {file.originalName}
+                    </span>
+                  </button>
+                </TableCell>
+                <TableCell className="font-mono text-[12px] text-silver-smoke">{formatBytes(file.sizeBytes)}</TableCell>
+                <TableCell className="font-mono text-[12px] text-ash-wisp">{formatDate(file.createdAt)}</TableCell>
+                <TableCell>
+                  <div className="flex items-center gap-2">
+                    {readOnly ? (
+                      file.visibility === "public" ? (
                         <Badge variant="secondary" className="rounded-full bg-laser-violet/20 border border-laser-violet/40 px-2 py-0.5 text-[10px] font-mono text-laser-violet">
                           Public
                         </Badge>
-                      )}
-                    </>
-                  )}
-                </div>
-              </TableCell>
-              <TableCell>
-                <RowActions
-                  file={file}
-                  onDownload={onDownload}
-                  onCopyLink={onCopyLink}
-                  onDelete={onDelete}
-                  onRename={onRename}
-                  onShare={onShare}
-                  onShowInfo={onShowInfo}
-                  onMove={onMove}
-                  onToggleStar={onToggleStar}
-                  readOnly={readOnly}
-                />
-              </TableCell>
-            </TableRow>
-          ))}
+                      ) : (
+                        <span className="font-mono text-[11px] text-ash-wisp">Private</span>
+                      )
+                    ) : (
+                      <>
+                        <Switch checked={file.visibility === "public"} onCheckedChange={() => onToggleVisibility(file)} />
+                        {file.visibility === "public" && (
+                          <Badge variant="secondary" className="rounded-full bg-laser-violet/20 border border-laser-violet/40 px-2 py-0.5 text-[10px] font-mono text-laser-violet">
+                            Public
+                          </Badge>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <RowActions
+                    file={file}
+                    onDownload={onDownload}
+                    onCopyLink={onCopyLink}
+                    onDelete={onDelete}
+                    onRename={onRename}
+                    onShare={onShare}
+                    onShowInfo={onShowInfo}
+                    onMove={onMove}
+                    onToggleStar={onToggleStar}
+                    readOnly={readOnly}
+                  />
+                </TableCell>
+              </TableRow>
+            )
+          })}
         </TableBody>
       </Table>
 
       {/* Mobile */}
       <div className="flex flex-col divide-y divide-lavender-mist/40 md:hidden">
-        {files.map((file, index) => (
-          <div
-            key={file.id}
-            className="flex animate-in items-center gap-3 fade-in-0 slide-in-from-bottom-1 py-3.5 fill-mode-backwards"
-            style={{ animationDelay: `${Math.min(index, 10) * 30}ms`, animationDuration: "200ms" }}
-          >
-            <button onClick={() => onPreview(file)} className="flex min-w-0 flex-1 items-center gap-3 text-left">
-              <FileTypeBadge mimeType={file.mimeType} />
-              <div className="min-w-0">
-                <p className="truncate text-sm font-medium text-paper-white">{file.originalName}</p>
-                <p className="font-mono text-[11px] text-ash-wisp">
-                  {formatBytes(file.sizeBytes)} · {formatDate(file.createdAt)}
-                  {file.visibility === "public" && " · Public"}
-                </p>
-              </div>
-            </button>
-            {!readOnly && <Switch checked={file.visibility === "public"} onCheckedChange={() => onToggleVisibility(file)} />}
-            <RowActions
-              file={file}
-              onDownload={onDownload}
-              onCopyLink={onCopyLink}
-              onDelete={onDelete}
-              onRename={onRename}
-              onShare={onShare}
-              onShowInfo={onShowInfo}
-              onMove={onMove}
-              onToggleStar={onToggleStar}
-              readOnly={readOnly}
-            />
-          </div>
-        ))}
+        {files.map((file, index) => {
+          const isSelected = selectedIds.has(file.id)
+
+          return (
+            <div
+              key={file.id}
+              className={cn(
+                "flex animate-in items-center gap-3 fade-in-0 slide-in-from-bottom-1 py-3.5 fill-mode-backwards",
+                isSelected && "bg-void-plum/40 px-2 rounded-lg"
+              )}
+              style={{ animationDelay: `${Math.min(index, 10) * 30}ms`, animationDuration: "200ms" }}
+            >
+              {onToggleSelect && (
+                <button
+                  type="button"
+                  onClick={() => onToggleSelect(file.id)}
+                  className={cn(
+                    "flex size-4.5 shrink-0 items-center justify-center rounded-md border transition-all cursor-pointer",
+                    isSelected
+                      ? "border-laser-violet bg-laser-violet text-white"
+                      : "border-lavender-mist/80 bg-eclipse-black text-transparent"
+                  )}
+                >
+                  <CheckIcon className="size-3 stroke-[3]" />
+                </button>
+              )}
+              <button onClick={() => onPreview(file)} className="flex min-w-0 flex-1 items-center gap-3 text-left cursor-pointer">
+                <FileTypeBadge mimeType={file.mimeType} />
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-medium text-paper-white">{file.originalName}</p>
+                  <p className="font-mono text-[11px] text-ash-wisp">
+                    {formatBytes(file.sizeBytes)} · {formatDate(file.createdAt)}
+                    {file.visibility === "public" && " · Public"}
+                  </p>
+                </div>
+              </button>
+              {!readOnly && <Switch checked={file.visibility === "public"} onCheckedChange={() => onToggleVisibility(file)} />}
+              <RowActions
+                file={file}
+                onDownload={onDownload}
+                onCopyLink={onCopyLink}
+                onDelete={onDelete}
+                onRename={onRename}
+                onShare={onShare}
+                onShowInfo={onShowInfo}
+                onMove={onMove}
+                onToggleStar={onToggleStar}
+                readOnly={readOnly}
+              />
+            </div>
+          )
+        })}
       </div>
     </>
   )
 }
-

@@ -64,6 +64,18 @@ export const shareFileSchema = z.object({
   email: z.string().trim().toLowerCase().email(),
 });
 
+export const patchNotificationPreferencesSchema = z.object({
+  notifyOnFileShared: z.boolean().optional(),
+});
+
 export const listFoldersQuerySchema = z.object({
   parentId: z.string().trim().min(1).default("root"),
+});
+
+export const sendMessageSchema = z.object({
+  content: z.string().trim().min(1).max(4000),
+});
+
+export const confirmActionSchema = z.object({
+  approve: z.boolean(),
 });

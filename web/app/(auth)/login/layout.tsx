@@ -1,0 +1,11 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Sign in",
+  description:
+    "Sign in to your Silo account to upload, organize, and share your files.",
+};
+
+export default function LoginLayout({ children }: { children: React.ReactNode }) {
+  return <>{children}</>;
+}

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { authRequired } from "../middleware/auth-required.js";
-import { uploadRateLimit } from "../middleware/rate-limit.js";
+import { uploadRateLimit, shareRateLimit } from "../middleware/rate-limit.js";
 import { createUploadSchema, patchFileSchema, listFilesQuerySchema, shareFileSchema } from "../lib/validation.js";
 import * as filesService from "../services/files.service.js";
 import * as sharesService from "../services/shares.service.js";
@@ -46,7 +46,8 @@ filesRouter.post("/:id/complete", async (req, res, next) => {
 
 filesRouter.get("/:id/download", async (req, res, next) => {
   try {
-    const url = await filesService.getDownloadUrl(req.params.id!, req.userId);
+    const inline = req.query.inline === "true" || req.query.inline === "1";
+    const url = await filesService.getDownloadUrl(req.params.id!, req.userId, inline);
     res.json({ url });
   } catch (err) {
     next(err);
@@ -79,6 +80,8 @@ filesRouter.get("/:id/shares", async (req, res, next) => {
     next(err);
   }
 });
+
+filesRouter.use("/:id/shares", shareRateLimit);
 
 filesRouter.post("/:id/shares", async (req, res, next) => {
   try {

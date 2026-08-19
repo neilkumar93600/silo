@@ -1,0 +1,19 @@
+# Silo
+
+> Silo is a private file sharing app. Files stay private by default; share
+> a specific file by an unguessable public link, or directly with one
+> person by email — revocable at any time.
+
+## Main pages
+
+- `Home -> /`: Product overview, features, and sign-up.
+- `Sign up -> /signup`: Create a free account.
+- `Sign in -> /login`: Sign in to an existing account.
+
+## Key facts
+
+- Files are private by default; sharing is opt-in per file.
+- Two sharing modes: an unguessable public link, or a direct grant to a
+  specific person's email address (revocable).
+- Files can be organized into folders.
+- No public pricing page exists yet.

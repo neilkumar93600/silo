@@ -7,6 +7,7 @@ import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { toast } from "sonner"
 import { listFileShares, addFileShare, removeFileShare, ApiError, type FileRecord, type ShareRecipient } from "@/lib/api"
 import { initialsOf } from "@/lib/format"
 
@@ -39,6 +40,7 @@ function SharePanel({
       const updated = await addFileShare(file.id, trimmed)
       setRecipients(updated)
       setEmail("")
+      toast.success(`Shared with ${trimmed}`)
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Could not share file")
     } finally {
@@ -73,7 +75,7 @@ function SharePanel({
       <Button
         disabled={file.visibility !== "public"}
         onClick={() => onCopyLink(file)}
-        className="w-full bg-laser-violet text-[#040106] font-medium hover:bg-[#db7aff]"
+        className="w-full bg-primary text-primary-foreground font-medium hover:bg-primary/90"
       >
         <LinkIcon data-icon="inline-start" />
         Copy link

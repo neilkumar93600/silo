@@ -102,13 +102,30 @@ describe("addShare", () => {
   it("inserts a share row when the owner shares with a known user", async () => {
     vi.mocked(db.select)
       .mockReturnValueOnce(chainable([fileRow()])) // addShare's getOwnedFileOrThrow
-      .mockReturnValueOnce(chainable([userRow()])) // user lookup — match
+      .mockReturnValueOnce(chainable([userRow()])) // recipient lookup — match
+      .mockReturnValueOnce(chainable([{ userId: RECIPIENT_ID, notifyOnFileShared: true }])) // getPreferences lookup
+      .mockReturnValueOnce(chainable([{ name: "Owner Name" }])) // owner name lookup for notification
       .mockReturnValueOnce(chainable([fileRow()])) // listShares's getOwnedFileOrThrow
       .mockReturnValueOnce(chainable([])); // listShares's actual select
-    vi.mocked(db.insert).mockReturnValue(chainable(undefined));
+    vi.mocked(db.insert).mockReturnValue(chainable([{ id: "share-1" }]));
 
     await addShare("file-1", OWNER_ID, "recipient@example.com");
 
+    // one insert for the file_shares row, one for the recipient's notification
+    expect(db.insert).toHaveBeenCalledTimes(2);
+  });
+
+  it("does not create a duplicate notification when re-sharing with someone who already has access", async () => {
+    vi.mocked(db.select)
+      .mockReturnValueOnce(chainable([fileRow()])) // addShare's getOwnedFileOrThrow
+      .mockReturnValueOnce(chainable([userRow()])) // recipient lookup — match
+      .mockReturnValueOnce(chainable([fileRow()])) // listShares's getOwnedFileOrThrow
+      .mockReturnValueOnce(chainable([])); // listShares's actual select
+    vi.mocked(db.insert).mockReturnValue(chainable([])); // onConflictDoNothing -> no row returned
+
+    await addShare("file-1", OWNER_ID, "recipient@example.com");
+
+    // only the (no-op) file_shares insert attempt — no owner lookup, no notification insert
     expect(db.insert).toHaveBeenCalledTimes(1);
   });
 });

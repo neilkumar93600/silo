@@ -1,7 +1,8 @@
 import { randomUUID, randomBytes } from "node:crypto";
-import { and, desc, eq, isNull, lt } from "drizzle-orm";
+import { and, desc, eq, gte, ilike, isNull, like, lt, lte } from "drizzle-orm";
 import { db } from "../db/index.js";
 import { files } from "../db/schema/files.js";
+import { folders } from "../db/schema/folders.js";
 import { fileShares } from "../db/schema/file-shares.js";
 import { presignUpload, presignDownload, headObject, deleteObject } from "../lib/s3.js";
 import { isDangerousUpload } from "../lib/validation.js";
@@ -104,6 +105,51 @@ export async function listFiles(ownerId: string, opts: { cursor?: string; limit:
   return { items: rows, nextCursor };
 }
 
+export interface FileSearchFilters {
+  name?: string;
+  type?: "image" | "video" | "audio";
+  folderId?: string;
+  starred?: boolean;
+  createdAfter?: string;
+  createdBefore?: string;
+  limit?: number;
+}
+
+// Structured search used by the assistant's search_files tool: the model
+// extracts filters from natural language rather than us trying to match
+// free text server-side. Ignores folder scope by default (searches
+// everywhere) unless the model explicitly asks to narrow to one.
+export async function searchFiles(ownerId: string, filters: FileSearchFilters) {
+  const conditions = [eq(files.ownerId, ownerId), eq(files.status, "uploaded"), isNull(files.deletedAt)];
+
+  if (filters.name) {
+    const escaped = filters.name.replace(/[\\%_]/g, (c) => `\\${c}`);
+    conditions.push(ilike(files.originalName, `%${escaped}%`));
+  }
+  if (filters.type) {
+    conditions.push(like(files.mimeType, `${filters.type}/%`));
+  }
+  if (filters.folderId) {
+    conditions.push(filters.folderId === "root" ? isNull(files.folderId) : eq(files.folderId, filters.folderId));
+  }
+  if (filters.starred !== undefined) {
+    conditions.push(eq(files.starred, filters.starred));
+  }
+  if (filters.createdAfter) {
+    conditions.push(gte(files.createdAt, new Date(filters.createdAfter)));
+  }
+  if (filters.createdBefore) {
+    conditions.push(lte(files.createdAt, new Date(filters.createdBefore)));
+  }
+
+  return db
+    .select()
+    .from(files)
+    .where(and(...conditions))
+    .orderBy(desc(files.createdAt))
+    .limit(Math.min(filters.limit ?? 20, 50));
+}
+
 export async function getOwnedFileOrThrow(fileId: string, ownerId: string) {
   const [file] = await db.select().from(files).where(eq(files.id, fileId)).limit(1);
 
@@ -131,7 +177,7 @@ export async function getAccessibleFileOrThrow(fileId: string, userId: string) {
 export async function updateFile(
   fileId: string,
   ownerId: string,
-  patch: { visibility?: "private" | "public"; originalName?: string; folderId?: string | null },
+  patch: { visibility?: "private" | "public"; originalName?: string; folderId?: string | null; starred?: boolean },
 ) {
   await getOwnedFileOrThrow(fileId, ownerId);
 
@@ -181,10 +227,10 @@ export async function permanentDeleteFile(fileId: string, ownerId: string) {
   await db.delete(files).where(eq(files.id, fileId));
 }
 
-export async function getDownloadUrl(fileId: string, userId: string) {
+export async function getDownloadUrl(fileId: string, userId: string, inline = false) {
   const file = await getAccessibleFileOrThrow(fileId, userId);
   if (file.status !== "uploaded") throw Errors.notFound("File");
-  return presignDownload(file.s3Key, file.originalName);
+  return presignDownload(file.s3Key, file.originalName, inline);
 }
 
 export async function getPublicDownloadUrl(shareSlug: string) {
@@ -208,3 +254,103 @@ export async function getPublicDownloadUrl(shareSlug: string) {
   const url = await presignDownload(file.s3Key, file.originalName);
   return { url, file };
 }
+
+export async function getStorageBreakdown(ownerId: string) {
+  const userFiles = await db
+    .select()
+    .from(files)
+    .where(and(eq(files.ownerId, ownerId), eq(files.status, "uploaded"), isNull(files.deletedAt)));
+
+  const userFolders = await db
+    .select()
+    .from(folders)
+    .where(and(eq(folders.ownerId, ownerId), isNull(folders.deletedAt)));
+
+  const folderMap = new Map(userFolders.map((f) => [f.id, f.name]));
+
+  let totalUsedBytes = 0;
+  const byType: Record<string, { count: number; totalBytes: number }> = {
+    images: { count: 0, totalBytes: 0 },
+    videos: { count: 0, totalBytes: 0 },
+    audio: { count: 0, totalBytes: 0 },
+    documents: { count: 0, totalBytes: 0 },
+    other: { count: 0, totalBytes: 0 },
+  };
+
+  const folderSizeMap: Record<string, { name: string; totalBytes: number; fileCount: number }> = {
+    root: { name: "Root", totalBytes: 0, fileCount: 0 },
+  };
+
+  for (const folder of userFolders) {
+    folderSizeMap[folder.id] = { name: folder.name, totalBytes: 0, fileCount: 0 };
+  }
+
+  for (const file of userFiles) {
+    totalUsedBytes += file.sizeBytes;
+    const mime = file.mimeType.toLowerCase();
+
+    if (mime.startsWith("image/")) {
+      byType.images!.count++;
+      byType.images!.totalBytes += file.sizeBytes;
+    } else if (mime.startsWith("video/")) {
+      byType.videos!.count++;
+      byType.videos!.totalBytes += file.sizeBytes;
+    } else if (mime.startsWith("audio/")) {
+      byType.audio!.count++;
+      byType.audio!.totalBytes += file.sizeBytes;
+    } else if (
+      mime.includes("pdf") ||
+      mime.includes("word") ||
+      mime.includes("document") ||
+      mime.includes("text/") ||
+      mime.includes("sheet") ||
+      mime.includes("presentation") ||
+      mime.includes("json") ||
+      mime.includes("csv")
+    ) {
+      byType.documents!.count++;
+      byType.documents!.totalBytes += file.sizeBytes;
+    } else {
+      byType.other!.count++;
+      byType.other!.totalBytes += file.sizeBytes;
+    }
+
+    const targetFolderId = file.folderId ?? "root";
+    if (folderSizeMap[targetFolderId]) {
+      folderSizeMap[targetFolderId]!.totalBytes += file.sizeBytes;
+      folderSizeMap[targetFolderId]!.fileCount++;
+    }
+  }
+
+  const sortedFiles = [...userFiles].sort((a, b) => b.sizeBytes - a.sizeBytes);
+  const largestFiles = sortedFiles.slice(0, 10).map((f) => ({
+    id: f.id,
+    name: f.originalName,
+    sizeBytes: f.sizeBytes,
+    mimeType: f.mimeType,
+    folder: f.folderId ? folderMap.get(f.folderId) ?? "Unknown" : "Root",
+    createdAt: f.createdAt.toISOString(),
+  }));
+
+  const topFolders = Object.entries(folderSizeMap)
+    .filter(([_, data]) => data.fileCount > 0)
+    .sort((a, b) => b[1].totalBytes - a[1].totalBytes)
+    .map(([id, data]) => ({
+      folderId: id,
+      name: data.name,
+      totalBytes: data.totalBytes,
+      fileCount: data.fileCount,
+    }));
+
+  return {
+    totalUsedBytes,
+    quotaBytes: 5 * 1024 * 1024 * 1024,
+    usagePercentage: ((totalUsedBytes / (5 * 1024 * 1024 * 1024)) * 100).toFixed(1) + "%",
+    totalFiles: userFiles.length,
+    totalFolders: userFolders.length,
+    byType,
+    largestFiles,
+    topFolders,
+  };
+}
+

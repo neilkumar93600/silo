@@ -1,3 +1,37 @@
+// --- Client-side file listing cache ---
+// Session-scoped so a page refresh can repaint the last known listing
+// instantly instead of a blank skeleton, then silently revalidate over the
+// network. Cleared on sign-out so a shared device never flashes a
+// previous account's files.
+const FILE_CACHE_PREFIX = "silo:fm:"
+
+export function readFileCache<T>(key: string): T | null {
+  if (typeof window === "undefined") return null
+  try {
+    const raw = sessionStorage.getItem(FILE_CACHE_PREFIX + key)
+    return raw ? (JSON.parse(raw) as T) : null
+  } catch {
+    return null
+  }
+}
+
+export function writeFileCache(key: string, data: unknown) {
+  if (typeof window === "undefined") return
+  try {
+    sessionStorage.setItem(FILE_CACHE_PREFIX + key, JSON.stringify(data))
+  } catch {
+    // storage full/unavailable — cache is best-effort, safe to skip
+  }
+}
+
+export function clearFileCache() {
+  if (typeof window === "undefined") return
+  for (let i = sessionStorage.length - 1; i >= 0; i--) {
+    const key = sessionStorage.key(i)
+    if (key?.startsWith(FILE_CACHE_PREFIX)) sessionStorage.removeItem(key)
+  }
+}
+
 export class ApiError extends Error {
   code: string
   status: number
@@ -58,14 +92,20 @@ export interface FolderRecord {
   starred: boolean
   deletedAt: string | null
   createdAt: string
+  // Direct files + subfolders inside this folder. Only populated by
+  // endpoints that compute it (folder browsing, starred) — undefined
+  // elsewhere, which callers should treat as "unknown, assume non-empty".
+  itemCount?: number
 }
 
 // folderId omitted -> every file regardless of folder (Recent). "root" ->
-// top-level only. Any other id -> files inside that folder.
-export function listFiles(opts?: { folderId?: string; cursor?: string }) {
+// top-level only. Any other id -> files inside that folder. q, when set,
+// searches every folder and ignores folderId.
+export function listFiles(opts?: { folderId?: string; cursor?: string; q?: string }) {
   const params = new URLSearchParams()
   if (opts?.folderId) params.set("folderId", opts.folderId)
   if (opts?.cursor) params.set("cursor", opts.cursor)
+  if (opts?.q) params.set("q", opts.q)
   const qs = params.toString()
   return request<{ items: FileRecord[]; nextCursor: string | null }>(`/api/files${qs ? `?${qs}` : ""}`)
 }
@@ -132,8 +172,9 @@ export function deleteFile(fileId: string) {
   return request<void>(`/api/files/${fileId}`, { method: "DELETE" })
 }
 
-export function getDownloadUrl(fileId: string) {
-  return request<{ url: string }>(`/api/files/${fileId}/download`)
+export function getDownloadUrl(fileId: string, inline = false) {
+  const query = inline ? "?inline=true" : ""
+  return request<{ url: string }>(`/api/files/${fileId}/download${query}`)
 }
 
 export function getShare(slug: string) {
@@ -225,4 +266,159 @@ export interface SharedWithMeContents {
 
 export function listSharedWithMe() {
   return request<SharedWithMeContents>("/api/shared-with-me")
+}
+
+// --- Notifications ---
+
+export type NotificationType = "file_shared" | (string & {})
+
+export interface NotificationRecord {
+  id: string
+  type: NotificationType
+  title: string
+  body: string
+  fileId: string | null
+  read: boolean
+  createdAt: string
+}
+
+export function listNotifications() {
+  return request<{ items: NotificationRecord[]; unreadCount: number }>("/api/notifications")
+}
+
+export function markNotificationRead(id: string) {
+  return request<NotificationRecord>(`/api/notifications/${id}/read`, { method: "POST" })
+}
+
+export function markAllNotificationsRead() {
+  return request<void>("/api/notifications/read-all", { method: "POST" })
+}
+
+export function deleteNotification(id: string) {
+  return request<void>(`/api/notifications/${id}`, { method: "DELETE" })
+}
+
+export interface NotificationPreferences {
+  userId: string
+  notifyOnFileShared: boolean
+}
+
+export function getNotificationPreferences() {
+  return request<NotificationPreferences>("/api/notification-preferences")
+}
+
+export function updateNotificationPreferences(patch: Partial<Pick<NotificationPreferences, "notifyOnFileShared">>) {
+  return request<NotificationPreferences>("/api/notification-preferences", {
+    method: "PATCH",
+    body: JSON.stringify(patch),
+  })
+}
+
+// --- Assistant ---
+
+export type AssistantRole = "user" | "assistant" | "tool"
+
+export interface AssistantMessage {
+  id: string
+  role: AssistantRole
+  content: string | null
+  toolName: string | null
+  createdAt: string
+}
+
+export interface AssistantConversationSummary {
+  id: string
+  title: string | null
+  updatedAt: string
+}
+
+export interface AssistantPending {
+  summary: string
+  calls: unknown[]
+}
+
+export interface AssistantConversationDetail {
+  id: string
+  title: string | null
+  pending: AssistantPending | null
+  createdAt: string
+  updatedAt: string
+}
+
+export function listAssistantConversations() {
+  return request<AssistantConversationSummary[]>("/api/assistant/conversations")
+}
+
+export function createAssistantConversation() {
+  return request<AssistantConversationDetail>("/api/assistant/conversations", { method: "POST" })
+}
+
+export function getAssistantConversation(id: string) {
+  return request<AssistantConversationDetail>(`/api/assistant/conversations/${id}`)
+}
+
+export function getAssistantMessages(id: string) {
+  return request<AssistantMessage[]>(`/api/assistant/conversations/${id}/messages`)
+}
+
+export function deleteAssistantConversation(id: string) {
+  return request<void>(`/api/assistant/conversations/${id}`, { method: "DELETE" })
+}
+
+export type AssistantStreamEvent =
+  | { type: "token"; data: string }
+  | { type: "pending_confirmation"; data: AssistantPending }
+  | { type: "done"; data: null }
+  | { type: "error"; data: string }
+
+function parseSSEFrame(frame: string): AssistantStreamEvent | null {
+  let event = ""
+  let data = ""
+  for (const line of frame.split("\n")) {
+    if (line.startsWith("event:")) event = line.slice(6).trim()
+    else if (line.startsWith("data:")) data += line.slice(5).trim()
+  }
+  if (!event) return null
+  return { type: event, data: data ? JSON.parse(data) : null } as AssistantStreamEvent
+}
+
+// SSE consumed by hand (fetch + a stream reader) rather than EventSource,
+// since EventSource can't send a POST body.
+async function* streamSSE(path: string, body: unknown): AsyncGenerator<AssistantStreamEvent> {
+  const res = await fetch(path, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  })
+
+  if (!res.ok || !res.body) {
+    const parsed = await res.json().catch(() => null)
+    throw new ApiError(res.status, parsed?.error?.code ?? "unknown_error", parsed?.error?.message ?? res.statusText)
+  }
+
+  const reader = res.body.getReader()
+  const decoder = new TextDecoder()
+  let buffer = ""
+
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) break
+    buffer += decoder.decode(value, { stream: true })
+
+    let sepIndex: number
+    while ((sepIndex = buffer.indexOf("\n\n")) !== -1) {
+      const event = parseSSEFrame(buffer.slice(0, sepIndex))
+      buffer = buffer.slice(sepIndex + 2)
+      if (event) yield event
+    }
+  }
+}
+
+export function sendAssistantMessage(conversationId: string, content: string) {
+  return streamSSE(`/api/assistant/conversations/${conversationId}/messages`, { content })
+}
+
+export function confirmAssistantAction(conversationId: string, approve: boolean) {
+  return streamSSE(`/api/assistant/conversations/${conversationId}/confirm`, { approve })
 }
