@@ -6,7 +6,7 @@ import { AuthLayout } from "@/components/auth/AuthLayout";
 import { ShowcaseForgotPassword } from "@/components/auth/ShowcaseForgotPassword";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { ArrowRight, ArrowLeft, KeyRound } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 
 export default function ForgotPasswordPage() {
@@ -30,26 +30,33 @@ export default function ForgotPasswordPage() {
     <AuthLayout showcase={<ShowcaseForgotPassword />}>
       <div className="flex flex-col space-y-6">
         <div className="animate-fade-in-up">
-          <h1 className="text-4xl font-bold tracking-tight mb-2">
-            Reset <span className="font-serif italic font-normal gradient-text-violet">password</span>
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#b997ff]/15 border border-[#b997ff]/30 text-[10px] font-mono text-[#b997ff] mb-2.5">
+            <KeyRound className="size-3 text-[#00f575]" />
+            <span>Key Recovery Protocol</span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#f1f0ec] mb-2">
+            Reset{" "}
+            <span className="bg-gradient-to-r from-[#b997ff] via-[#ff9efa] to-[#00f575] bg-clip-text text-transparent">
+              Password
+            </span>
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-xs sm:text-sm text-[#d0c9c4] leading-relaxed">
             {sent
-              ? "Check your inbox — if that email is registered, a reset link is on its way."
-              : "Enter your email and we'll send a reset link."}
+              ? "Check your inbox — if that email is registered, a cryptographic reset link is on its way."
+              : "Enter your verified email to receive a secure password recovery link."}
           </p>
         </div>
 
         {!sent ? (
           <form className="space-y-4 animate-fade-in-up stagger-1" onSubmit={handleSubmit}>
             <div className="space-y-1.5">
-              <label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/80">
-                Email
+              <label className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#a5a2a5]">
+                Registered Email
               </label>
               <Input
                 type="email"
                 placeholder="alex@company.com"
-                className="input-focus-glow bg-white/[0.05] border-white/[0.10] h-12 rounded-xl px-4 transition-all duration-200"
+                className="bg-white/[0.04] border-white/10 hover:border-white/20 focus:border-[#b997ff] text-[#f1f0ec] placeholder-white/30 h-12 rounded-xl px-4 transition-all duration-200"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -60,18 +67,18 @@ export default function ForgotPasswordPage() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full h-12 rounded-xl font-semibold mt-1 bg-primary hover:bg-primary/90 text-primary-foreground btn-glow"
+              className="w-full h-12 rounded-xl font-bold mt-2 bg-[#00f575] hover:bg-[#00f575]/90 text-black shadow-[0_0_20px_rgba(0,245,117,0.35)] transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
             >
-              {loading ? "Sending…" : "Send reset link"}
+              {loading ? "Sending Recovery Link…" : "Send Reset Link"}
               {!loading && <ArrowRight className="w-4 h-4 ml-1.5" />}
             </Button>
           </form>
         ) : (
           <div className="animate-fade-in-up stagger-1">
-            <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.06] px-5 py-4">
-              <p className="text-sm text-emerald-400 font-semibold">Reset link sent</p>
-              <p className="text-xs text-muted-foreground mt-0.5">
-                Check your spam folder if it doesn&apos;t arrive within a minute.
+            <div className="rounded-2xl border border-[#00f575]/30 bg-[#00f575]/10 px-5 py-4">
+              <p className="text-sm text-[#00f575] font-semibold">Recovery link dispatched</p>
+              <p className="text-xs text-[#d0c9c4] mt-1 leading-relaxed">
+                Check your inbox and spam folders. The link remains valid for 30 minutes.
               </p>
             </div>
           </div>
@@ -80,7 +87,7 @@ export default function ForgotPasswordPage() {
         <p className="text-center animate-fade-in-up stagger-2">
           <Link
             href="/login"
-            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground/70 hover:text-foreground transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-[#a5a2a5] hover:text-[#00f575] transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             Back to sign in
@@ -90,3 +97,4 @@ export default function ForgotPasswordPage() {
     </AuthLayout>
   );
 }
+

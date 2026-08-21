@@ -56,9 +56,9 @@ function NavRow({ item, active, collapsed }: { item: NavItem; active: boolean; c
     <Link
       href={item.href}
       className={cn(
-        "relative flex h-10 items-center gap-3 rounded-xl px-3 text-sm transition-colors",
+        "relative flex h-10 items-center gap-3 rounded-xl px-3 text-sm transition-all duration-200 cursor-pointer hover:-translate-y-0.5 active:scale-[0.98]",
         collapsed && "justify-center px-0",
-        active ? "bg-void-plum font-medium text-laser-violet" : "text-silver-smoke hover:bg-void-plum/60 hover:text-paper-white",
+        active ? "bg-void-plum font-medium text-laser-violet shadow-[0_0_12px_rgba(185,151,255,0.15)]" : "text-silver-smoke hover:bg-void-plum/60 hover:text-paper-white",
       )}
     >
       <item.icon className={cn("size-4 shrink-0", active ? "text-laser-violet" : "text-silver-smoke")} />
@@ -147,7 +147,7 @@ export function DashboardSidebar() {
   const { collapsed, toggleCollapsed, isMobile, mobileOpen, setMobileOpen } = useSidebarLayout()
 
   const body = (
-    <div className={cn("flex h-screen flex-col border-r border-lavender-mist bg-eclipse-black", collapsed ? "w-20" : "w-64")}>
+    <div className={cn("flex h-screen flex-col border-r border-lavender-mist/80 bg-eclipse-black/80 backdrop-blur-2xl", collapsed ? "w-20" : "w-64")}>
       <div className={cn("flex flex-col gap-4 p-4", collapsed && "items-center px-0")}>
         {collapsed ? (
           <div className="group relative flex size-9 shrink-0 items-center justify-center">

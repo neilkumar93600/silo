@@ -10,6 +10,7 @@ import {
     Search,
     Sparkles,
     Lock,
+    ArrowRight,
     type LucideIcon
 } from "lucide-react";
 
@@ -17,78 +18,85 @@ interface Capability {
     name: string;
     description: string;
     icon: LucideIcon;
-    tint: string;
+    color: string;
 }
 
 const capabilities: Capability[] = [
     {
-        name: "Folders",
-        description: "Nest folders as deep as you need and move files between them.",
+        name: "Nested Folders",
+        description: "Nest directories as deep as required and move assets with intuitive drag-and-drop.",
         icon: FolderTree,
-        tint: "bg-[#f3f4f6]",
+        color: "text-[#b997ff] bg-[#b997ff]/10 border-[#b997ff]/30",
     },
     {
-        name: "Starred",
-        description: "Pin the files you reach for constantly, right at the top.",
+        name: "Starred Priority",
+        description: "Pin critical files and active project repositories right at the top of your dashboard.",
         icon: Star,
-        tint: "bg-[#fff7ed]",
+        color: "text-[#00f575] bg-[#00f575]/10 border-[#00f575]/30",
     },
     {
-        name: "Trash",
-        description: "Deleted files land here first — restore them before they're gone.",
+        name: "Encrypted Trash",
+        description: "Deleted items land here safely first — restore anytime before permanent purge.",
         icon: Trash2,
-        tint: "bg-[#fef2f2]",
+        color: "text-[#ff5632] bg-[#ff5632]/10 border-[#ff5632]/30",
     },
     {
-        name: "Shared with me",
-        description: "See every file and folder someone else has shared with you.",
+        name: "Shared With Me",
+        description: "Live overview of every file and folder teammates have cryptographically shared with you.",
         icon: Share2,
-        tint: "bg-[#eff6ff]",
+        color: "text-[#ff9efa] bg-[#ff9efa]/10 border-[#ff9efa]/30",
     },
     {
-        name: "Notifications",
-        description: "Know the moment someone shares a file or changes your access.",
+        name: "Real-time Signals",
+        description: "Receive instant notifications the moment access permissions are granted or modified.",
         icon: Bell,
-        tint: "bg-[#f0fdf4]",
+        color: "text-[#00f575] bg-[#00f575]/10 border-[#00f575]/20",
     },
     {
-        name: "Search",
-        description: "Find any file by name the instant you need it.",
+        name: "Instant Search",
+        description: "Query across filenames, extensions, and metadata with sub-millisecond client indexing.",
         icon: Search,
-        tint: "bg-[#f9fafb]",
+        color: "text-[#b997ff] bg-[#b997ff]/10 border-[#b997ff]/20",
     },
     {
-        name: "Ask Silvi",
-        description: "Find, move, star, or share files by asking in plain language.",
+        name: "Silvi AI Co-Pilot",
+        description: "Natural language file operations that always ask for approval before sensitive steps.",
         icon: Sparkles,
-        tint: "bg-[#f5f6ff]",
+        color: "text-[#ff9efa] bg-[#ff9efa]/10 border-[#ff9efa]/30",
     },
     {
-        name: "Private by default",
-        description: "Every upload is visible only to you until you decide otherwise.",
+        name: "Private by Default",
+        description: "Every byte uploaded remains 100% private to you until you explicitly choose to share.",
         icon: Lock,
-        tint: "bg-[#f9fafb]",
+        color: "text-[#00f575] bg-[#00f575]/10 border-[#00f575]/30",
     },
 ];
 
 export default function LandingHighlights({ className }: { className?: string }) {
     return (
-        <section className={"bg-[#ffffff] py-20 px-6 md:px-[60px] font-sans " + (className || "")}>
-            <div className="max-w-[1200px] mx-auto">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-12">
-                    <div className="w-full md:w-[55%]">
-                        <h2 className="text-[#111111] font-semibold text-[36px] md:text-[48px] leading-[1.1] mb-4 tracking-tight">
-                            Everything Your Files Need, Built In
+        <section className={"bg-[#1c1624] py-28 px-6 md:px-12 font-sans border-t border-white/[0.06] " + (className || "")}>
+            <div className="max-w-7xl mx-auto">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-16">
+                    <div className="w-full md:w-[60%]">
+                        <span className="text-xs font-semibold text-[#b997ff] tracking-wider uppercase flex items-center gap-2 mb-3">
+                            <span className="size-1.5 rounded-full bg-[#00f575]" />
+                            Comprehensive Vault Tools
+                        </span>
+                        <h2 className="text-[#f1f0ec] font-bold text-4xl md:text-5xl leading-tight tracking-tight">
+                            Everything Your Files Need, <br />
+                            <span className="bg-gradient-to-r from-[#b997ff] via-[#ff9efa] to-[#00f575] bg-clip-text text-transparent">
+                                Built Into One Engine.
+                            </span>
                         </h2>
-                        <p className="text-[#666666] text-[15px] leading-[1.65] max-w-[480px]">
-                            No third-party apps to connect. Folders, sharing, search, and an
-                            assistant that asks first — all in one private drive.
+                        <p className="text-[#d0c9c4] text-base leading-relaxed max-w-xl mt-4">
+                            No fragmented plugins or external sync services. Hierarchical folders, zero-knowledge permissions, sub-millisecond search, and intelligent guardian workflows.
                         </p>
                     </div>
 
                     <div className="flex items-center gap-3 w-full md:w-auto">
-                        <a href="/signup" className="flex-1 md:flex-none bg-laser-violet text-white rounded-full px-[22px] py-3 text-sm font-semibold hover:bg-[#2d2734] transition-all hover:shadow-lg cursor-pointer text-center">
-                            Get started for free
+                        <a href="/signup" className="flex items-center gap-2 bg-[#00f575] text-black rounded-full px-7 py-3.5 text-sm font-semibold hover:bg-[#00f575]/90 transition-all shadow-[0_0_24px_rgba(0,245,117,0.35)] hover:scale-105 active:scale-95 cursor-pointer">
+                            <span>Get started for free</span>
+                            <ArrowRight className="w-4 h-4" />
                         </a>
                     </div>
                 </div>
@@ -99,17 +107,17 @@ export default function LandingHighlights({ className }: { className?: string })
                             key={item.name}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ amount: 0.1 }}
-                            transition={{ duration: 0.5, delay: index * 0.05 }}
-                            className="bg-[#ffffff] border border-[#f0f0f0] rounded-[20px] p-8 md:px-7 md:py-8 flex flex-col hover:border-laser-violet hover:shadow-xl transition-all duration-300 group cursor-default"
+                            viewport={{ once: true, amount: 0.1 }}
+                            transition={{ duration: 0.4, delay: index * 0.04 }}
+                            className="bg-[#2d2734]/70 border border-white/10 hover:border-white/25 rounded-2xl p-7 flex flex-col hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(0,0,0,0.5)] transition-all duration-300 group backdrop-blur-md cursor-pointer"
                         >
-                            <div className={"w-[52px] h-[52px] rounded-[12px] flex items-center justify-center mb-7 text-laser-violet " + item.tint}>
-                                <item.icon className="w-6 h-6" strokeWidth={1.75} />
+                            <div className={"size-12 rounded-xl flex items-center justify-center mb-6 border transition-transform duration-300 group-hover:scale-110 " + item.color}>
+                                <item.icon className="size-5" strokeWidth={2} />
                             </div>
-                            <h3 className="text-[#111111] font-bold text-lg mb-2">
+                            <h3 className="text-[#f1f0ec] font-semibold text-lg mb-2 group-hover:text-white transition-colors">
                                 {item.name}
                             </h3>
-                            <p className="text-[#666666] text-sm leading-[1.6]">
+                            <p className="text-[#d0c9c4] text-xs leading-relaxed">
                                 {item.description}
                             </p>
                         </motion.div>
@@ -119,3 +127,4 @@ export default function LandingHighlights({ className }: { className?: string })
         </section>
     );
 }
+

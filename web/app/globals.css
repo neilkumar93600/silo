@@ -9,30 +9,6 @@
 }
 
 @font-face {
-  font-family: 'Playfair Display';
-  src: url('/font/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Playfair Display';
-  src: url('/font/Playfair_Display/PlayfairDisplay-Italic-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Ethnocentric';
-  src: url('/font/ethnocentric/Ethnocentric-Regular.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'Nasalization';
   src: url('/font/nasalization/Nasalization Rg.otf') format('opentype');
   font-weight: 400;
@@ -80,8 +56,6 @@
   --font-serif: "DM Serif Display", serif;
   --font-heading: var(--font-heading);
   --font-playwrite: 'Playwrite IN', cursive;
-  --font-playfair: 'Playfair Display', serif;
-  --font-ethnocentric: 'Ethnocentric', monospace;
   --font-nasalization: 'Nasalization', sans-serif;
   --font-freckle: 'Freckle Face', var(--font-freckle-face), system-ui;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -170,6 +144,13 @@
   }
   p {
     text-wrap: pretty;
+  }
+  /* Tailwind's preflight resets button cursor to `default`, overriding the
+     browser default of `pointer`. Restore it globally instead of patching
+     every button usage individually. */
+  button:not(:disabled):not([aria-disabled="true"]),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
   }
 }
 
@@ -555,3 +536,111 @@
   filter: blur(60px);
   pointer-events: none;
 }
+
+/* ── Global Interactive Cursor & Motion Standards ─────────── */
+button,
+a,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+.cursor-pointer,
+select,
+summary {
+  cursor: pointer !important;
+}
+
+/* ── High-Tech Vault & Glassmorphism Utilities ───────────── */
+.vault-glass,
+.glass-morphism {
+  background: rgba(45, 39, 52, 0.65);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4), inset 0 1px 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.glass-morphism-card {
+  background: rgba(45, 39, 52, 0.55);
+  backdrop-filter: blur(20px) saturate(170%);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-morphism-card:hover {
+  background: rgba(58, 51, 64, 0.7);
+  border-color: rgba(185, 151, 255, 0.35);
+  box-shadow: 0 16px 48px -8px rgba(0, 0, 0, 0.55), 0 0 24px rgba(185, 151, 255, 0.15), inset 0 1px 1px 0 rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+}
+
+.glass-morphism-pill {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.2s ease-out;
+}
+
+.glass-morphism-pill:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 16px rgba(185, 151, 255, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
+}
+
+.vault-card {
+  background: rgba(45, 39, 52, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(229, 231, 235, 0.12);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vault-card:hover {
+  border-color: rgba(185, 151, 255, 0.3);
+  box-shadow: 0 12px 40px -10px rgba(185, 151, 255, 0.15), 0 0 0 1px rgba(185, 151, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.vault-glow-green,
+.glass-glow-emerald {
+  box-shadow: 0 0 24px rgba(0, 245, 117, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.vault-glow-green:hover,
+.glass-glow-emerald:hover {
+  box-shadow: 0 0 36px rgba(0, 245, 117, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.vault-glow-violet,
+.glass-glow-violet {
+  box-shadow: 0 0 24px rgba(185, 151, 255, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.vault-glow-violet:hover,
+.glass-glow-violet:hover {
+  box-shadow: 0 0 36px rgba(185, 151, 255, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.vault-border-glow {
+  position: relative;
+}
+
+.vault-border-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(185, 151, 255, 0.4), transparent 50%, rgba(0, 245, 117, 0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}

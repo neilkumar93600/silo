@@ -8,7 +8,7 @@ import { ShowcaseResetPassword } from "@/components/auth/ShowcaseResetPassword";
 import { Button } from "@/components/ui/button";
 import { PasswordInput } from "@/components/auth/PasswordInput";
 import { PasswordStrengthMeter } from "@/components/auth/PasswordStrengthMeter";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { ArrowRight, ArrowLeft, KeyRound, ShieldCheck } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 
@@ -46,25 +46,25 @@ function ResetPasswordContent() {
       <AuthLayout showcase={<ShowcaseResetPassword />}>
         <div className="flex flex-col space-y-6">
           <div className="animate-fade-in-up">
-            <h1 className="text-4xl font-bold tracking-tight mb-2">
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#f1f0ec] mb-2">
               Link{" "}
-              <span className="font-serif italic font-normal gradient-text-violet">expired</span>
+              <span className="text-[#ff5632]">Expired</span>
             </h1>
-            <p className="text-muted-foreground">
-              This reset link is invalid or has expired. Request a new one.
+            <p className="text-xs sm:text-sm text-[#d0c9c4] leading-relaxed">
+              This reset token is invalid or has expired. Request a fresh cryptographic recovery link.
             </p>
           </div>
           <Link
             href="/forgot-password"
-            className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 h-12 text-sm font-semibold text-primary-foreground btn-glow w-fit animate-fade-in-up stagger-1"
+            className="inline-flex items-center gap-2 rounded-xl bg-[#00f575] hover:bg-[#00f575]/90 px-6 h-12 text-sm font-bold text-black shadow-[0_0_20px_rgba(0,245,117,0.35)] transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer w-fit animate-fade-in-up stagger-1"
           >
-            Request new link
+            Request New Link
             <ArrowRight className="w-4 h-4" />
           </Link>
           <p className="text-center animate-fade-in-up stagger-2">
             <Link
               href="/login"
-              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground/70 hover:text-foreground transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-[#a5a2a5] hover:text-[#00f575] transition-colors cursor-pointer"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               Back to sign in
@@ -79,26 +79,32 @@ function ResetPasswordContent() {
     <AuthLayout showcase={<ShowcaseResetPassword />}>
       <div className="flex flex-col space-y-6">
         <div className="animate-fade-in-up">
-          <h1 className="text-4xl font-bold tracking-tight mb-2">
-            New{" "}
-            <span className="font-serif italic font-normal gradient-text-violet">password</span>
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#00f575]/10 border border-[#00f575]/25 text-[10px] font-mono text-[#00f575] mb-2.5">
+            <KeyRound className="size-3" />
+            <span>Key Rotation</span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#f1f0ec] mb-2">
+            Set New{" "}
+            <span className="bg-gradient-to-r from-[#b997ff] via-[#ff9efa] to-[#00f575] bg-clip-text text-transparent">
+              Password
+            </span>
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-xs sm:text-sm text-[#d0c9c4] leading-relaxed">
             {done
-              ? "Your password has been updated."
-              : "Choose a strong password for your account."}
+              ? "Your encryption passphrase has been successfully rotated."
+              : "Choose a high-entropy passphrase to secure your private vault."}
           </p>
         </div>
 
         {!done ? (
           <form className="space-y-4 animate-fade-in-up stagger-1" onSubmit={handleSubmit}>
             <div className="space-y-1.5">
-              <label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/80">
-                New Password
+              <label className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#a5a2a5]">
+                New Passphrase
               </label>
               <PasswordInput
                 placeholder="Min. 8 characters"
-                className="input-focus-glow bg-white/[0.05] border-white/[0.10] h-12 rounded-xl px-4 transition-all duration-200"
+                className="bg-white/[0.04] border-white/10 hover:border-white/20 focus:border-[#b997ff] text-[#f1f0ec] placeholder-white/30 h-12 rounded-xl px-4 transition-all duration-200"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -109,12 +115,12 @@ function ResetPasswordContent() {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/80">
-                Confirm Password
+              <label className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#a5a2a5]">
+                Confirm Passphrase
               </label>
               <PasswordInput
                 placeholder="Repeat your password"
-                className="input-focus-glow bg-white/[0.05] border-white/[0.10] h-12 rounded-xl px-4 transition-all duration-200"
+                className="bg-white/[0.04] border-white/10 hover:border-white/20 focus:border-[#b997ff] text-[#f1f0ec] placeholder-white/30 h-12 rounded-xl px-4 transition-all duration-200"
                 value={confirm}
                 onChange={(e) => setConfirm(e.target.value)}
                 required
@@ -125,23 +131,23 @@ function ResetPasswordContent() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full h-12 rounded-xl font-semibold mt-1 bg-primary hover:bg-primary/90 text-primary-foreground btn-glow"
+              className="w-full h-12 rounded-xl font-bold mt-2 bg-[#00f575] hover:bg-[#00f575]/90 text-black shadow-[0_0_20px_rgba(0,245,117,0.35)] transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
             >
-              {loading ? "Updating…" : "Set new password"}
+              {loading ? "Re-keying Vault…" : "Update Password & Re-key"}
               {!loading && <ArrowRight className="w-4 h-4 ml-1.5" />}
             </Button>
           </form>
         ) : (
           <div className="space-y-4 animate-fade-in-up stagger-1">
-            <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.06] px-5 py-4">
-              <p className="text-sm text-emerald-400 font-semibold">Password updated</p>
-              <p className="text-xs text-muted-foreground mt-0.5">
-                You can now sign in with your new password.
+            <div className="rounded-2xl border border-[#00f575]/30 bg-[#00f575]/10 px-5 py-4">
+              <p className="text-sm text-[#00f575] font-semibold">Passphrase successfully updated</p>
+              <p className="text-xs text-[#d0c9c4] mt-1 leading-relaxed">
+                You can now unlock your encrypted vault with your new credentials.
               </p>
             </div>
             <Link
               href="/login"
-              className="inline-flex items-center gap-2 w-full justify-center rounded-xl bg-primary h-12 text-sm font-semibold text-primary-foreground btn-glow"
+              className="inline-flex items-center gap-2 w-full justify-center rounded-xl bg-[#00f575] hover:bg-[#00f575]/90 h-12 text-sm font-bold text-black shadow-[0_0_20px_rgba(0,245,117,0.35)] transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
             >
               Sign in now
               <ArrowRight className="w-4 h-4" />
@@ -153,7 +159,7 @@ function ResetPasswordContent() {
           <p className="text-center animate-fade-in-up stagger-2">
             <Link
               href="/login"
-              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground/70 hover:text-foreground transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-[#a5a2a5] hover:text-[#00f575] transition-colors cursor-pointer"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               Back to sign in
@@ -172,3 +178,4 @@ export default function ResetPasswordPage() {
     </Suspense>
   );
 }
+

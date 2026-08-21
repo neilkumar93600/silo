@@ -36,7 +36,7 @@ function AccountMenu() {
   const trigger = (
     <button
       type="button"
-      className="flex items-center gap-2.5 rounded-lg px-1.5 py-1 transition-colors hover:bg-muted/50"
+      className="flex items-center gap-2.5 rounded-xl p-1 transition-all duration-200 hover:bg-muted/60 cursor-pointer hover:scale-105 active:scale-95"
     >
       <Avatar className="size-9 shrink-0 border border-border">
         <AvatarFallback className="bg-muted text-xs font-mono font-medium text-primary">
@@ -121,23 +121,23 @@ export function DashboardTopbar({ title, children }: { title: React.ReactNode; c
       onClick={toggle}
       data-tour="tour-assistant"
       className={cn(
-        "group relative hidden h-9 items-center gap-2 rounded-lg border px-3 text-xs font-medium transition-all md:flex",
+        "group relative hidden h-9 items-center gap-2 rounded-xl border px-3.5 text-xs font-semibold transition-all duration-200 cursor-pointer md:flex",
         open
-          ? "border-primary/30 bg-accent text-primary shadow-xs ring-1 ring-primary/20"
-          : "border-border bg-card text-foreground hover:border-primary/20 hover:bg-muted/50 hover:text-foreground",
+          ? "border-[#b997ff]/60 bg-[#b997ff]/15 text-[#f1f0ec] shadow-[0_0_14px_rgba(185,151,255,0.25)] ring-1 ring-[#b997ff]/40"
+          : "border-white/10 bg-white/[0.04] text-[#f1f0ec] hover:border-[#00f575]/40 hover:bg-white/[0.08] hover:text-white",
       )}
       aria-label="Toggle Silvi Assistant"
       aria-expanded={open}
     >
-      <SilviOrb status={status} size={18} showGlow={false} interactive={false} />
-      <span className="font-medium tracking-tight">Ask Silvi</span>
+      <SilviOrb status={status} size={18} showGlow={status !== "idle"} interactive={false} />
+      <span className="font-semibold tracking-tight">Ask Silvi</span>
       {status !== "idle" && (
         <span className="relative flex size-2">
-          <span className="absolute inline-flex size-full animate-ping rounded-full bg-chart-1 opacity-75" />
-          <span className="relative inline-flex size-2 rounded-full bg-chart-1" />
+          <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#00f575] opacity-75" />
+          <span className="relative inline-flex size-2 rounded-full bg-[#00f575]" />
         </span>
       )}
-      <Kbd className="hidden md:inline-flex ml-0.5 h-4.5 px-1 text-[10px] bg-muted/60 text-muted-foreground border border-border/50">
+      <Kbd className="hidden md:inline-flex ml-0.5 h-4.5 px-1 text-[10px] bg-white/5 text-[#a5a2a5] border border-white/10">
         ⌘J
       </Kbd>
     </Button>
@@ -147,7 +147,7 @@ export function DashboardTopbar({ title, children }: { title: React.ReactNode; c
     <TooltipProvider>
       <header
         aria-label={typeof title === "string" ? title : undefined}
-        className="flex h-14 shrink-0 items-center justify-between gap-3 border-b border-border bg-card px-4"
+        className="flex h-14 shrink-0 items-center justify-between gap-3 border-b border-border/80 bg-card/75 backdrop-blur-2xl px-4 sticky top-0 z-30"
       >
         <div className="flex min-w-0 flex-1 items-center gap-3">
           {isMobile && (

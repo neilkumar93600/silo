@@ -3,6 +3,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "../db/index.js";
 import { env } from "../env.js";
 import * as schema from "../db/schema/index.js";
+import { sendMail } from "../lib/mail.js";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -14,17 +15,25 @@ export const auth = betterAuth({
   trustedOrigins: [env.WEB_ORIGIN],
   emailAndPassword: {
     enabled: true,
-    // No transactional email provider wired up for this assignment;
-    // accounts are usable immediately after registering.
-    requireEmailVerification: false,
+    requireEmailVerification: true,
     minPasswordLength: 8,
-    // Same reason: no email provider, so the reset link is logged instead
-    // of emailed. The link itself is real (a valid single-use token via
-    // Better Auth's own verification flow) — only the delivery channel is
-    // a stand-in for a real mail service.
     sendResetPassword: async ({ user, url }) => {
-      console.log(`[password reset] ${user.email}: ${url}`);
+      await sendMail(
+        user.email,
+        "Reset your Silo password",
+        `<p>Reset your password: <a href="${url}">${url}</a></p><p>If you didn't request this, ignore this email.</p>`,
+      );
     },
+  },
+  emailVerification: {
+    sendVerificationEmail: async ({ user, url }) => {
+      await sendMail(
+        user.email,
+        "Verify your Silo email",
+        `<p>Confirm your email: <a href="${url}">${url}</a></p>`,
+      );
+    },
+    autoSignInAfterVerification: true,
   },
   user: {
     deleteUser: {

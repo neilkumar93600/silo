@@ -147,7 +147,7 @@ export function StorageBreakdown() {
   const activeSegments = CATEGORIES.filter((c) => (breakdown.get(c.label)?.bytes ?? 0) > 0)
 
   return (
-    <div className="flex flex-col gap-2 rounded-xl border border-lavender-mist bg-void-plum overflow-hidden">
+    <div className="flex flex-col gap-2 rounded-xl border border-lavender-mist bg-void-plum overflow-hidden transition-all duration-200 hover:border-laser-violet/50 hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
       {/* Header row */}
       <button
         onClick={() => setExpanded((v) => !v)}

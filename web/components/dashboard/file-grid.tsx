@@ -150,7 +150,7 @@ export function FileGrid({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.2, ease: "easeOut", delay: Math.min(index, 10) * 0.03 }}
             className={cn(
-              "group/card flex flex-col overflow-hidden rounded-[20px] border border-lavender-mist bg-eclipse-black text-paper-white transition-all duration-200 hover:border-laser-violet hover:bg-void-plum/60",
+              "group/card flex flex-col overflow-hidden rounded-[20px] border border-lavender-mist bg-eclipse-black text-paper-white transition-all duration-200 hover:border-laser-violet hover:bg-void-plum/60 hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,0,0,0.4)]",
               isSelected && "border-laser-violet bg-void-plum ring-2 ring-laser-violet/70 shadow-[0_0_20px_rgba(185,151,255,0.2)]"
             )}
             onMouseEnter={() => onHoverFile?.(file.id)}

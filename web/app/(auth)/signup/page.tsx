@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/auth/PasswordInput";
 import { PasswordStrengthMeter } from "@/components/auth/PasswordStrengthMeter";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 
@@ -20,14 +20,18 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setAuthError(null);
     if (password.length < 8) {
+      setAuthError("Password must be at least 8 characters");
       toast.error("Password must be at least 8 characters");
       return;
     }
     if (password !== confirmPassword) {
+      setAuthError("Passwords don't match");
       toast.error("Passwords don't match");
       return;
     }
@@ -36,57 +40,65 @@ export default function SignupPage() {
       email,
       password,
       name: fullName || email,
+      callbackURL: "/dashboard",
     });
     if (error) {
-      toast.error(error.message ?? "Registration failed");
+      const msg = error.message ?? "Registration failed";
+      setAuthError(msg);
+      toast.error(msg);
       setLoading(false);
       return;
     }
+    toast.success("Account created — check your email to verify your address.");
     router.push("/dashboard");
     router.refresh();
   };
 
   return (
     <AuthLayout showcase={<ShowcaseSignup />}>
-      <div className="flex flex-col space-y-6">
+      <div className="flex flex-col space-y-5">
         <div className="animate-fade-in-up">
-          <h1 className="text-4xl font-bold tracking-tight mb-2">
-            Create{" "}
-            <span className="font-serif italic font-normal gradient-text-violet">
-              account
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#b997ff]/15 border border-[#b997ff]/30 text-[10px] font-mono text-[#b997ff] mb-2.5">
+            <ShieldCheck className="size-3 text-[#00f575]" />
+            <span>Zero-Knowledge Setup</span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#f1f0ec] mb-1.5">
+            Create Your{" "}
+            <span className="bg-gradient-to-r from-[#b997ff] via-[#ff9efa] to-[#00f575] bg-clip-text text-transparent">
+              Vault
             </span>
           </h1>
-          <p className="text-muted-foreground">
-            Store, organize, and share your files in minutes.
+          <p className="text-xs sm:text-sm text-[#d0c9c4] leading-relaxed">
+            Instant 5 GB encrypted storage. Client-side privacy guaranteed.
           </p>
         </div>
 
         <form
-          className="space-y-4 animate-fade-in-up stagger-1"
+          className="space-y-3.5 animate-fade-in-up stagger-1"
           onSubmit={handleSubmit}
         >
-          <div className="space-y-1.5">
-            <label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/80">
+          <div className="space-y-1">
+            <label className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#a5a2a5]">
               Full Name
             </label>
             <Input
               type="text"
               placeholder="Alex Chen"
-              className="input-focus-glow bg-white/[0.05] border-white/[0.10] h-12 rounded-xl px-4 transition-all duration-200"
+              className="bg-white/[0.04] border-white/10 hover:border-white/20 focus:border-[#b997ff] text-[#f1f0ec] placeholder-white/30 h-11 rounded-xl px-4 transition-all duration-200"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               autoComplete="name"
             />
           </div>
 
-          <div className="space-y-1.5">
-            <label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/80">
-              Email
+          <div className="space-y-1">
+            <label className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#a5a2a5]">
+              Email Address
             </label>
             <Input
               type="email"
               placeholder="you@company.com"
-              className="input-focus-glow bg-white/[0.05] border-white/[0.10] h-12 rounded-xl px-4 transition-all duration-200"
+              className="bg-white/[0.04] border-white/10 hover:border-white/20 focus:border-[#b997ff] text-[#f1f0ec] placeholder-white/30 h-11 rounded-xl px-4 transition-all duration-200"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -94,13 +106,13 @@ export default function SignupPage() {
             />
           </div>
 
-          <div className="space-y-1.5">
-            <label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/80">
+          <div className="space-y-1">
+            <label className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#a5a2a5]">
               Password
             </label>
             <PasswordInput
               placeholder="Min. 8 characters"
-              className="input-focus-glow bg-white/[0.05] border-white/[0.10] h-12 rounded-xl px-4 transition-all duration-200"
+              className="bg-white/[0.04] border-white/10 hover:border-white/20 focus:border-[#b997ff] text-[#f1f0ec] placeholder-white/30 h-11 rounded-xl px-4 transition-all duration-200"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -110,13 +122,13 @@ export default function SignupPage() {
             <PasswordStrengthMeter password={password} />
           </div>
 
-          <div className="space-y-1.5">
-            <label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/80">
+          <div className="space-y-1">
+            <label className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#a5a2a5]">
               Confirm Password
             </label>
             <PasswordInput
               placeholder="Repeat your password"
-              className="input-focus-glow bg-white/[0.05] border-white/[0.10] h-12 rounded-xl px-4 transition-all duration-200"
+              className="bg-white/[0.04] border-white/10 hover:border-white/20 focus:border-[#b997ff] text-[#f1f0ec] placeholder-white/30 h-11 rounded-xl px-4 transition-all duration-200"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
@@ -124,27 +136,33 @@ export default function SignupPage() {
             />
           </div>
 
+          {authError && (
+            <p className="text-xs text-[#ff5632] bg-[#ff5632]/10 border border-[#ff5632]/25 rounded-xl px-3.5 py-2.5 font-mono">
+              {authError}
+            </p>
+          )}
+
           <Button
             type="submit"
             disabled={loading}
-            className="w-full h-12 rounded-xl font-semibold mt-1 bg-primary hover:bg-primary/90 text-primary-foreground btn-glow"
+            className="w-full h-12 rounded-xl font-bold mt-2 bg-[#00f575] hover:bg-[#00f575]/90 text-black shadow-[0_0_20px_rgba(0,245,117,0.35)] transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
           >
-            {loading ? "Creating account…" : "Get started free"}
+            {loading ? "Generating Encryption Keys…" : "Initialize Vault & Get Started"}
             {!loading && <ArrowRight className="w-4 h-4 ml-1.5" />}
           </Button>
 
-          <p className="text-xs text-muted-foreground/70 text-center leading-relaxed">
+          <p className="text-[11px] text-[#a5a2a5] text-center leading-relaxed">
             By creating an account you agree to our{" "}
             <Link
               href="/terms"
-              className="underline underline-offset-2 hover:text-foreground transition-colors"
+              className="underline underline-offset-2 hover:text-[#b997ff] transition-colors cursor-pointer"
             >
-              Terms of Service
+              Terms
             </Link>{" "}
             and{" "}
             <Link
               href="/privacy"
-              className="underline underline-offset-2 hover:text-foreground transition-colors"
+              className="underline underline-offset-2 hover:text-[#b997ff] transition-colors cursor-pointer"
             >
               Privacy Policy
             </Link>
@@ -152,11 +170,11 @@ export default function SignupPage() {
           </p>
         </form>
 
-        <p className="text-center text-muted-foreground/70 text-sm animate-fade-in-up stagger-2">
+        <p className="text-center text-[#d0c9c4] text-xs sm:text-sm animate-fade-in-up stagger-2">
           Already have an account?{" "}
           <Link
             href="/login"
-            className="text-primary font-semibold hover:underline"
+            className="text-[#00f575] font-semibold hover:underline cursor-pointer"
           >
             Sign in
           </Link>
@@ -166,3 +184,4 @@ export default function SignupPage() {
     </AuthLayout>
   );
 }
+

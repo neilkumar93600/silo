@@ -8,7 +8,7 @@ import { ShowcaseLogin } from "@/components/auth/ShowcaseLogin";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/auth/PasswordInput";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Lock, ShieldCheck } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 
@@ -18,15 +18,20 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
+  const [needsVerification, setNeedsVerification] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setAuthError(null);
+    setNeedsVerification(false);
     const { error } = await authClient.signIn.email({ email, password });
     if (error) {
-      setAuthError("Invalid email or password");
-      toast.error("Invalid email or password");
+      const verified = error.code !== "EMAIL_NOT_VERIFIED";
+      const msg = verified ? "Invalid email or password" : "Verify your email before signing in.";
+      setAuthError(msg);
+      setNeedsVerification(!verified);
+      toast.error(msg);
       setLoading(false);
       return;
     }
@@ -34,17 +39,28 @@ export default function LoginPage() {
     router.refresh();
   };
 
+  const handleResend = async () => {
+    await authClient.sendVerificationEmail({ email, callbackURL: "/dashboard" });
+    toast.success("Verification email sent.");
+  };
+
   return (
     <AuthLayout showcase={<ShowcaseLogin />}>
       <div className="flex flex-col space-y-6">
         <div className="animate-fade-in-up">
-          <h1 className="text-4xl font-bold tracking-tight mb-2">
-            Welcome{" "}
-            <span className="font-serif italic font-normal gradient-text-violet">
-              back
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#00f575]/10 border border-[#00f575]/25 text-[10px] font-mono text-[#00f575] mb-3">
+            <Lock className="size-3" />
+            <span>Encrypted Session</span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#f1f0ec] mb-2">
+            Access Your{" "}
+            <span className="bg-gradient-to-r from-[#b997ff] via-[#ff9efa] to-[#00f575] bg-clip-text text-transparent">
+              Vault
             </span>
           </h1>
-          <p className="text-muted-foreground">Sign in to your Silo account.</p>
+          <p className="text-sm text-[#d0c9c4] leading-relaxed">
+            Enter your credentials to unlock client-side decrypted files.
+          </p>
         </div>
 
         <form
@@ -52,13 +68,13 @@ export default function LoginPage() {
           onSubmit={handleSubmit}
         >
           <div className="space-y-1.5">
-            <label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/80">
-              Email
+            <label className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#a5a2a5]">
+              Email Address
             </label>
             <Input
               type="email"
               placeholder="alex@company.com"
-              className="input-focus-glow bg-white/[0.05] border-white/[0.10] h-12 rounded-xl px-4 transition-all duration-200"
+              className="bg-white/[0.04] border-white/10 hover:border-white/20 focus:border-[#b997ff] text-[#f1f0ec] placeholder-white/30 h-12 rounded-xl px-4 transition-all duration-200"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -68,19 +84,19 @@ export default function LoginPage() {
 
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
-              <label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/80">
+              <label className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#a5a2a5]">
                 Password
               </label>
               <Link
                 href="/forgot-password"
-                className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                className="text-xs text-[#a5a2a5] hover:text-[#b997ff] transition-colors cursor-pointer"
               >
                 Forgot password?
               </Link>
             </div>
             <PasswordInput
               placeholder="••••••••"
-              className="input-focus-glow bg-white/[0.05] border-white/[0.10] h-12 rounded-xl px-4 transition-all duration-200"
+              className="bg-white/[0.04] border-white/10 hover:border-white/20 focus:border-[#b997ff] text-[#f1f0ec] placeholder-white/30 h-12 rounded-xl px-4 transition-all duration-200"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -89,28 +105,38 @@ export default function LoginPage() {
           </div>
 
           {authError && (
-            <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
+            <p className="text-xs text-[#ff5632] bg-[#ff5632]/10 border border-[#ff5632]/25 rounded-xl px-3.5 py-2.5 font-mono">
               {authError}
+              {needsVerification && (
+                <button
+                  type="button"
+                  onClick={handleResend}
+                  className="ml-2 underline underline-offset-2 hover:text-[#f1f0ec] cursor-pointer"
+                >
+                  Resend email
+                </button>
+              )}
             </p>
           )}
 
           <Button
             type="submit"
             disabled={loading}
-            className="w-full h-12 rounded-xl font-semibold mt-1 bg-primary hover:bg-primary/90 text-primary-foreground btn-glow"
+            className="w-full h-12 rounded-xl font-bold mt-2 bg-[#00f575] hover:bg-[#00f575]/90 text-black shadow-[0_0_20px_rgba(0,245,117,0.35)] transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
           >
-            {loading ? "Signing in…" : "Sign in"}
+            {loading ? "Decrypting & Signing In…" : "Sign In to Vault"}
             {!loading && <ArrowRight className="w-4 h-4 ml-1.5" />}
           </Button>
         </form>
 
-        <p className="text-center text-muted-foreground/70 text-sm animate-fade-in-up stagger-2">
+        <p className="text-center text-[#d0c9c4] text-xs sm:text-sm animate-fade-in-up stagger-2">
           New to Silo?{" "}
-          <Link href="/signup" className="text-primary font-semibold hover:underline">
-            Create an account
+          <Link href="/signup" className="text-[#00f575] font-semibold hover:underline cursor-pointer">
+            Create an account (5 GB Free)
           </Link>
         </p>
       </div>
     </AuthLayout>
   );
 }
+

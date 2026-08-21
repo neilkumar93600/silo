@@ -5,14 +5,17 @@ import { cn } from "@/lib/utils"
 function Card({
   className,
   size = "default",
+  interactive = false,
   ...props
-}: React.ComponentProps<"div"> & { size?: "default" | "sm" }) {
+}: React.ComponentProps<"div"> & { size?: "default" | "sm"; interactive?: boolean }) {
   return (
     <div
       data-slot="card"
       data-size={size}
+      data-interactive={interactive}
       className={cn(
-        "group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-[20px] border border-border bg-card py-(--card-spacing) text-sm text-card-foreground shadow-none [--card-spacing:--spacing(6)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(4)] *:[img:first-child]:rounded-t-[20px] *:[img:last-child]:rounded-b-[20px]",
+        "group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-[20px] border border-border bg-card py-(--card-spacing) text-sm text-card-foreground shadow-none [--card-spacing:--spacing(6)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(4)] *:[img:first-child]:rounded-t-[20px] *:[img:last-child]:rounded-b-[20px] transition-all duration-200 ease-out",
+        interactive && "cursor-pointer hover:border-white/20 hover:bg-white/[0.04] hover:shadow-[0_8px_30px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 active:scale-[0.99] active:translate-y-0",
         className
       )}
       {...props}

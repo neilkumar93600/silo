@@ -15,6 +15,8 @@ const schema = z.object({
   MAX_UPLOAD_BYTES: z.coerce.number().int().positive().default(2 * 1024 * 1024 * 1024),
   OPENROUTER_API_KEY: z.string().min(1),
   OPENROUTER_MODEL: z.string().min(1).default("google/gemma-4-26b-a4b-it:free"),
+  SENDGRID_API_KEY: z.string().min(1),
+  EMAIL_FROM: z.string().email(),
 });
 
 const parsed = schema.safeParse(process.env);

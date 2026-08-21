@@ -2,32 +2,32 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ChevronDown, Lock, HardDrive } from "lucide-react";
+import { ChevronDown, Lock, HardDrive, ShieldCheck } from "lucide-react";
 
 const faqs = [
     {
-        question: "What is Silo?",
-        answer: "Silo is a private file sharing app. Every file you upload stays private by default, visible only to you, until you choose to share it."
+        question: "What makes Silo different from standard cloud storage?",
+        answer: "Silo provides zero-knowledge, client-side encrypted storage where only you control encryption keys. Files are private by default, and sharing permissions are cryptographically verified."
     },
     {
-        question: "How do I make a file public?",
-        answer: "Toggle a file's visibility to public from the share panel to generate an unguessable link. Anyone with the link can view it; switch it back to private to disable the link instantly."
+        question: "How do public and private links work?",
+        answer: "Toggle a file's visibility from the share panel to generate an unguessable token link. Anyone with the token can view it; revoking or switching back to private disables the link immediately."
     },
     {
-        question: "Can I share with just one person instead of a public link?",
-        answer: "Open the file's share panel and add the person's email. They get direct access to that file without it becoming publicly linkable, and you can revoke their access at any time."
+        question: "Can I share with one person securely without a public link?",
+        answer: "Yes. Add their email to the file's access list. They receive targeted access without exposing a public link, and you can revoke their permissions anytime with one click."
     },
     {
-        question: "Can I organize my files into folders?",
-        answer: "Yes — create folders, nest them, and move files between them from the dashboard."
+        question: "How does folder hierarchy and organization work?",
+        answer: "You can create nested folders as deep as needed, drag and drop files between directories, and organize your files instantly with zero latency."
     },
     {
         question: "What happens when I delete a file?",
-        answer: "It moves to Trash first, not gone immediately. You can restore it from there before you decide to empty Trash for good."
+        answer: "Deleted files move into your encrypted Trash first so you can restore them if needed before permanently emptying the vault."
     },
     {
-        question: "Will Silvi ever share or delete something without asking?",
-        answer: "No. Silvi can find, move, star, or share files for you in plain language, but it always pauses for your confirmation before any sensitive action."
+        question: "Will Silvi ever perform actions without asking?",
+        answer: "Never. Silvi is programmed with strict guard protocols: sensitive actions (sharing, modifying permissions, or deleting) always pause for your explicit confirmation first."
     }
 ];
 
@@ -36,92 +36,89 @@ export default function LandingFaq({ className }: { className?: string }) {
 
     return (
         <section
-            id="faq-section"
-            className={"w-full text-paper-white py-24 px-6 md:px-12 overflow-hidden relative z-20 border-t border-b border-lavender-mist bg-void-plum " + (className || "")}
+            id="faq"
+            className={"w-full text-[#f1f0ec] py-28 px-6 md:px-12 overflow-hidden relative z-20 border-t border-white/[0.06] bg-[#1c1624] " + (className || "")}
         >
+            {/* Ambient Background Glow */}
             <div
-                className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.012)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.012)_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none opacity-80"
-                aria-hidden="true"
-            />
-            <div
-                className="absolute top-1/2 left-1/3 w-[550px] h-[550px] bg-laser-violet/[0.03] rounded-full blur-[140px] pointer-events-none"
+                className="absolute top-1/2 left-1/3 size-[500px] bg-[#b997ff]/5 rounded-full blur-[140px] pointer-events-none"
                 aria-hidden="true"
             />
 
-            <div className="max-w-[1240px] mx-auto relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-[40px] lg:gap-[60px] items-start">
+            <div className="max-w-7xl mx-auto relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
                     {/* Left: heading + stats */}
                     <div className="lg:col-span-5 lg:sticky lg:top-10 flex flex-col gap-8">
                         <div className="flex flex-col gap-4">
-                            <span className="text-[13px] font-semibold text-laser-violet tracking-[0.25em] uppercase flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-laser-violet" />
-                                Product FAQ
+                            <span className="text-xs font-semibold text-[#b997ff] tracking-wider uppercase flex items-center gap-2">
+                                <span className="size-1.5 rounded-full bg-[#00f575]" />
+                                Clear Answers
                             </span>
-                            <h2 className="font-nasalization text-[#111317] text-[32px] sm:text-[40px] md:text-[44px] font-normal leading-tight tracking-wide uppercase">
-                                Frequently<br />Answered<br />Questions
+                            <h2 className="text-4xl md:text-5xl font-bold text-[#f1f0ec] leading-tight tracking-tight">
+                                Frequently <br />
+                                <span className="bg-gradient-to-r from-[#b997ff] via-[#ff9efa] to-[#00f575] bg-clip-text text-transparent">
+                                    Answered Questions
+                                </span>
                             </h2>
-                            <p className="text-neutral-500 text-sm sm:text-base font-normal leading-relaxed mt-2">
-                                Straight answers about how Silo keeps your files private, how sharing
-                                works, and what Silvi will and won&apos;t do on its own.
+                            <p className="text-[#d0c9c4] text-base leading-relaxed mt-2">
+                                Straightforward details on how Silo keeps your vault private, how sharing permissions work, and how Silvi guards your data.
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4 pt-4 border-t border-neutral-100">
-                            <div className="flex flex-col gap-1">
-                                <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider">
+                        <div className="grid grid-cols-2 gap-4 pt-6 border-t border-white/10">
+                            <div className="flex flex-col gap-1 p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                                <span className="text-[11px] font-semibold text-[#a5a2a5] uppercase tracking-wider">
                                     Private by default
                                 </span>
-                                <span className="text-2xl text-[#111317] font-nasalization flex items-center gap-1.5">
+                                <span className="text-2xl text-[#f1f0ec] font-bold flex items-center gap-1.5">
                                     100%
-                                    <Lock className="w-4 h-4 text-laser-violet" strokeWidth={2} />
+                                    <Lock className="w-4 h-4 text-[#00f575]" strokeWidth={2} />
                                 </span>
                             </div>
-                            <div className="flex flex-col gap-1">
-                                <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider">
-                                    Free to start
+                            <div className="flex flex-col gap-1 p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                                <span className="text-[11px] font-semibold text-[#a5a2a5] uppercase tracking-wider">
+                                    Free Storage
                                 </span>
-                                <span className="text-2xl text-[#111317] font-nasalization flex items-center gap-1.5">
+                                <span className="text-2xl text-[#f1f0ec] font-bold flex items-center gap-1.5">
                                     5 GB
-                                    <HardDrive className="w-4 h-4 text-laser-violet" strokeWidth={2} />
+                                    <HardDrive className="w-4 h-4 text-[#b997ff]" strokeWidth={2} />
                                 </span>
                             </div>
                         </div>
                     </div>
 
                     {/* Right: accordion */}
-                    <div className="lg:col-span-7 flex flex-col gap-[15px]">
+                    <div className="lg:col-span-7 flex flex-col gap-3.5">
                         {faqs.map((faq, index) => {
                             const isOpen = openIndex === index;
                             return (
                                 <div
                                     key={faq.question}
                                     className={
-                                        "transition-all duration-300 rounded-[20px] overflow-hidden border " +
+                                        "transition-all duration-300 rounded-2xl overflow-hidden border backdrop-blur-xl " +
                                         (isOpen
-                                            ? "bg-[#FCFDFE] border-laser-violet/40 shadow-[0_10px_30px_rgba(185,151,255,0.06)]"
-                                            : "bg-[#FAFAFA] border-neutral-200/70 hover:border-neutral-300 shadow-sm")
+                                            ? "bg-[#2d2734]/80 border-[#b997ff]/40 shadow-[0_8px_30px_rgba(0,0,0,0.4),0_0_20px_rgba(185,151,255,0.15),inset_0_1px_1px_rgba(255,255,255,0.1)]"
+                                            : "bg-white/[0.03] border-white/10 hover:border-white/20 hover:bg-white/[0.06]")
                                     }
                                 >
                                     <button
                                         onClick={() => setOpenIndex(isOpen ? null : index)}
-                                        className="w-full flex items-center justify-between p-6 text-left cursor-pointer focus:outline-none group relative"
+                                        className="w-full flex items-center justify-between p-5 text-left cursor-pointer focus:outline-none group relative"
                                     >
-                                        {isOpen && (
-                                            <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-laser-violet" />
-                                        )}
-                                        <div className="flex items-center gap-5 pr-4 pl-2">
-                                            <h3 className="text-base font-normal text-[#111317] uppercase tracking-wider leading-snug font-nasalization">
+                                        <div className="flex items-center gap-3.5 pr-4">
+                                            <div className={"size-2 rounded-full transition-all " + (isOpen ? "bg-[#00f575] shadow-[0_0_8px_#00f575]" : "bg-white/20 group-hover:bg-white/40")} />
+                                            <h3 className="text-sm md:text-base font-semibold text-[#f1f0ec] leading-snug tracking-tight">
                                                 {faq.question}
                                             </h3>
                                         </div>
                                         <motion.div
                                             animate={{ rotate: isOpen ? 180 : 0 }}
-                                            transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] as const }}
+                                            transition={{ duration: 0.3, ease: "easeOut" }}
                                             className={
-                                                "w-8 h-8 shrink-0 rounded-full flex items-center justify-center border transition-all duration-300 " +
+                                                "size-8 shrink-0 rounded-xl flex items-center justify-center border transition-all duration-300 " +
                                                 (isOpen
-                                                    ? "bg-laser-violet border-laser-violet text-white shadow-[0_4px_12px_rgba(185,151,255,0.3)]"
-                                                    : "border-neutral-200 text-neutral-400 group-hover:text-neutral-700 group-hover:border-neutral-300 bg-white")
+                                                    ? "bg-[#b997ff] border-[#b997ff] text-black shadow-md"
+                                                    : "border-white/10 text-[#a5a2a5] group-hover:text-white group-hover:border-white/20 bg-white/[0.04]")
                                             }
                                         >
                                             <ChevronDown className="w-4 h-4" strokeWidth={2} />
@@ -135,11 +132,11 @@ export default function LandingFaq({ className }: { className?: string }) {
                                                 initial={{ height: 0, opacity: 0 }}
                                                 animate={{ height: "auto", opacity: 1 }}
                                                 exit={{ height: 0, opacity: 0 }}
-                                                transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] as const }}
+                                                transition={{ duration: 0.3, ease: "easeOut" }}
                                                 className="overflow-hidden"
                                             >
-                                                <div className="px-8 pb-6 pt-0 border-t border-neutral-100/50">
-                                                    <p className="text-sm sm:text-[15px] text-neutral-600 leading-relaxed font-normal mt-5 pl-12">
+                                                <div className="px-6 pb-5 pt-0 border-t border-white/10">
+                                                    <p className="text-xs md:text-sm text-[#d0c9c4] leading-relaxed mt-4 pl-5">
                                                         {faq.answer}
                                                     </p>
                                                 </div>
@@ -155,3 +152,4 @@ export default function LandingFaq({ className }: { className?: string }) {
         </section>
     );
 }
+

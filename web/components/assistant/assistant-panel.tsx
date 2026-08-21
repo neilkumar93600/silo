@@ -506,7 +506,7 @@ function AssistantComposer({ onQuickPrompt }: { onQuickPrompt: (prompt: string) 
             type="button"
             disabled={disabled}
             onClick={() => onQuickPrompt(item.prompt)}
-            className="flex shrink-0 items-center gap-1.5 rounded-full border border-border/80 bg-muted/40 px-2.5 py-1 text-[11px] font-medium text-muted-foreground hover:border-[#00f575]/40 hover:bg-accent hover:text-[#00f575] transition-all disabled:opacity-50"
+            className="flex shrink-0 items-center gap-1.5 rounded-full border border-border/80 bg-muted/40 px-2.5 py-1 text-[11px] font-medium text-muted-foreground hover:border-[#00f575]/40 hover:bg-accent hover:text-[#00f575] hover:-translate-y-0.5 active:scale-95 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
           >
             <item.icon className="size-3 text-[#00f575]" />
             <span>{item.title}</span>
@@ -539,7 +539,7 @@ function AssistantComposer({ onQuickPrompt }: { onQuickPrompt: (prompt: string) 
           onClick={submit}
           disabled={disabled || !value.trim()}
           aria-label="Send message"
-          className="size-8 rounded-lg bg-[#00f575] text-[#000000] hover:bg-[#00f575]/90 disabled:opacity-40 transition-all"
+          className="size-8 rounded-lg bg-[#00f575] text-[#000000] hover:bg-[#00f575]/90 hover:shadow-[0_0_14px_rgba(0,245,117,0.4)] disabled:opacity-40 transition-all cursor-pointer"
         >
           {isStreaming ? <Spinner className="size-3.5" /> : <SendIcon className="size-3.5" />}
         </Button>
@@ -673,7 +673,7 @@ export function AssistantPanel() {
                   key={idx}
                   type="button"
                   onClick={() => sendMessage(item.prompt)}
-                  className="group flex items-center justify-between rounded-lg border border-border/80 bg-background p-3 text-left hover:border-primary/30 hover:bg-accent/40 transition-all shadow-xs"
+                  className="group flex items-center justify-between rounded-xl border border-border/80 bg-background p-3 text-left hover:border-primary/40 hover:bg-accent/50 hover:-translate-y-0.5 active:scale-[0.99] transition-all shadow-xs cursor-pointer"
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
                     <div className="rounded-lg bg-accent/60 p-2 text-[#00f575] group-hover:bg-accent transition-colors">
