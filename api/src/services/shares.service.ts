@@ -62,7 +62,7 @@ export async function removeShare(fileId: string, ownerId: string, targetUserId:
 
 export async function listSharedWithMe(userId: string) {
   const rows = await db
-    .select({ file: files, sharedByName: user.name, sharedByEmail: user.email })
+    .select({ file: files, sharedByName: user.name, sharedByEmail: user.email, sharedAt: fileShares.createdAt })
     .from(fileShares)
     .innerJoin(files, eq(fileShares.fileId, files.id))
     .innerJoin(user, eq(fileShares.sharedByUserId, user.id))
@@ -75,6 +75,10 @@ export async function listSharedWithMe(userId: string) {
     );
 
   return {
-    files: rows.map((row) => ({ ...row.file, sharedBy: { name: row.sharedByName, email: row.sharedByEmail } })),
+    files: rows.map((row) => ({
+      ...row.file,
+      sharedBy: { name: row.sharedByName, email: row.sharedByEmail },
+      sharedAt: row.sharedAt,
+    })),
   };
 }

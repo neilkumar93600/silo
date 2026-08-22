@@ -60,7 +60,7 @@ Silvi is integrated directly into Silo to help you manage your files through con
 * **Database & ORM**: PostgreSQL (Neon-ready) with Drizzle ORM
 * **Authentication**: Better Auth (Email/Password authentication, secure session cookies)
 * **Storage Provider**: AWS S3 with `@aws-sdk/client-s3` and `@aws-sdk/s3-request-presigner`
-* **AI Engine**: MuAPI (`gemini-2.0-flash`, `gemini-2.5-flash`, `gpt-4o-mini`, etc.) with structured tool-calling functions.
+* **AI Engine**: MuAPI (`kimi-k3`, `gemini-2.0-flash`, `gemini-2.5-flash`, etc.) with structured tool-calling functions.
 * **Security & Defense**: `helmet`, `express-rate-limit`, and extension denylists.
 
 ---
@@ -154,7 +154,7 @@ S3_BUCKET="YOUR_BUCKET_NAME"
 # Limits & AI Assistant
 MAX_UPLOAD_BYTES=2147483648
 MUAPI_API_KEY="YOUR_MUAPI_KEY"
-MUAPI_MODEL="gemini-2.0-flash"
+MUAPI_MODEL="kimi-k3"
 ```
 > 💡 *Generate a random auth secret with:* `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`
 

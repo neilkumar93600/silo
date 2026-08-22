@@ -14,7 +14,7 @@ const schema = z.object({
   S3_BUCKET: z.string().min(1),
   MAX_UPLOAD_BYTES: z.coerce.number().int().positive().default(2 * 1024 * 1024 * 1024),
   MUAPI_API_KEY: z.string().min(1),
-  MUAPI_MODEL: z.string().min(1).default("gemini-2.0-flash"),
+  MUAPI_MODEL: z.string().min(1).default("kimi-k3"),
   SENDGRID_API_KEY: z.string().min(1),
   EMAIL_FROM: z.string().email(),
 });

@@ -146,6 +146,7 @@ async function runConfirmedTool(call: AssistantToolCall, ownerId: string): Promi
 
 const FALLBACK_MODELS = [
   ASSISTANT_MODEL,
+  "kimi-k3",
   "gemini-2.0-flash",
   "gemini-2.5-flash",
   "gpt-4o-mini",

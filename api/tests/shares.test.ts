@@ -170,14 +170,17 @@ describe("listSharedWithMe", () => {
   // at the SQL level. The most this mocking style can meaningfully verify
   // is that a normal (non-trashed) row still comes back correctly shaped —
   // i.e. the query-shape change didn't break the mapping to `sharedBy`.
-  it("returns files shared with the user, tagged with who shared them", async () => {
+  it("returns files shared with the user, tagged with who shared them and when", async () => {
     const row = fileRow();
+    const sharedAt = new Date("2026-01-05T00:00:00Z");
     vi.mocked(db.select).mockReturnValueOnce(
-      chainable([{ file: row, sharedByName: "Owner Name", sharedByEmail: "owner@example.com" }]),
+      chainable([{ file: row, sharedByName: "Owner Name", sharedByEmail: "owner@example.com", sharedAt }]),
     );
 
     const result = await listSharedWithMe(RECIPIENT_ID);
 
-    expect(result.files).toEqual([{ ...row, sharedBy: { name: "Owner Name", email: "owner@example.com" } }]);
+    expect(result.files).toEqual([
+      { ...row, sharedBy: { name: "Owner Name", email: "owner@example.com" }, sharedAt },
+    ]);
   });
 });
