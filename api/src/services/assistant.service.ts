@@ -3,7 +3,7 @@ import { asc, desc, eq } from "drizzle-orm";
 import type OpenAI from "openai";
 import { db } from "../db/index.js";
 import { conversations, messages, type AssistantToolCall } from "../db/schema/assistant.js";
-import { gemini, ASSISTANT_MODEL } from "../lib/gemini.js";
+import { muapi, ASSISTANT_MODEL } from "../lib/muapi.js";
 import { ASSISTANT_TOOLS, requiresConfirmation, executeTool, summarizeToolCall } from "../lib/assistant-tools.js";
 import { Errors } from "../lib/errors.js";
 
@@ -147,8 +147,8 @@ async function runConfirmedTool(call: AssistantToolCall, ownerId: string): Promi
 const FALLBACK_MODELS = [
   ASSISTANT_MODEL,
   "gemini-2.0-flash",
-  "gemini-1.5-flash",
   "gemini-2.5-flash",
+  "gpt-4o-mini",
 ];
 
 async function createStreamWithFallback(
@@ -158,7 +158,7 @@ async function createStreamWithFallback(
   let lastError: unknown;
   for (const model of models) {
     try {
-      const stream = await gemini.chat.completions.create({
+      const stream = await muapi.chat.completions.create({
         model,
         messages,
         tools: ASSISTANT_TOOLS,
@@ -168,7 +168,7 @@ async function createStreamWithFallback(
     } catch (err) {
       lastError = err;
       console.warn(
-        `[Assistant] Gemini model ${model} failed (${err instanceof Error ? err.message : err}), attempting fallback model...`,
+        `[Assistant] Model ${model} failed (${err instanceof Error ? err.message : err}), attempting fallback model...`,
       );
     }
   }
