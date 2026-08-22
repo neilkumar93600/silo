@@ -81,6 +81,7 @@ export interface FileRecord {
   folderId: string | null
   starred: boolean
   sharedBy?: { name: string; email: string }
+  sharedAt?: string
   deletedAt: string | null
   createdAt: string
 }
@@ -266,6 +267,10 @@ export interface SharedWithMeContents {
 
 export function listSharedWithMe() {
   return request<SharedWithMeContents>("/api/shared-with-me")
+}
+
+export function listHomeFeed() {
+  return request<{ files: FileRecord[] }>("/api/home")
 }
 
 // --- Notifications ---
