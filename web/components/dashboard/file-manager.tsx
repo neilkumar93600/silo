@@ -7,6 +7,7 @@ import { FolderIcon, LayoutGridIcon, ListIcon } from "lucide-react"
 import {
   listFiles,
   listFolder,
+  listHomeFeed,
   listSharedWithMe,
   listStarred,
   moveFile,
@@ -50,6 +51,7 @@ type FileManagerProps = {
     | { type: "starred" }
     | { type: "recent" }
     | { type: "shared" }
+    | { type: "home" }
 }
 
 const SECTION_LABEL = "font-mono text-[11px] tracking-[0.05em] uppercase text-ash-wisp select-none"
@@ -68,8 +70,12 @@ function cacheKeyForMode(mode: FileManagerProps["mode"]) {
 
 export function FileManager({ query = "", mode = { type: "folder", folderId: "root" } }: FileManagerProps) {
   const isFolderMode = mode.type === "folder"
-  const currentFolderId = isFolderMode ? mode.folderId : null
-  const showFolders = isFolderMode
+  const isHomeMode = mode.type === "home"
+  // Home must register "root" as its active folder — not null — so the
+  // sidebar's New/Upload button (which hides itself when activeFolderId
+  // is null) keeps working from Home exactly like it does today.
+  const currentFolderId = isFolderMode ? mode.folderId : isHomeMode ? "root" : null
+  const showFolders = isFolderMode || isHomeMode
 
   const cacheKey = cacheKeyForMode(mode)
 
@@ -137,6 +143,14 @@ export function FileManager({ query = "", mode = { type: "folder", folderId: "ro
           writeFileCache(key, { files: res.files, folders: [] } satisfies CachedListing)
         })
         .catch((err) => toast.error(err instanceof ApiError ? err.message : "Failed to load shared files"))
+    } else if (mode.type === "home") {
+      Promise.all([listFolder("root"), listHomeFeed()])
+        .then(([folderRes, homeRes]) => {
+          setFiles(homeRes.files)
+          setFolders(folderRes.folders)
+          writeFileCache(key, { files: homeRes.files, folders: folderRes.folders } satisfies CachedListing)
+        })
+        .catch((err) => toast.error(err instanceof ApiError ? err.message : "Failed to load files"))
     }
   }, [mode])
 
@@ -442,7 +456,8 @@ export function FileManager({ query = "", mode = { type: "folder", folderId: "ro
   }
 
   const isEmpty = files !== null && files.length === 0 && folders.length === 0
-  const isRootHero = isFolderMode && mode.folderId === "root" && parents.length === 0 && isEmpty
+  const isRootHero =
+    (isFolderMode && mode.folderId === "root" && parents.length === 0 && isEmpty) || (isHomeMode && isEmpty)
 
   return (
     <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-6 p-4 md:p-8">

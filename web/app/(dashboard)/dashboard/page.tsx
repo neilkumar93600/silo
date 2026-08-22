@@ -27,7 +27,7 @@ function DashboardPageContent() {
         <FileSearchInput value={query} onChange={setQuery} />
       </DashboardTopbar>
       <div className="flex-1 overflow-y-auto">
-        <FileManager query={query} mode={{ type: "folder", folderId: "root" }} />
+        <FileManager query={query} mode={{ type: "home" }} />
       </div>
       <DashboardTourCard />
     </div>
