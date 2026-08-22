@@ -173,7 +173,7 @@ function Dashboard() {
                                 className="bg-white/[0.04] border border-white/10 hover:border-[#b997ff]/30 rounded-2xl p-6 transition-all duration-300 backdrop-blur-md relative overflow-hidden group"
                             >
                                 <div className="absolute -top-16 -right-16 size-40 bg-[#b997ff]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[#b997ff]/20 transition-all duration-500" />
-                                
+
                                 <div className="flex items-center justify-between mb-4">
                                     <div className="flex items-center gap-2">
                                         <div className="size-2 rounded-full bg-[#00f575] animate-pulse" />
@@ -255,9 +255,9 @@ function Dashboard() {
                                             <div className="flex items-center gap-3 min-w-0">
                                                 <span className={"flex size-8 shrink-0 items-center justify-center rounded-lg text-[10px] font-mono font-bold border " + (
                                                     file.ext === "MP4" ? "bg-[#b997ff]/10 text-[#b997ff] border-[#b997ff]/30" :
-                                                    file.ext === "PDF" ? "bg-[#ff5632]/10 text-[#ff5632] border-[#ff5632]/30" :
-                                                    file.ext === "ZIP" ? "bg-[#ff9efa]/10 text-[#ff9efa] border-[#ff9efa]/30" :
-                                                    "bg-[#00f575]/10 text-[#00f575] border-[#00f575]/30"
+                                                        file.ext === "PDF" ? "bg-[#ff5632]/10 text-[#ff5632] border-[#ff5632]/30" :
+                                                            file.ext === "ZIP" ? "bg-[#ff9efa]/10 text-[#ff9efa] border-[#ff9efa]/30" :
+                                                                "bg-[#00f575]/10 text-[#00f575] border-[#00f575]/30"
                                                 )}>
                                                     {file.ext}
                                                 </span>
@@ -361,7 +361,7 @@ export default function LandingHero({ className }: { className?: string }) {
     }, []);
 
     return (
-        <section className={"min-h-[110vh] flex flex-col bg-laser-violet relative overflow-hidden " + (className || "")}>
+        <section className={"min-h-[110vh] flex flex-col bg-laser-violet/10 relative overflow-hidden " + (className || "")}>
             {/* Video Background */}
             <video
                 ref={videoRef}
@@ -371,7 +371,7 @@ export default function LandingHero({ className }: { className?: string }) {
                 playsInline
                 className="absolute inset-0 w-full h-full object-cover z-0"
             >
-                <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260815_032550_0386fe58-a20f-497e-bb07-d1266749cc01.mp4" type="video/mp4" />
+                <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260815_075403_bdde66c3-c5ad-41ac-ba8f-6a0bc4545c3f.mp4" type="video/mp4" />
             </video>
 
             {/* Overlay — darkens video for text contrast, tinted toward brand navy */}
@@ -458,7 +458,7 @@ export default function LandingHero({ className }: { className?: string }) {
                             <span>Get started for free</span>
                             <span className="text-lg">→</span>
                         </a>
-                        <span className="text-xs text-[#a5a2a5] flex items-center gap-1.5">
+                        <span className="text-xs text-[#d0c9c4] flex items-center gap-1.5">
                             <span className="size-1.5 rounded-full bg-[#00f575]" />
                             5 GB encrypted storage free · No credit card required
                         </span>
