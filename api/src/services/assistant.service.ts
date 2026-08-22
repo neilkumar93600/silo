@@ -3,7 +3,7 @@ import { asc, desc, eq } from "drizzle-orm";
 import type OpenAI from "openai";
 import { db } from "../db/index.js";
 import { conversations, messages, type AssistantToolCall } from "../db/schema/assistant.js";
-import { openrouter, ASSISTANT_MODEL } from "../lib/openrouter.js";
+import { gemini, ASSISTANT_MODEL } from "../lib/gemini.js";
 import { ASSISTANT_TOOLS, requiresConfirmation, executeTool, summarizeToolCall } from "../lib/assistant-tools.js";
 import { Errors } from "../lib/errors.js";
 
@@ -146,10 +146,9 @@ async function runConfirmedTool(call: AssistantToolCall, ownerId: string): Promi
 
 const FALLBACK_MODELS = [
   ASSISTANT_MODEL,
-  "openrouter/free",
-  "nvidia/nemotron-3-super-120b-a12b:free",
-  "nvidia/nemotron-3.5-lightning:free",
-  "nvidia/nemotron-3-ultra-550b-a55b:free",
+  "gemini-2.0-flash",
+  "gemini-1.5-flash",
+  "gemini-2.5-flash",
 ];
 
 async function createStreamWithFallback(
@@ -159,7 +158,7 @@ async function createStreamWithFallback(
   let lastError: unknown;
   for (const model of models) {
     try {
-      const stream = await openrouter.chat.completions.create({
+      const stream = await gemini.chat.completions.create({
         model,
         messages,
         tools: ASSISTANT_TOOLS,
@@ -169,7 +168,7 @@ async function createStreamWithFallback(
     } catch (err) {
       lastError = err;
       console.warn(
-        `[Assistant] Model ${model} failed (${err instanceof Error ? err.message : err}), attempting fallback model...`,
+        `[Assistant] Gemini model ${model} failed (${err instanceof Error ? err.message : err}), attempting fallback model...`,
       );
     }
   }

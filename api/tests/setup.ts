@@ -4,4 +4,4 @@
 process.env.AWS_ACCESS_KEY_ID ||= "test-access-key";
 process.env.AWS_SECRET_ACCESS_KEY ||= "test-secret-key";
 process.env.S3_BUCKET ||= "test-bucket";
-process.env.OPENROUTER_API_KEY ||= "test-openrouter-key";
+process.env.GEMINI_API_KEY ||= "test-gemini-key";

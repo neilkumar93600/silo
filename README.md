@@ -17,7 +17,7 @@
 
 ## 🤖 Meet Silvi — Your AI Drive Assistant
 
-Silvi is integrated directly into Silo to help you manage your files through conversational natural language commands powered by OpenRouter / LLM tool calling.
+Silvi is integrated directly into Silo to help you manage your files through conversational natural language commands powered by Google Gemini tool calling.
 
 ### Silvi Capabilities:
 * **🔍 Instant File Discovery**: `"Find my Q3 invoices"` or `"Show me all videos uploaded last week"` — searches by name, media type, folder, star status, or date range.
@@ -60,7 +60,7 @@ Silvi is integrated directly into Silo to help you manage your files through con
 * **Database & ORM**: PostgreSQL (Neon-ready) with Drizzle ORM
 * **Authentication**: Better Auth (Email/Password authentication, secure session cookies)
 * **Storage Provider**: AWS S3 with `@aws-sdk/client-s3` and `@aws-sdk/s3-request-presigner`
-* **AI Engine**: OpenRouter API (`google/gemma-4-26b-a4b-it:free` or any preferred LLM) with structured tool-calling functions.
+* **AI Engine**: Google Gemini API (`gemini-2.0-flash`, `gemini-1.5-flash`, or `gemini-2.5-flash`) with structured tool-calling functions.
 * **Security & Defense**: `helmet`, `express-rate-limit`, and extension denylists.
 
 ---
@@ -153,8 +153,8 @@ S3_BUCKET="YOUR_BUCKET_NAME"
 
 # Limits & AI Assistant
 MAX_UPLOAD_BYTES=2147483648
-OPENROUTER_API_KEY="YOUR_OPENROUTER_KEY"
-OPENROUTER_MODEL="google/gemma-4-26b-a4b-it:free"
+GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
+GEMINI_MODEL="gemini-2.0-flash"
 ```
 > 💡 *Generate a random auth secret with:* `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`
 

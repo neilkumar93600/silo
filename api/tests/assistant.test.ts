@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
 // The tool-calling loop is orchestration logic — mock its three
-// collaborators (DB, OpenRouter, S3) so these tests exercise only the
+// collaborators (DB, Gemini, S3) so these tests exercise only the
 // loop's own decisions: when it pauses for confirmation, when it executes
 // immediately, and that ownership is enforced.
 vi.mock("../src/db/index.js", () => ({
@@ -21,13 +21,13 @@ vi.mock("../src/lib/s3.js", () => ({
   deleteObject: vi.fn(async () => undefined),
 }));
 
-vi.mock("../src/lib/openrouter.js", () => ({
-  openrouter: { chat: { completions: { create: vi.fn() } } },
+vi.mock("../src/lib/gemini.js", () => ({
+  gemini: { chat: { completions: { create: vi.fn() } } },
   ASSISTANT_MODEL: "test-model",
 }));
 
 const { db } = await import("../src/db/index.js");
-const { openrouter } = await import("../src/lib/openrouter.js");
+const { gemini } = await import("../src/lib/gemini.js");
 const assistantService = await import("../src/services/assistant.service.js");
 
 const OWNER_ID = "user-owner";
@@ -103,7 +103,7 @@ beforeEach(() => {
   vi.mocked(db.select).mockReset();
   vi.mocked(db.insert).mockReset().mockReturnValue(chainable(undefined));
   vi.mocked(db.update).mockReset().mockReturnValue(chainable(undefined));
-  vi.mocked(openrouter.chat.completions.create).mockReset();
+  vi.mocked(gemini.chat.completions.create).mockReset();
 });
 
 describe("conversation ownership", () => {
@@ -137,7 +137,7 @@ describe("postMessage", () => {
     vi.mocked(db.select)
       .mockReturnValueOnce(chainable([conversationRow()])) // title-check lookup
       .mockReturnValueOnce(chainable([])); // buildHistory
-    vi.mocked(openrouter.chat.completions.create).mockResolvedValueOnce(textChunks("Sure thing!") as any);
+    vi.mocked(gemini.chat.completions.create).mockResolvedValueOnce(textChunks("Sure thing!") as any);
 
     const events = await collect(assistantService.postMessage("conv-1", OWNER_ID, "hi"));
 
@@ -151,7 +151,7 @@ describe("postMessage", () => {
       .mockReturnValueOnce(chainable([conversationRow()])) // title-check lookup
       .mockReturnValueOnce(chainable([])) // buildHistory
       .mockReturnValueOnce(chainable([fileRow()])); // file lookup for the confirmation summary
-    vi.mocked(openrouter.chat.completions.create).mockResolvedValueOnce(
+    vi.mocked(gemini.chat.completions.create).mockResolvedValueOnce(
       toolCallChunks("call_1", "trash_file", '{"fileId":"file-1"}') as any,
     );
 
@@ -185,7 +185,7 @@ describe("confirmPendingAction", () => {
       .mockReturnValueOnce(chainable([conversationRow({ pendingToolCalls: [pendingCall] })])) // ownership check
       .mockReturnValueOnce(chainable([fileRow()])) // getOwnedFileOrThrow inside updateFile
       .mockReturnValueOnce(chainable([])); // buildHistory for the resumed loop
-    vi.mocked(openrouter.chat.completions.create).mockResolvedValueOnce(textChunks("Starred it.") as any);
+    vi.mocked(gemini.chat.completions.create).mockResolvedValueOnce(textChunks("Starred it.") as any);
 
     const events = await collect(assistantService.confirmPendingAction("conv-1", OWNER_ID, true));
 
@@ -200,7 +200,7 @@ describe("confirmPendingAction", () => {
     vi.mocked(db.select)
       .mockReturnValueOnce(chainable([conversationRow({ pendingToolCalls: [pendingCall] })])) // ownership check
       .mockReturnValueOnce(chainable([])); // buildHistory for the resumed loop
-    vi.mocked(openrouter.chat.completions.create).mockResolvedValueOnce(textChunks("Okay, left it alone.") as any);
+    vi.mocked(gemini.chat.completions.create).mockResolvedValueOnce(textChunks("Okay, left it alone.") as any);
 
     const events = await collect(assistantService.confirmPendingAction("conv-1", OWNER_ID, false));
 

@@ -13,8 +13,8 @@ const schema = z.object({
   AWS_SECRET_ACCESS_KEY: z.string().min(1),
   S3_BUCKET: z.string().min(1),
   MAX_UPLOAD_BYTES: z.coerce.number().int().positive().default(2 * 1024 * 1024 * 1024),
-  OPENROUTER_API_KEY: z.string().min(1),
-  OPENROUTER_MODEL: z.string().min(1).default("openrouter/free"),
+  GEMINI_API_KEY: z.string().min(1),
+  GEMINI_MODEL: z.string().min(1).default("gemini-2.0-flash"),
   SENDGRID_API_KEY: z.string().min(1),
   EMAIL_FROM: z.string().email(),
 });
