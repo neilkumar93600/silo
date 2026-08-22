@@ -259,8 +259,9 @@ export function FileManager({ query = "", mode = { type: "folder", folderId: "ro
         !isInput
       ) {
         e.preventDefault()
-        if (visibleFiles.length > 0) {
-          setSelectedIds(new Set(visibleFiles.map((f) => f.id)))
+        const selectableFiles = visibleFiles.filter((f) => !f.sharedBy)
+        if (selectableFiles.length > 0) {
+          setSelectedIds(new Set(selectableFiles.map((f) => f.id)))
         }
       }
     }
