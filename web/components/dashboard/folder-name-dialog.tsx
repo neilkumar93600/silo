@@ -44,6 +44,9 @@ function FolderNameForm({
     try {
       await onSubmit(trimmed)
       onOpenChange(false)
+    } catch {
+      // Error already toasted by the caller — keep the dialog open so the
+      // user can retry instead of losing their typed name.
     } finally {
       setSubmitting(false)
     }

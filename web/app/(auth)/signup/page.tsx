@@ -40,7 +40,6 @@ export default function SignupPage() {
       email,
       password,
       name: fullName || email,
-      callbackURL: "/dashboard",
     });
     if (error) {
       const msg = error.message ?? "Registration failed";
@@ -49,9 +48,8 @@ export default function SignupPage() {
       setLoading(false);
       return;
     }
-    toast.success("Account created — check your email to verify your address.");
-    router.push("/dashboard");
-    router.refresh();
+    toast.success("Account created — enter the code we emailed you.");
+    router.push(`/verify-otp?email=${encodeURIComponent(email)}`);
   };
 
   return (

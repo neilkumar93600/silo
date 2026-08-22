@@ -40,8 +40,8 @@ export default function LoginPage() {
   };
 
   const handleResend = async () => {
-    await authClient.sendVerificationEmail({ email, callbackURL: "/dashboard" });
-    toast.success("Verification email sent.");
+    await authClient.emailOtp.sendVerificationOtp({ email, type: "email-verification" });
+    router.push(`/verify-otp?email=${encodeURIComponent(email)}`);
   };
 
   return (
@@ -113,7 +113,7 @@ export default function LoginPage() {
                   onClick={handleResend}
                   className="ml-2 underline underline-offset-2 hover:text-[#f1f0ec] cursor-pointer"
                 >
-                  Resend email
+                  Enter code
                 </button>
               )}
             </p>

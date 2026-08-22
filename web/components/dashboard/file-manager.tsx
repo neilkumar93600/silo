@@ -350,6 +350,7 @@ export function FileManager({ query = "", mode = { type: "folder", folderId: "ro
       refresh()
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : "Could not rename file")
+      throw err
     }
   }
 
@@ -436,6 +437,7 @@ export function FileManager({ query = "", mode = { type: "folder", folderId: "ro
       refresh()
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : "Could not rename folder")
+      throw err
     }
   }
 

@@ -1,9 +1,11 @@
 import { betterAuth } from "better-auth";
+import { emailOTP } from "better-auth/plugins";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "../db/index.js";
 import { env } from "../env.js";
 import * as schema from "../db/schema/index.js";
 import { sendMail } from "../lib/mail.js";
+import { verifyOtpEmail, passwordResetEmail } from "../lib/mail-templates.js";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -18,23 +20,25 @@ export const auth = betterAuth({
     requireEmailVerification: true,
     minPasswordLength: 8,
     sendResetPassword: async ({ user, url }) => {
-      await sendMail(
-        user.email,
-        "Reset your Silo password",
-        `<p>Reset your password: <a href="${url}">${url}</a></p><p>If you didn't request this, ignore this email.</p>`,
-      );
+      await sendMail(user.email, "Reset your Silo password", passwordResetEmail(url));
     },
   },
+  // The emailOTP plugin below overrides sendVerificationEmail to dispatch a
+  // 6-digit code instead of a link — this callback never actually fires,
+  // but autoSignInAfterVerification still applies to the OTP verify flow.
   emailVerification: {
-    sendVerificationEmail: async ({ user, url }) => {
-      await sendMail(
-        user.email,
-        "Verify your Silo email",
-        `<p>Confirm your email: <a href="${url}">${url}</a></p>`,
-      );
-    },
     autoSignInAfterVerification: true,
   },
+  plugins: [
+    emailOTP({
+      overrideDefaultEmailVerification: true,
+      otpLength: 6,
+      expiresIn: 300,
+      async sendVerificationOTP({ email, otp }) {
+        await sendMail(email, "Verify your Silo email", verifyOtpEmail(otp));
+      },
+    }),
+  ],
   user: {
     deleteUser: {
       enabled: true,

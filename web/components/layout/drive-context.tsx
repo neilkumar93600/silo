@@ -238,6 +238,7 @@ export function DriveProvider({ children }: { children: React.ReactNode }) {
       maybeRefresh(folderId)
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : "Could not create folder")
+      throw err
     }
   }
 
