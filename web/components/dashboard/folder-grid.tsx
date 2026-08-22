@@ -60,7 +60,7 @@ export function FolderGrid({ folders, onRename, onTrash, onToggleStar, onDropFil
   if (folders.length === 0) return null
 
   return (
-    <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))" }}>
+    <div className="grid grid-cols-2 gap-4 sm:grid-cols-[repeat(auto-fill,minmax(150px,1fr))]">
       {folders.map((folder, index) => {
         const isDragOver = dragOverFolderId === folder.id
 

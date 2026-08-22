@@ -139,7 +139,7 @@ export function FileGrid({
   const { data: session } = useSession()
 
   return (
-    <div className="grid gap-3" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))" }}>
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-[repeat(auto-fill,minmax(180px,1fr))]">
       {files.map((file, index) => {
         const isSelected = selectedIds.has(file.id)
         const isShared = Boolean(file.sharedBy)
