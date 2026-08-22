@@ -240,6 +240,16 @@ export function requiresConfirmation(name: string, args: any): boolean {
   return false;
 }
 
+// Some free/small models emit the literal string "none"/"null" instead of
+// JSON null for nullable fields (e.g. "move to root"), which a bare `?? null`
+// would not catch. Normalize those before they hit the DB layer.
+function nullableId(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (trimmed === "" || /^(none|null)$/i.test(trimmed)) return null;
+  return trimmed;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function executeTool(name: string, args: any, ownerId: string): Promise<unknown> {
   switch (name) {
@@ -248,11 +258,11 @@ export async function executeTool(name: string, args: any, ownerId: string): Pro
     case "list_folders":
       return foldersService.listAllFolders(ownerId);
     case "create_folder":
-      return foldersService.createFolder(ownerId, args.name, args.parentId ?? null);
+      return foldersService.createFolder(ownerId, args.name, nullableId(args.parentId));
     case "rename_folder":
       return foldersService.updateFolder(args.folderId, ownerId, { name: args.name });
     case "move_folder":
-      return foldersService.updateFolder(args.folderId, ownerId, { parentId: args.parentId ?? null });
+      return foldersService.updateFolder(args.folderId, ownerId, { parentId: nullableId(args.parentId) });
     case "trash_folder":
       return foldersService.trashFolder(args.folderId, ownerId);
     case "restore_folder":
@@ -260,7 +270,7 @@ export async function executeTool(name: string, args: any, ownerId: string): Pro
     case "search_files":
       return filesService.searchFiles(ownerId, args ?? {});
     case "move_file":
-      return filesService.updateFile(args.fileId, ownerId, { folderId: args.folderId });
+      return filesService.updateFile(args.fileId, ownerId, { folderId: nullableId(args.folderId) });
     case "rename_file":
       return filesService.updateFile(args.fileId, ownerId, { originalName: args.name });
     case "star_file":
