@@ -142,6 +142,27 @@ describe("file ownership enforcement", () => {
       .mockReturnValueOnce(chainable([])); // no share row
 
     await expect(getDownloadUrl("file-1", OTHER_ID)).rejects.toMatchObject({ status: 403 });
+    expect(db.insert).not.toHaveBeenCalled();
+  });
+
+  it("records a view when the owner opens the download URL", async () => {
+    vi.mocked(db.select).mockReturnValue(chainable([fileRow()]));
+    vi.mocked(db.insert).mockReturnValue(chainable(undefined));
+
+    await getDownloadUrl("file-1", OWNER_ID);
+
+    expect(db.insert).toHaveBeenCalledTimes(1);
+  });
+
+  it("records a view when a share recipient opens the download URL", async () => {
+    vi.mocked(db.select)
+      .mockReturnValueOnce(chainable([fileRow()])) // file lookup
+      .mockReturnValueOnce(chainable([{ id: "share-1" }])); // share row exists
+    vi.mocked(db.insert).mockReturnValue(chainable(undefined));
+
+    await getDownloadUrl("file-1", OTHER_ID);
+
+    expect(db.insert).toHaveBeenCalledTimes(1);
   });
 
   it("getAccessibleFileOrThrow: owner always succeeds", async () => {

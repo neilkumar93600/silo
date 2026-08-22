@@ -4,6 +4,7 @@ import { db } from "../db/index.js";
 import { files } from "../db/schema/files.js";
 import { folders } from "../db/schema/folders.js";
 import { fileShares } from "../db/schema/file-shares.js";
+import { fileViews } from "../db/schema/file-views.js";
 import { presignUpload, presignDownload, headObject, deleteObject } from "../lib/s3.js";
 import { isDangerousUpload } from "../lib/validation.js";
 import { Errors } from "../lib/errors.js";
@@ -18,6 +19,16 @@ const SIZE_MISMATCH_TOLERANCE_BYTES = 0;
 
 function s3KeyFor(ownerId: string, fileId: string) {
   return `uploads/${ownerId}/${fileId}`;
+}
+
+async function recordFileView(userId: string, fileId: string) {
+  await db
+    .insert(fileViews)
+    .values({ id: randomUUID(), userId, fileId })
+    .onConflictDoUpdate({
+      target: [fileViews.userId, fileViews.fileId],
+      set: { viewedAt: new Date() },
+    });
 }
 
 export async function createPendingUpload(params: {
@@ -230,6 +241,7 @@ export async function permanentDeleteFile(fileId: string, ownerId: string) {
 export async function getDownloadUrl(fileId: string, userId: string, inline = false) {
   const file = await getAccessibleFileOrThrow(fileId, userId);
   if (file.status !== "uploaded") throw Errors.notFound("File");
+  await recordFileView(userId, fileId);
   return presignDownload(file.s3Key, file.originalName, inline);
 }
 
