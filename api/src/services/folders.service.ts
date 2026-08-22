@@ -121,14 +121,17 @@ export async function listFolderContents(ownerId: string, parentId: string) {
     .where(and(eq(folders.ownerId, ownerId), folderParentCondition, isNull(folders.deletedAt)))
     .orderBy(folders.name);
 
-  const fileParentCondition = isRoot ? isNull(files.folderId) : eq(files.folderId, parentId);
+  // Home ("root") surfaces every file the user owns, not just root-level
+  // ones - folders are still root-scoped above so browsing behaves normally,
+  // but the file list underneath is meant to be a global "everything you've
+  // uploaded" view (minus trash).
   const childFiles = await db
     .select()
     .from(files)
     .where(
       and(
         eq(files.ownerId, ownerId),
-        fileParentCondition,
+        ...(isRoot ? [] : [eq(files.folderId, parentId)]),
         eq(files.status, "uploaded"),
         isNull(files.deletedAt),
       ),
