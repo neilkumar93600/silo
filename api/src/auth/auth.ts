@@ -61,6 +61,12 @@ export const auth = betterAuth({
       sameSite: "lax",
       secure: env.NODE_ENV === "production",
     },
+    // Railway sits in front as a single reverse-proxy hop, so the real
+    // client IP is the first entry in X-Forwarded-For — without this,
+    // better-auth can't resolve it and rate-limits all clients as one bucket.
+    ipAddress: {
+      ipAddressHeaders: ["x-forwarded-for"],
+    },
   },
 });
 
