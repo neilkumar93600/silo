@@ -224,12 +224,13 @@ export function FileManager({ query = "", mode = { type: "folder", folderId: "ro
   }, [files, selectedIds])
 
   const handleToggleSelectAll = useCallback(() => {
-    if (!visibleFiles.length) return
-    const allSelected = visibleFiles.every((f) => selectedIds.has(f.id))
+    const selectable = visibleFiles.filter((f) => !f.sharedBy)
+    if (!selectable.length) return
+    const allSelected = selectable.every((f) => selectedIds.has(f.id))
     if (allSelected) {
       setSelectedIds(new Set())
     } else {
-      setSelectedIds(new Set(visibleFiles.map((f) => f.id)))
+      setSelectedIds(new Set(selectable.map((f) => f.id)))
     }
   }, [visibleFiles, selectedIds])
 

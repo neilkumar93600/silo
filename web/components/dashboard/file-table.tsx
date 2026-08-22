@@ -144,8 +144,9 @@ export function FileTable({
   onToggleStar,
   readOnly = false,
 }: FileTableProps) {
-  const allSelected = files.length > 0 && files.every((f) => selectedIds.has(f.id))
-  const someSelected = files.some((f) => selectedIds.has(f.id))
+  const selectableFiles = files.filter((f) => !f.sharedBy)
+  const allSelected = selectableFiles.length > 0 && selectableFiles.every((f) => selectedIds.has(f.id))
+  const someSelected = selectableFiles.some((f) => selectedIds.has(f.id))
 
   return (
     <>
@@ -182,12 +183,18 @@ export function FileTable({
         <TableBody>
           {files.map((file, index) => {
             const isSelected = selectedIds.has(file.id)
+            const isShared = Boolean(file.sharedBy)
+            const rowReadOnly = readOnly || isShared
 
             return (
               <TableRow
                 key={file.id}
                 draggable
                 onDragStart={(e) => {
+                  if (isShared) {
+                    e.preventDefault()
+                    return
+                  }
                   e.dataTransfer.setData("application/silo-file-id", file.id)
                   e.dataTransfer.setData("text/plain", file.id)
                 }}
@@ -197,7 +204,7 @@ export function FileTable({
                 )}
                 style={{ animationDelay: `${Math.min(index, 10) * 30}ms`, animationDuration: "200ms" }}
               >
-                {onToggleSelect && (
+                {onToggleSelect && !isShared && (
                   <TableCell className="w-10 pl-4">
                     <button
                       type="button"
@@ -232,7 +239,7 @@ export function FileTable({
                 <TableCell className="font-mono text-[12px] text-ash-wisp">{formatDate(file.createdAt)}</TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
-                    {readOnly ? (
+                    {rowReadOnly ? (
                       file.visibility === "public" ? (
                         <Badge variant="secondary" className="rounded-full bg-laser-violet/20 border border-laser-violet/40 px-2 py-0.5 text-[10px] font-mono text-laser-violet">
                           Public
@@ -263,7 +270,7 @@ export function FileTable({
                     onShowInfo={onShowInfo}
                     onMove={onMove}
                     onToggleStar={onToggleStar}
-                    readOnly={readOnly}
+                    readOnly={rowReadOnly}
                   />
                 </TableCell>
               </TableRow>
@@ -276,6 +283,8 @@ export function FileTable({
       <div className="flex flex-col divide-y divide-lavender-mist/40 md:hidden">
         {files.map((file, index) => {
           const isSelected = selectedIds.has(file.id)
+          const isShared = Boolean(file.sharedBy)
+          const rowReadOnly = readOnly || isShared
 
           return (
             <div
@@ -286,7 +295,7 @@ export function FileTable({
               )}
               style={{ animationDelay: `${Math.min(index, 10) * 30}ms`, animationDuration: "200ms" }}
             >
-              {onToggleSelect && (
+              {onToggleSelect && !isShared && (
                 <button
                   type="button"
                   onClick={() => onToggleSelect(file.id)}
@@ -310,7 +319,7 @@ export function FileTable({
                   </p>
                 </div>
               </button>
-              {!readOnly && <Switch checked={file.visibility === "public"} onCheckedChange={() => onToggleVisibility(file)} />}
+              {!rowReadOnly && <Switch checked={file.visibility === "public"} onCheckedChange={() => onToggleVisibility(file)} />}
               <RowActions
                 file={file}
                 onDownload={onDownload}
@@ -321,7 +330,7 @@ export function FileTable({
                 onShowInfo={onShowInfo}
                 onMove={onMove}
                 onToggleStar={onToggleStar}
-                readOnly={readOnly}
+                readOnly={rowReadOnly}
               />
             </div>
           )

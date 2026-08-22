@@ -142,6 +142,7 @@ export function FileGrid({
     <div className="grid gap-3" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))" }}>
       {files.map((file, index) => {
         const isSelected = selectedIds.has(file.id)
+        const isShared = Boolean(file.sharedBy)
 
         return (
           <motion.div
@@ -156,6 +157,10 @@ export function FileGrid({
             onMouseEnter={() => onHoverFile?.(file.id)}
             onMouseLeave={() => onHoverFile?.(null)}
             onDragStart={(e) => {
+              if (isShared) {
+                e.preventDefault()
+                return
+              }
               const dragEvent = e as unknown as React.DragEvent
               dragEvent.dataTransfer?.setData("application/silo-file-id", file.id)
               dragEvent.dataTransfer?.setData("text/plain", file.id)
@@ -178,14 +183,14 @@ export function FileGrid({
                 onShowInfo={onShowInfo}
                 onMove={onMove}
                 onToggleStar={onToggleStar}
-                readOnly={readOnly}
+                readOnly={readOnly || isShared}
               />
             </div>
 
             <FileThumbnail
               file={file}
               isSelected={isSelected}
-              onToggleSelect={onToggleSelect ? () => onToggleSelect(file.id) : undefined}
+              onToggleSelect={!isShared && onToggleSelect ? () => onToggleSelect(file.id) : undefined}
               onPreview={() => onPreview(file)}
             />
 
