@@ -112,7 +112,7 @@ function AccountMenu() {
 
 export function DashboardTopbar({ title, children }: { title: React.ReactNode; children?: React.ReactNode }) {
   const { isMobile, toggleCollapsed } = useSidebarLayout()
-  const { open, toggle, status } = useAssistant()
+  const { open, toggle } = useAssistant()
 
   const assistantTrigger = (
     <Button
@@ -129,14 +129,10 @@ export function DashboardTopbar({ title, children }: { title: React.ReactNode; c
       aria-label="Toggle Silvi Assistant"
       aria-expanded={open}
     >
-      <SilviOrb status={status} size={18} showGlow={status !== "idle"} interactive={false} />
+      {/* Always reads as idle/Ready - the header inside the panel is the same,
+          real progress still shows in the panel's own working indicator. */}
+      <SilviOrb status="idle" size={18} showGlow={false} interactive={false} />
       <span className="font-semibold tracking-tight">Ask Silvi</span>
-      {status !== "idle" && (
-        <span className="relative flex size-2">
-          <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#00f575] opacity-75" />
-          <span className="relative inline-flex size-2 rounded-full bg-[#00f575]" />
-        </span>
-      )}
       <Kbd className="hidden md:inline-flex ml-0.5 h-4.5 px-1 text-[10px] bg-white/5 text-[#a5a2a5] border border-white/10">
         ⌘J
       </Kbd>

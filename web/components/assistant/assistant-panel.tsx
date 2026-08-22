@@ -578,14 +578,17 @@ export function AssistantPanel() {
     }
   }, [open, visibleMessages.length, streamingContent, status])
 
-  const statusConfig = STATUS_BADGE[status] ?? STATUS_BADGE.idle
+  // Chat header badge/orb always reads as idle/Ready, regardless of the real
+  // status - the working indicator further down (status={status}) still
+  // shows real progress, this is just the header's resting face.
+  const statusConfig = STATUS_BADGE.idle
 
   const panelContent = (
     <div className="flex h-full w-full flex-col bg-card text-foreground">
       {/* Header */}
       <header className="flex h-14 shrink-0 items-center justify-between border-b border-border px-4 bg-card">
         <div className="flex items-center gap-2.5 min-w-0">
-          <SilviOrb status={status} size={28} showGlow={false} />
+          <SilviOrb status="idle" size={28} showGlow={false} />
           <div className="flex flex-col min-w-0">
             <div className="flex items-center gap-2">
               <span className="text-sm font-semibold tracking-tight text-[#b997ff]">Silvi</span>
