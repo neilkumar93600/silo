@@ -144,16 +144,43 @@ async function runConfirmedTool(call: AssistantToolCall, ownerId: string): Promi
   }
 }
 
+const FALLBACK_MODELS = [
+  ASSISTANT_MODEL,
+  "openrouter/free",
+  "nvidia/nemotron-3-super-120b-a12b:free",
+  "nvidia/nemotron-3.5-lightning:free",
+  "nvidia/nemotron-3-ultra-550b-a55b:free",
+];
+
+async function createStreamWithFallback(
+  messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[],
+) {
+  const models = Array.from(new Set(FALLBACK_MODELS));
+  let lastError: unknown;
+  for (const model of models) {
+    try {
+      const stream = await openrouter.chat.completions.create({
+        model,
+        messages,
+        tools: ASSISTANT_TOOLS,
+        stream: true,
+      });
+      return stream;
+    } catch (err) {
+      lastError = err;
+      console.warn(
+        `[Assistant] Model ${model} failed (${err instanceof Error ? err.message : err}), attempting fallback model...`,
+      );
+    }
+  }
+  throw lastError;
+}
+
 async function* runLoop(conversationId: string, ownerId: string): AsyncGenerator<AssistantEvent> {
   try {
     for (let step = 0; step < MAX_TOOL_STEPS; step++) {
       const history = await buildHistory(conversationId);
-      const stream = await openrouter.chat.completions.create({
-        model: ASSISTANT_MODEL,
-        messages: history,
-        tools: ASSISTANT_TOOLS,
-        stream: true,
-      });
+      const stream = await createStreamWithFallback(history);
 
       let content = "";
       const toolCallAcc: { id?: string; type?: "function"; function: { name: string; arguments: string } }[] = [];
