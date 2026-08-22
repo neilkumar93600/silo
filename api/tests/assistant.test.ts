@@ -22,12 +22,11 @@ vi.mock("../src/lib/s3.js", () => ({
 }));
 
 vi.mock("../src/lib/muapi.js", () => ({
-  muapi: { chat: { completions: { create: vi.fn() } } },
-  ASSISTANT_MODEL: "test-model",
+  streamChat: vi.fn(),
 }));
 
 const { db } = await import("../src/db/index.js");
-const { muapi } = await import("../src/lib/muapi.js");
+const { streamChat } = await import("../src/lib/muapi.js");
 const assistantService = await import("../src/services/assistant.service.js");
 
 const OWNER_ID = "user-owner";
@@ -82,15 +81,12 @@ function chainable(result: unknown) {
   return proxy;
 }
 
-function textChunks(text: string) {
-  return [{ choices: [{ delta: { content: text } }] }];
+async function* textReply(text: string) {
+  yield { content: text };
 }
 
-function toolCallChunks(id: string, name: string, args: string) {
-  return [
-    { choices: [{ delta: { tool_calls: [{ index: 0, id, type: "function", function: { name, arguments: "" } }] } }] },
-    { choices: [{ delta: { tool_calls: [{ index: 0, function: { arguments: args } }] } }] },
-  ];
+async function* toolCallReply(name: string, args: Record<string, unknown>) {
+  yield { content: `<tool_call>${JSON.stringify({ name, arguments: args })}</tool_call>` };
 }
 
 async function collect<T>(gen: AsyncGenerator<T>): Promise<T[]> {
@@ -103,7 +99,7 @@ beforeEach(() => {
   vi.mocked(db.select).mockReset();
   vi.mocked(db.insert).mockReset().mockReturnValue(chainable(undefined));
   vi.mocked(db.update).mockReset().mockReturnValue(chainable(undefined));
-  vi.mocked(muapi.chat.completions.create).mockReset();
+  vi.mocked(streamChat).mockReset();
 });
 
 describe("conversation ownership", () => {
@@ -136,8 +132,8 @@ describe("postMessage", () => {
   it("streams tokens and persists a plain-text reply with no tool calls", async () => {
     vi.mocked(db.select)
       .mockReturnValueOnce(chainable([conversationRow()])) // title-check lookup
-      .mockReturnValueOnce(chainable([])); // buildHistory
-    vi.mocked(muapi.chat.completions.create).mockResolvedValueOnce(textChunks("Sure thing!") as any);
+      .mockReturnValueOnce(chainable([])); // buildPrompt
+    vi.mocked(streamChat).mockReturnValueOnce(textReply("Sure thing!"));
 
     const events = await collect(assistantService.postMessage("conv-1", OWNER_ID, "hi"));
 
@@ -149,11 +145,9 @@ describe("postMessage", () => {
   it("pauses for confirmation instead of executing a destructive tool call", async () => {
     vi.mocked(db.select)
       .mockReturnValueOnce(chainable([conversationRow()])) // title-check lookup
-      .mockReturnValueOnce(chainable([])) // buildHistory
+      .mockReturnValueOnce(chainable([])) // buildPrompt
       .mockReturnValueOnce(chainable([fileRow()])); // file lookup for the confirmation summary
-    vi.mocked(muapi.chat.completions.create).mockResolvedValueOnce(
-      toolCallChunks("call_1", "trash_file", '{"fileId":"file-1"}') as any,
-    );
+    vi.mocked(streamChat).mockReturnValueOnce(toolCallReply("trash_file", { fileId: "file-1" }));
 
     const events = await collect(assistantService.postMessage("conv-1", OWNER_ID, "trash my resume"));
 
@@ -184,8 +178,8 @@ describe("confirmPendingAction", () => {
     vi.mocked(db.select)
       .mockReturnValueOnce(chainable([conversationRow({ pendingToolCalls: [pendingCall] })])) // ownership check
       .mockReturnValueOnce(chainable([fileRow()])) // getOwnedFileOrThrow inside updateFile
-      .mockReturnValueOnce(chainable([])); // buildHistory for the resumed loop
-    vi.mocked(muapi.chat.completions.create).mockResolvedValueOnce(textChunks("Starred it.") as any);
+      .mockReturnValueOnce(chainable([])); // buildPrompt for the resumed loop
+    vi.mocked(streamChat).mockReturnValueOnce(textReply("Starred it."));
 
     const events = await collect(assistantService.confirmPendingAction("conv-1", OWNER_ID, true));
 
@@ -199,8 +193,8 @@ describe("confirmPendingAction", () => {
   it("decline: records the refusal without touching the file, then resumes", async () => {
     vi.mocked(db.select)
       .mockReturnValueOnce(chainable([conversationRow({ pendingToolCalls: [pendingCall] })])) // ownership check
-      .mockReturnValueOnce(chainable([])); // buildHistory for the resumed loop
-    vi.mocked(muapi.chat.completions.create).mockResolvedValueOnce(textChunks("Okay, left it alone.") as any);
+      .mockReturnValueOnce(chainable([])); // buildPrompt for the resumed loop
+    vi.mocked(streamChat).mockReturnValueOnce(textReply("Okay, left it alone."));
 
     const events = await collect(assistantService.confirmPendingAction("conv-1", OWNER_ID, false));
 

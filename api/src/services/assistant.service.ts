@@ -1,37 +1,76 @@
 import { randomUUID } from "node:crypto";
 import { asc, desc, eq } from "drizzle-orm";
-import type OpenAI from "openai";
 import { db } from "../db/index.js";
 import { conversations, messages, type AssistantToolCall } from "../db/schema/assistant.js";
-import { muapi, ASSISTANT_MODEL } from "../lib/muapi.js";
+import { streamChat } from "../lib/muapi.js";
 import { ASSISTANT_TOOLS, requiresConfirmation, executeTool, summarizeToolCall } from "../lib/assistant-tools.js";
 import { Errors } from "../lib/errors.js";
 
 const MAX_TOOL_STEPS = 6;
 
-const SYSTEM_PROMPT = `You are Silvi, the intelligent AI assistant built into Silo, a personal cloud file and folder storage app.
-You help the user find files, organize and manage folders (create folders, rename, move, trash, restore), inspect storage usage and breakdown (total used, largest files, media types), and perform file actions (move, rename, star/unstar, trash, restore from trash, get share link, share by email, and set visibility).
+// MuAPI's kimi-k3 endpoint takes a single prompt + system_prompt (no
+// messages array, no native tool-calling - verified against its OpenAPI
+// spec). Tool definitions are rendered into the system prompt instead, and
+// the model is instructed to request a call via a <tool_call> block that we
+// parse out of the plain-text reply ourselves.
+function formatToolCatalog(): string {
+  return ASSISTANT_TOOLS.map((t) => {
+    const { name, description, parameters } = t.function;
+    const props = (parameters as { properties?: Record<string, { type?: string | string[]; enum?: string[] }> })
+      .properties ?? {};
+    const required = (parameters as { required?: string[] }).required ?? [];
+    const args = Object.entries(props)
+      .map(([key, schema]) => {
+        const type = schema.enum
+          ? schema.enum.map((v) => JSON.stringify(v)).join("|")
+          : Array.isArray(schema.type)
+            ? schema.type.join("|")
+            : schema.type;
+        return `${key}${required.includes(key) ? "" : "?"}: ${type}`;
+      })
+      .join(", ");
+    return `- ${name}(${args}) - ${description}`;
+  }).join("\n");
+}
 
-Key tools and behaviors:
-- When the user asks about storage space, quota, disk usage, large files, or storage breakdown, ALWAYS call the "get_storage_usage" tool first.
-- When the user wants to see their folders or directory structure, call "list_folders".
-- When creating a folder, call "create_folder". If a parent folder was specified by name, call "list_folders" first to find its ID.
-- When renaming a folder, call "rename_folder".
-- When moving a folder, call "move_folder".
-- When trashing a folder, call "trash_folder".
-- When searching or finding files, use "search_files". Prefer searching before acting so you act on the right file. When multiple files could match a description, list them and ask which one instead of guessing.
+const TOOL_CATALOG = formatToolCatalog();
 
-trash_file, trash_folder, share_file, and set_visibility(public) are sensitive: the app pauses and shows the user a confirm/cancel prompt automatically before they run. So when the user asks for one of these, just call the tool right away - do not ask "are you sure?" in words yourself first.
+const SYSTEM_PROMPT = `You are Silvi, the AI assistant built into Silo, a personal cloud file and folder storage app. You find files, manage folders, report storage usage, and act on files/folders for the user. You have no capabilities outside the tools below - don't answer unrelated questions as if you did.
 
-After a tool call, base your reply strictly on that tool's actual result content - never assume a call succeeded. If the result says "The user declined this action", the action was NOT performed: say plainly that you did not do it. If a result starts with "Error:", report the error.
+## Tools
+${TOOL_CATALOG}
 
-Format replies nicely with markdown: bold headings, clean bullet points, or lists where helpful. Keep responses clear, helpful, and concise.`;
+Discovery tools (get_storage_usage, list_folders, search_files) resolve names to ids - call one whenever the user names a file or folder by name instead of id. Always search_files before acting on a file named in words; if more than one result could match, list the candidates and ask which one instead of guessing an id.
+
+Known limitation: search_files and list_folders only return items that are NOT in trash, so there is no tool to look up the id of a trashed file or folder. If the user asks to restore something and you don't already have its id from earlier in this conversation, say you can't currently browse trash to find it - never invent an id.
+
+## Sharing a file
+- Share with a specific person -> share_file (their email).
+- Share a public link -> set_visibility(fileId, "public") first if the file isn't already public, then get_share_link. get_share_link returns a link even for a private file, but that link won't work for anyone else until the file is public.
+
+## Calling a tool
+To call a tool, respond with ONLY one or more blocks of this exact form and nothing else - no other text before, between, or after:
+<tool_call>{"name": "<tool name>", "arguments": {<json arguments>}}</tool_call>
+
+Never invent a tool name or argument not listed above. Arguments must be valid JSON matching the tool's parameters. If you are not calling a tool, respond normally in plain text and never include a <tool_call> block.
+
+## Confirmation
+trash_file, trash_folder, share_file, and set_visibility(public) are sensitive: the app automatically pauses and shows the user its own confirm/cancel prompt before running them. When the user asks for one of these, call the tool right away - don't ask "are you sure?" in words yourself first.
+
+## After a tool result
+You'll see prior tool calls and their results in the conversation transcript below. Base your reply strictly on a tool's actual result content - never assume it succeeded. "The user declined this action" means it did NOT happen: say so plainly. A result starting with "Error:" means report that error, don't retry silently or claim success.
+
+## Format
+Markdown: bold headings, clean bullets/lists where they help. Keep replies clear, helpful, and concise.`;
 
 export type ConversationRow = typeof conversations.$inferSelect;
 export type MessageRow = typeof messages.$inferSelect;
 
 export type AssistantEvent =
   | { type: "token"; data: string }
+  // No-op ping so the client (and any proxy in between) sees the connection
+  // is alive during kimi-k3's long reasoning phase, before real content exists.
+  | { type: "heartbeat"; data?: undefined }
   | { type: "pending_confirmation"; data: { summary: string; calls: AssistantToolCall[] } }
   | { type: "done"; data?: undefined }
   | { type: "error"; data: string };
@@ -144,71 +183,58 @@ async function runConfirmedTool(call: AssistantToolCall, ownerId: string): Promi
   }
 }
 
-const FALLBACK_MODELS = [
-  ASSISTANT_MODEL,
-  "kimi-k3",
-  "gemini-2.0-flash",
-  "gemini-2.5-flash",
-  "gpt-4o-mini",
-];
+const TOOL_CALL_RE = /<tool_call>\s*([\s\S]*?)\s*<\/tool_call>/g;
 
-async function createStreamWithFallback(
-  messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[],
-) {
-  const models = Array.from(new Set(FALLBACK_MODELS));
-  let lastError: unknown;
-  for (const model of models) {
+// The model must reply with either plain text or one-or-more <tool_call>
+// blocks and nothing else (see SYSTEM_PROMPT) - there's no native
+// tool-calling API on MuAPI to enforce that for us.
+function parseModelReply(raw: string): { content: string | null; toolCalls: AssistantToolCall[] } {
+  const toolCalls: AssistantToolCall[] = [];
+  let match: RegExpExecArray | null;
+  TOOL_CALL_RE.lastIndex = 0;
+  while ((match = TOOL_CALL_RE.exec(raw))) {
+    const body = match[1]!
+      .replace(/^```(?:json)?/i, "")
+      .replace(/```$/, "")
+      .trim();
     try {
-      const stream = await muapi.chat.completions.create({
-        model,
-        messages,
-        tools: ASSISTANT_TOOLS,
-        stream: true,
-      });
-      return stream;
-    } catch (err) {
-      lastError = err;
-      console.warn(
-        `[Assistant] Model ${model} failed (${err instanceof Error ? err.message : err}), attempting fallback model...`,
-      );
+      const parsed = JSON.parse(body);
+      if (parsed && typeof parsed.name === "string") {
+        toolCalls.push({
+          id: randomUUID(),
+          type: "function",
+          function: { name: parsed.name, arguments: JSON.stringify(parsed.arguments ?? {}) },
+        });
+      }
+    } catch {
+      // Model emitted malformed tool_call JSON - drop it rather than crash the turn.
     }
   }
-  throw lastError;
+  const remaining = raw.replace(TOOL_CALL_RE, "").trim();
+  return { content: remaining.length > 0 ? remaining : null, toolCalls };
 }
 
 async function* runLoop(conversationId: string, ownerId: string): AsyncGenerator<AssistantEvent> {
   try {
     for (let step = 0; step < MAX_TOOL_STEPS; step++) {
-      const history = await buildHistory(conversationId);
-      const stream = await createStreamWithFallback(history);
-
-      let content = "";
-      const toolCallAcc: { id?: string; type?: "function"; function: { name: string; arguments: string } }[] = [];
-
-      for await (const chunk of stream) {
-        const delta = chunk.choices[0]?.delta;
-        if (delta?.content) {
-          content += delta.content;
-          yield { type: "token", data: delta.content };
-        }
-        for (const tcDelta of delta?.tool_calls ?? []) {
-          const idx = tcDelta.index;
-          if (!toolCallAcc[idx]) toolCallAcc[idx] = { function: { name: "", arguments: "" } };
-          if (tcDelta.id) toolCallAcc[idx]!.id = tcDelta.id;
-          if (tcDelta.type === "function") toolCallAcc[idx]!.type = tcDelta.type;
-          if (tcDelta.function?.name) toolCallAcc[idx]!.function.name += tcDelta.function.name;
-          if (tcDelta.function?.arguments) toolCallAcc[idx]!.function.arguments += tcDelta.function.arguments;
-        }
+      const prompt = await buildPrompt(conversationId);
+      let raw = "";
+      for await (const chunk of streamChat({ prompt, systemPrompt: SYSTEM_PROMPT })) {
+        if (chunk.content) raw += chunk.content;
+        else yield { type: "heartbeat" };
       }
-
-      const toolCalls = toolCallAcc.filter((c): c is AssistantToolCall => Boolean(c?.id)) as AssistantToolCall[];
+      const { content, toolCalls } = parseModelReply(raw);
 
       if (toolCalls.length === 0) {
+        // ponytail: no incremental streaming from MuAPI's response shape here (we
+        // must buffer the full reply to find/strip <tool_call> blocks first), so
+        // this arrives as one token event instead of a live typewriter effect.
+        if (content) yield { type: "token", data: content };
         await db.insert(messages).values({
           id: randomUUID(),
           conversationId,
           role: "assistant",
-          content: content || null,
+          content: content ?? null,
         });
         yield { type: "done" };
         return;
@@ -219,7 +245,7 @@ async function* runLoop(conversationId: string, ownerId: string): AsyncGenerator
         id: assistantMessageId,
         conversationId,
         role: "assistant",
-        content: content || null,
+        content,
         toolCalls,
       });
 
@@ -264,28 +290,26 @@ async function* runLoop(conversationId: string, ownerId: string): AsyncGenerator
   }
 }
 
-async function buildHistory(conversationId: string): Promise<OpenAI.Chat.Completions.ChatCompletionMessageParam[]> {
+async function buildPrompt(conversationId: string): Promise<string> {
   const rows = await db
     .select()
     .from(messages)
     .where(eq(messages.conversationId, conversationId))
     .orderBy(asc(messages.createdAt));
 
-  const history: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [{ role: "system", content: SYSTEM_PROMPT }];
-
+  const lines: string[] = [];
   for (const row of rows) {
-    if (row.role === "tool") {
-      history.push({ role: "tool", tool_call_id: row.toolCallId!, content: row.content ?? "" });
+    if (row.role === "user") {
+      lines.push(`User: ${row.content ?? ""}`);
     } else if (row.role === "assistant") {
-      history.push({
-        role: "assistant",
-        content: row.content,
-        ...(row.toolCalls && row.toolCalls.length > 0 ? { tool_calls: row.toolCalls } : {}),
-      });
+      for (const call of row.toolCalls ?? []) {
+        lines.push(`Assistant called ${call.function.name} with arguments ${call.function.arguments}`);
+      }
+      if (row.content) lines.push(`Assistant: ${row.content}`);
     } else {
-      history.push({ role: "user", content: row.content ?? "" });
+      lines.push(`Tool result (${row.toolName}): ${row.content ?? ""}`);
     }
   }
 
-  return history;
+  return lines.join("\n");
 }

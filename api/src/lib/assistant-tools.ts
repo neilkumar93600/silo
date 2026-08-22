@@ -1,11 +1,25 @@
-import type OpenAI from "openai";
 import { env } from "../env.js";
 import { Errors } from "./errors.js";
 import * as filesService from "../services/files.service.js";
 import * as foldersService from "../services/folders.service.js";
 import * as sharesService from "../services/shares.service.js";
 
-export const ASSISTANT_TOOLS: OpenAI.Chat.Completions.ChatCompletionTool[] = [
+export interface AssistantToolDef {
+  type: "function";
+  function: {
+    name: string;
+    description: string;
+    parameters: {
+      type: "object";
+      properties: Record<string, { type?: string | string[]; enum?: string[]; description?: string }>;
+      required?: string[];
+    };
+  };
+}
+
+// Rendered into the system prompt for the model to read (MuAPI has no
+// native tool-calling API to pass these to) - see assistant.service.ts.
+export const ASSISTANT_TOOLS: AssistantToolDef[] = [
   {
     type: "function",
     function: {
