@@ -11,6 +11,7 @@ import { trashRouter } from "./routes/trash.js";
 import { starredRouter } from "./routes/starred.js";
 import { sharedRouter } from "./routes/shared.js";
 import { shareRouter } from "./routes/share.js";
+import { homeRouter } from "./routes/home.js";
 import { assistantRouter } from "./routes/assistant.js";
 import { notificationsRouter } from "./routes/notifications.js";
 import { notificationPreferencesRouter } from "./routes/notification-preferences.js";
@@ -45,6 +46,7 @@ export function createApp() {
   app.use("/api/trash", trashRouter);
   app.use("/api/starred", starredRouter);
   app.use("/api/shared-with-me", sharedRouter);
+  app.use("/api/home", homeRouter);
   app.use("/api/share", shareRouter);
   app.use("/api/assistant", assistantRouter);
   app.use("/api/notifications", notificationsRouter);
