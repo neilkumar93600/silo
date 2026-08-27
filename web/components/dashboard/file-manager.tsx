@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react"
 import { toast } from "sonner"
-import { FolderIcon, LayoutGridIcon, ListIcon } from "lucide-react"
+import { LayoutGridIcon, ListIcon } from "lucide-react"
 
 import {
   listFiles,
@@ -32,6 +32,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { useDrive, useFolderSync } from "@/components/layout/drive-context"
 import { FolderBreadcrumb } from "@/components/dashboard/folder-breadcrumb"
 import { FolderGrid, FolderGlyph } from "@/components/dashboard/folder-grid"
+import FolderComponent from "@/components/ui/folder-component"
 import { FileGrid } from "@/components/dashboard/file-grid"
 import { FileTable } from "@/components/dashboard/file-table"
 import { FilePreviewDialog } from "@/components/dashboard/file-preview-dialog"
@@ -489,9 +490,9 @@ export function FileManager({ query = "", mode = { type: "folder", folderId: "ro
             </div>
           ) : isEmpty ? (
             isRootHero ? (
-              <div className="animate-fade-in-scale flex flex-col items-center gap-4 py-16 text-center">
-                <div className="glow-ambient flex size-16 items-center justify-center rounded-full border border-lavender-mist bg-void-plum text-laser-violet">
-                  <FolderIcon className="size-7" />
+              <div className="animate-fade-in-scale flex flex-col items-center gap-2 py-12 text-center">
+                <div className="h-44 w-56">
+                  <FolderComponent color="brand" size="sm" />
                 </div>
                 <h2 className="text-lg font-semibold tracking-[-0.02em] text-paper-white">Welcome to Silo</h2>
                 <p className="max-w-sm font-mono text-[11px] text-ash-wisp">

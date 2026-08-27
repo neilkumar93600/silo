@@ -11,8 +11,8 @@ import {
 import { motion, AnimatePresence } from "motion/react"
 import { toast } from "sonner"
 
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { NotificationBell } from "@/components/ui/notification-bell"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   DropdownMenu,
@@ -132,22 +132,16 @@ export function NotificationCenter() {
   const filtered = (notifications ?? []).filter((n) => (filter === "unread" ? !n.read : true))
 
   const trigger = (
-    <Button
-      variant="outline"
-      size="icon-sm"
+    <NotificationBell
+      count={unreadCount}
+      size={36}
+      color="violet"
       aria-label="Open notifications"
       className={cn(
-        "relative size-9 rounded-lg border border-border bg-card text-foreground hover:bg-muted/60 transition-all",
+        "hover:bg-muted/60 transition-all",
         open && "border-primary/30 bg-accent text-primary"
       )}
-    >
-      <BellIcon className="size-4" />
-      {unreadCount > 0 && (
-        <span className="absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-chart-2 text-[9px] font-bold text-white shadow-xs animate-in zoom-in-50 duration-200">
-          {unreadCount}
-        </span>
-      )}
-    </Button>
+    />
   )
 
   return (
