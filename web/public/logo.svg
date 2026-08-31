@@ -2,41 +2,39 @@
   <defs>
     <!-- Background Gradient -->
     <linearGradient id="sqBgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#18181b" />
-      <stop offset="100%" stop-color="#0f0f11" />
+      <stop offset="0%" stop-color="#19191d" />
+      <stop offset="100%" stop-color="#0e0e11" />
     </linearGradient>
 
-    <!-- Squircle Subtle Rim Light -->
+    <!-- Squircle Border Rim -->
     <linearGradient id="sqBorderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12" />
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0.02" />
     </linearGradient>
 
-    <!-- LEFT LOBE: Rich Purple to Hot Magenta Gradient -->
-    <linearGradient id="leftLobeGrad" x1="20%" y1="10%" x2="80%" y2="90%">
-      <stop offset="0%" stop-color="#7c3aed" />
-      <stop offset="25%" stop-color="#9333ea" />
-      <stop offset="50%" stop-color="#c026d3" />
-      <stop offset="80%" stop-color="#e11d48" />
+    <!-- LEFT LOBE: Large, High Purple-Magenta Cloud Puff -->
+    <linearGradient id="leftLobeGrad" x1="15%" y1="10%" x2="85%" y2="90%">
+      <stop offset="0%" stop-color="#7033ea" />
+      <stop offset="30%" stop-color="#9333ea" />
+      <stop offset="60%" stop-color="#c026d3" />
+      <stop offset="85%" stop-color="#e11d48" />
       <stop offset="100%" stop-color="#f43f5e" />
     </linearGradient>
 
-    <!-- Left Lobe Volumetric Radial Glow -->
-    <radialGradient id="leftLobeRadial" cx="38%" cy="50%" r="58%">
-      <stop offset="0%" stop-color="#f472b6" stop-opacity="0.9" />
+    <radialGradient id="leftLobeRadial" cx="35%" cy="52%" r="55%">
+      <stop offset="0%" stop-color="#f472b6" stop-opacity="0.95" />
       <stop offset="45%" stop-color="#d946ef" stop-opacity="0.8" />
-      <stop offset="80%" stop-color="#a21caf" stop-opacity="0.2" />
+      <stop offset="75%" stop-color="#a21caf" stop-opacity="0.2" />
       <stop offset="100%" stop-color="#581c87" stop-opacity="0" />
     </radialGradient>
 
-    <!-- Left Lobe Glowing Rim Highlight -->
     <linearGradient id="leftRimStroke" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#f472b6" stop-opacity="0.95" />
-      <stop offset="50%" stop-color="#ec4899" stop-opacity="0.6" />
+      <stop offset="40%" stop-color="#ec4899" stop-opacity="0.7" />
       <stop offset="100%" stop-color="#fda4af" stop-opacity="0.95" />
     </linearGradient>
 
-    <!-- RIGHT LOBE: Vibrant Cyan to Mint/Emerald Gradient -->
+    <!-- RIGHT LOBE: Smaller, Lower Cyan-Mint Capsule -->
     <linearGradient id="rightLobeGrad" x1="15%" y1="15%" x2="90%" y2="90%">
       <stop offset="0%" stop-color="#0284c7" />
       <stop offset="25%" stop-color="#06b6d4" />
@@ -45,83 +43,92 @@
       <stop offset="100%" stop-color="#34d399" />
     </linearGradient>
 
-    <!-- Right Lobe Volumetric Radial Glow -->
-    <radialGradient id="rightLobeRadial" cx="62%" cy="50%" r="58%">
-      <stop offset="0%" stop-color="#67e8f9" stop-opacity="0.9" />
+    <radialGradient id="rightLobeRadial" cx="72%" cy="60%" r="50%">
+      <stop offset="0%" stop-color="#67e8f9" stop-opacity="0.95" />
       <stop offset="45%" stop-color="#2dd4bf" stop-opacity="0.8" />
-      <stop offset="80%" stop-color="#0d9488" stop-opacity="0.2" />
+      <stop offset="75%" stop-color="#0d9488" stop-opacity="0.2" />
       <stop offset="100%" stop-color="#064e3b" stop-opacity="0" />
     </radialGradient>
 
-    <!-- Right Lobe Glowing Rim Highlight -->
     <linearGradient id="rightRimStroke" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#67e8f9" stop-opacity="0.95" />
-      <stop offset="50%" stop-color="#2dd4bf" stop-opacity="0.6" />
+      <stop offset="50%" stop-color="#2dd4bf" stop-opacity="0.7" />
       <stop offset="100%" stop-color="#a7f3d0" stop-opacity="0.95" />
     </linearGradient>
 
-    <!-- FROSTED GLASS PIN: Volumetric Silvery Glass Gradient -->
+    <!-- FROSTED GLASS PIN -->
     <linearGradient id="pinFrostedGlass" x1="50%" y1="0%" x2="50%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98" />
-      <stop offset="20%" stop-color="#e8ecf1" stop-opacity="0.94" />
-      <stop offset="45%" stop-color="#cbd5e1" stop-opacity="0.85" />
-      <stop offset="70%" stop-color="#94a3b8" stop-opacity="0.55" />
-      <stop offset="92%" stop-color="#cbd5e1" stop-opacity="0.7" />
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.9" />
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.99" />
+      <stop offset="22%" stop-color="#eaedf2" stop-opacity="0.96" />
+      <stop offset="50%" stop-color="#cbd5e1" stop-opacity="0.88" />
+      <stop offset="72%" stop-color="#94a3b8" stop-opacity="0.65" />
+      <stop offset="90%" stop-color="#cbd5e1" stop-opacity="0.78" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.92" />
     </linearGradient>
 
-    <!-- Pin Top Specular Dome Highlight -->
-    <radialGradient id="pinSpecularDome" cx="50%" cy="26%" r="48%">
+    <!-- Specular Dome -->
+    <radialGradient id="pinSpecularDome" cx="50%" cy="24%" r="48%">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
-      <stop offset="45%" stop-color="#ffffff" stop-opacity="0.3" />
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0.35" />
       <stop offset="85%" stop-color="#ffffff" stop-opacity="0" />
     </radialGradient>
 
-    <!-- Pin Fine Specular Edge Border -->
+    <!-- Pin Edge Rim -->
     <linearGradient id="pinEdgeStroke" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
-      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.35" />
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.4" />
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0.9" />
     </linearGradient>
 
-    <!-- Soft Ambient Drop Shadow -->
+    <!-- Drop Shadow -->
     <filter id="masterDropShadow" x="-15%" y="-15%" width="130%" height="130%">
-      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#000000" flood-opacity="0.65" />
+      <feDropShadow dx="0" dy="20" stdDeviation="26" flood-color="#000000" flood-opacity="0.65" />
     </filter>
+
+    <clipPath id="pinClip">
+      <path
+        d="M 552 778
+           C 490 706 332 525 332 388
+           C 332 270 430 198 552 198
+           C 674 198 772 270 772 388
+           C 772 525 614 706 552 778
+           Z"
+      />
+    </clipPath>
   </defs>
 
   
 
-  <!-- Master Cloud-Pin Mark -->
+  <!-- Master Asymmetrical Cloud-Pin Mark -->
   <g id="silo-brand-mark" filter="url(#masterDropShadow)">
-    <!-- LEFT LOBE (Purple / Magenta / Fuchsia Capsule) -->
+    <!-- LEFT LOBE: BIGGER & TALLER PUFF -->
     <g id="left-lobe">
       <path
-        d="M 512 778 
-           L 305 778 
-           C 190 778 120 682 120 560 
-           C 120 438 212 372 328 372 
-           C 400 372 462 408 498 468 
-           L 512 505 
+        d="M 552 778
+           L 305 778
+           C 185 778 130 686 130 568
+           C 130 435 220 388 335 388
+           C 415 388 478 430 520 495
+           L 552 538
            Z"
         fill="url(#leftLobeGrad)"
       />
       <path
-        d="M 512 778 
-           L 305 778 
-           C 190 778 120 682 120 560 
-           C 120 438 212 372 328 372 
-           C 400 372 462 408 498 468 
-           L 512 505 
+        d="M 552 778
+           L 305 778
+           C 185 778 130 686 130 568
+           C 130 435 220 388 335 388
+           C 415 388 478 430 520 495
+           L 552 538
            Z"
         fill="url(#leftLobeRadial)"
       />
       <path
-        d="M 512 778 
-           L 305 778 
-           C 190 778 120 682 120 560 
-           C 120 438 212 372 328 372 
-           C 400 372 462 408 498 468"
+        d="M 552 778
+           L 305 778
+           C 185 778 130 686 130 568
+           C 130 435 220 388 335 388
+           C 415 388 478 430 520 495"
         fill="none"
         stroke="url(#leftRimStroke)"
         stroke-width="4.5"
@@ -129,34 +136,34 @@
       />
     </g>
 
-    <!-- RIGHT LOBE (Cyan / Teal / Emerald Capsule) -->
+    <!-- RIGHT LOBE: SMALLER & LOWER CAPSULE -->
     <g id="right-lobe">
       <path
-        d="M 512 778 
-           L 719 778 
-           C 834 778 904 682 904 560 
-           C 904 438 812 372 696 372 
-           C 624 372 562 408 526 468 
-           L 512 505 
+        d="M 552 778
+           L 735 778
+           C 830 778 872 705 872 612
+           C 872 522 815 492 730 492
+           C 660 492 602 532 570 580
+           L 552 612
            Z"
         fill="url(#rightLobeGrad)"
       />
       <path
-        d="M 512 778 
-           L 719 778 
-           C 834 778 904 682 904 560 
-           C 904 438 812 372 696 372 
-           C 624 372 562 408 526 468 
-           L 512 505 
+        d="M 552 778
+           L 735 778
+           C 830 778 872 705 872 612
+           C 872 522 815 492 730 492
+           C 660 492 602 532 570 580
+           L 552 612
            Z"
         fill="url(#rightLobeRadial)"
       />
       <path
-        d="M 512 778 
-           L 719 778 
-           C 834 778 904 682 904 560 
-           C 904 438 812 372 696 372 
-           C 624 372 562 408 526 468"
+        d="M 552 778
+           L 735 778
+           C 830 778 872 705 872 612
+           C 872 522 815 492 730 492
+           C 660 492 602 532 570 580"
         fill="none"
         stroke="url(#rightRimStroke)"
         stroke-width="4.5"
@@ -164,14 +171,14 @@
       />
     </g>
 
-    <!-- FROSTED GLASS PIN TEARDROP (Center Overlay) -->
+    <!-- FROSTED GLASS PIN TEARDROP -->
     <g id="frosted-glass-pin">
       <path
-        d="M 512 778
-           C 460 706 322 530 322 388
-           C 322 278 406 188 512 188
-           C 618 188 702 278 702 388
-           C 702 530 564 706 512 778
+        d="M 552 778
+           C 490 706 332 525 332 388
+           C 332 270 430 198 552 198
+           C 674 198 772 270 772 388
+           C 772 525 614 706 552 778
            Z"
         fill="url(#pinFrostedGlass)"
         stroke="url(#pinEdgeStroke)"
@@ -179,31 +186,19 @@
       />
 
       <path
-        d="M 512 778
-           C 460 706 322 530 322 388
-           C 322 278 406 188 512 188
-           C 618 188 702 278 702 388
-           C 702 530 564 706 512 778
+        d="M 552 778
+           C 490 706 332 525 332 388
+           C 332 270 430 198 552 198
+           C 674 198 772 270 772 388
+           C 772 525 614 706 552 778
            Z"
         fill="url(#pinSpecularDome)"
       />
 
-      <path
-        d="M 512 778
-           C 485 738 410 636 390 560
-           C 425 615 470 690 512 778
-           Z"
-        fill="url(#leftLobeGrad)"
-        opacity="0.38"
-      />
-      <path
-        d="M 512 778
-           C 539 738 614 636 634 560
-           C 599 615 554 690 512 778
-           Z"
-        fill="url(#rightLobeGrad)"
-        opacity="0.38"
-      />
+      <g clip-path="url(#pinClip)">
+        <circle cx="430" cy="620" r="180" fill="url(#leftLobeRadial)" opacity="0.45" />
+        <circle cx="680" cy="640" r="160" fill="url(#rightLobeRadial)" opacity="0.45" />
+      </g>
     </g>
   </g>
 </svg>

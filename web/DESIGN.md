@@ -1,55 +1,60 @@
-# Doppler — Style Reference
+# Getharvest — Style Reference
+> Golden hour workbench — warm cream canvas, white floating cards, and one vivid orange flame.
 
-> violet-lit vault at midnight. A near-black canvas glows with a single lavender signal and a green confirmation light, every surface rounded just enough to feel handled.
+**Theme:** light
 
-**Theme:** dark
-
-Doppler operates as a dark-mode security console: a near-black violet-tinted canvas (#1c1624) with whisper-thin light borders, one vivid green that signals 'go', and one lavender violet that carries brand voice in headlines and highlights. The interface feels like a vault UI — dense product surfaces, glass-blur header, 20px rounded cards floating on a midnight field. Typography is a single custom geometric sans (Doppler Repro) that tightens aggressively at large sizes (-0.02em) for a compressed, engineered feel. Color is rationed: green appears only where action is requested, violet only where brand voice is needed, everything else is monochrome. The hero headline uses a multi-stop violet gradient to create a single moment of chromatic warmth before the page settles back into its dark security posture.
+Harvest uses a sunlit productivity-workspace language: warm cream canvas (#fff8f1) replaces the typical SaaS white, giving every screen a golden-hour warmth, while white cards and panels float above that base for product surfaces. One vivid orange (#fa5d00) carries all the energy — every CTA, link, icon accent, and brand border — making it the only chromatic decision in an otherwise achromatic system of warm grays. Typography is confident and editorial: a geometric sans (MuotoWeb) for everything functional, with a serif display face (Monarch) reserved for hero-grade emotional moments. Components are soft and tactile: 16–20px radii, low warm-tinted shadows, generous breathing room, and decorative orange wash gradients that suggest movement without ever competing with content.
 
 ## Tokens — Colors
 
 | Name | Value | Token | Role |
 |------|-------|-------|------|
-| Midnight Plum | `#1c1624` | `--color-midnight-plum` | Page canvas, primary dark surface — the near-black with a violet undertone that gives the UI its cool, secure temperature |
-| Shadow Plum | `#2d2734` | `--color-shadow-plum` | Elevated card surface, input fields, nested panels — one step lighter than canvas to suggest depth without a shadow |
-| Bone White | `#f1f0ec` | `--color-bone-white` | Primary text, icon strokes, button labels on dark — warm off-white avoids the sterile feel of pure white against violet-black |
-| Fog Line | `#e5e7eb` | `--color-fog-line` | Hairline borders, dividers, card outlines — the most-used neutral in the system, defining every container edge |
-| Ash Veil | `#d0c9c4` | `--color-ash-veil` | Muted secondary text, disabled labels, ghost button text — sits between white and mid-gray for tertiary hierarchy |
-| Mid Ash | `#a5a2a5` | `--color-mid-ash` | Muted helper text, placeholder copy, secondary metadata — low-priority text that recedes |
-| Iron Edge | `#55505b` | `--color-iron-edge` | Subtle dividers, input borders in resting state — barely visible structural lines |
-| Lavender Spark | `#b997ff` | `--color-lavender-spark` | Violet supporting accent for decorative details and low-frequency emphasis. Do not promote it to the primary CTA color |
-| Signal Green | `#00f575` | `--color-signal-green` | Green supporting accent for decorative details and low-frequency emphasis |
-| Neon Violet | `#6b13f5` | `--color-neon-violet` | Radial gradient anchor, deep brand violet used in decorative aurora effects behind hero text |
-| Ember Orange | `#ff5632` | `--color-ember-orange` | Terminal color in the violet-to-orange hero gradient — adds warmth to the cool palette at the gradient terminus |
-| Plasma Pink | `#ff9efa` | `--color-plasma-pink` | Radial gradient origin point — the pink hotspot in the aurora glow behind the hero |
+| Harvest Flame | `#fa5d00` | `--color-harvest-flame` | Primary CTA fill, active nav indicator, brand link color, heading underlines — warm vermilion that reads as energetic but not aggressive, the single chromatic decision in an otherwise achromatic system |
+| Marigold Glow | `#fee3b5` | `--color-marigold-glow` | Soft warm highlight wash on cards, decorative glow tint behind product UI — never functional, only atmospheric |
+| Parchment Shadow | `#e3d6c5` | `--color-parchment-shadow` | Warm-tinted card shadow color, subtle image shadow — the shadow hue is not neutral gray but matches the cream base |
+| Ink Black | `#1d1e1c` | `--color-ink-black` | Primary text, icon strokes, nav borders, card headings — warm near-black rather than pure #000, preserves the system warmth |
+| Paper White | `#ffffff` | `--color-paper-white` | Card surfaces, input fields, elevated panels, button text on orange fill |
+| Cream Canvas | `#fff8f1` | `--color-cream-canvas` | Page background, hero section base, nav backdrop — the signature warm cream that replaces standard SaaS white |
+| Mist Gray | `#d9d9d9` | `--color-mist-gray` | Hairline dividers, subtle borders on neutral surfaces |
+| Warm Stone | `#615f5c` | `--color-warm-stone` | Secondary body text, list items, muted icon strokes |
+| Driftwood | `#8e8b87` | `--color-driftwood` | Tertiary body text, decorative strokes, subtle metadata |
+| Ironwood | `#4a4a47` | `--color-ironwood` | Strong secondary text, emphasized muted labels |
+| Ash | `#777571` | `--color-ash` | Helper text, placeholder-adjacent copy, low-priority borders |
+| Bone | `#c0bbb6` | `--color-bone` | Input borders, form field outlines at rest |
+| Smoke | `#a5a19c` | `--color-smoke` | Disabled text, decorative borders, very low-priority separators |
+| Graphite | `#999999` | `--color-graphite` | List borders, tertiary structural lines |
 
 ## Tokens — Typography
 
-### Doppler Repro — Single-family system — custom geometric sans handling everything from 12px captions to 96px displays. Weight 450 is the signature workhorse (slightly heavier than 400 but lighter than 500), giving text a distinctive medium-confident feel. At 64px+ sizes, letter-spacing tightens to -0.02em for compressed, engineered headlines; at 12px it opens to 0.03em for readable small text. Replaces the visual job that a secondary serif or monospace would do on other sites — consistency over contrast. · `--font-doppler-repro`
-- **Substitute:** Inter or Geist — geometric sans-serifs with similar weight range and tight tracking behavior
-- **Weights:** 400, 450, 500, 700
-- **Sizes:** 12, 14, 15, 16, 18, 24, 32, 48, 64, 96
-- **Line height:** 1.00, 1.05, 1.15, 1.20, 1.40, 1.50
-- **Letter spacing:** -0.0200em, -0.0100em, 0.0100em, 0.0300em
-- **Role:** Single-family system — custom geometric sans handling everything from 12px captions to 96px displays. Weight 450 is the signature workhorse (slightly heavier than 400 but lighter than 500), giving text a distinctive medium-confident feel. At 64px+ sizes, letter-spacing tightens to -0.02em for compressed, engineered headlines; at 12px it opens to 0.03em for readable small text. Replaces the visual job that a secondary serif or monospace would do on other sites — consistency over contrast.
+### MuotoWeb — Primary UI and body typeface — geometric sans covering navigation, buttons, body copy, subheadings, and most headings up to 50px. Custom-drawn letterforms give it warmth that generic Inter or Helvetica cannot: slightly humanist terminals and open apertures that read friendly rather than cold. · `--font-muotoweb`
+- **Substitute:** Inter or Sohne
+- **Weights:** 400, 500, 600, 700
+- **Sizes:** 13, 14, 16, 17, 18, 20, 22, 24, 25, 26, 28, 34, 48, 50
+- **Line height:** 1.15–1.50
+- **Letter spacing:** 0.015em
+- **OpenType features:** `"ss01" on, "cv11" on`
+- **Role:** Primary UI and body typeface — geometric sans covering navigation, buttons, body copy, subheadings, and most headings up to 50px. Custom-drawn letterforms give it warmth that generic Inter or Helvetica cannot: slightly humanist terminals and open apertures that read friendly rather than cold.
+
+### Monarch — Hero display serif — used only for the largest emotional headline (72px) where editorial weight is needed. The serif is the signature contrast against MuotoWeb's sans body: the page whispers functional in sans, then ROARS one moment in serif. Reserve for hero/page-title moments only. · `--font-monarch`
+- **Substitute:** GT Super or Tiempos Headline
+- **Weights:** 400
+- **Sizes:** 72
+- **Line height:** 1.20
+- **Role:** Hero display serif — used only for the largest emotional headline (72px) where editorial weight is needed. The serif is the signature contrast against MuotoWeb's sans body: the page whispers functional in sans, then ROARS one moment in serif. Reserve for hero/page-title moments only.
 
 ### Type Scale
 
 | Role | Size | Line Height | Letter Spacing | Token |
 |------|------|-------------|----------------|-------|
-| caption | 12px | 1.5 | 0.36px | `--text-caption` |
-| body-sm | 14px | 1.5 | — | `--text-body-sm` |
-| body | 16px | 1.5 | — | `--text-body` |
-| subheading | 18px | 1.4 | -0.18px | `--text-subheading` |
-| heading-sm | 24px | 1.2 | -0.24px | `--text-heading-sm` |
-| heading | 32px | 1.15 | -0.32px | `--text-heading` |
-| heading-lg | 48px | 1.05 | -0.96px | `--text-heading-lg` |
-| display | 64px | 1.05 | -1.28px | `--text-display` |
-| display-xl | 96px | 1 | -1.92px | `--text-display-xl` |
+| caption | 13px | 1.35 | 0.2px | `--text-caption` |
+| subheading | 18px | 1.4 | 0.27px | `--text-subheading` |
+| heading-sm | 20px | 1.3 | 0.3px | `--text-heading-sm` |
+| heading | 24px | 1.26 | 0.36px | `--text-heading` |
+| heading-lg | 28px | 1.2 | 0.42px | `--text-heading-lg` |
+| display | 48px | 1.15 | 0.72px | `--text-display` |
+| display-lg | 72px | 1.2 | — | `--text-display-lg` |
 
 ## Tokens — Spacing & Shapes
-
-**Base unit:** 8px
 
 **Density:** comfortable
 
@@ -57,167 +62,187 @@ Doppler operates as a dark-mode security console: a near-black violet-tinted can
 
 | Name | Value | Token |
 |------|-------|-------|
-| 8 | 8px | `--spacing-8` |
+| 4 | 4px | `--spacing-4` |
+| 5 | 5px | `--spacing-5` |
+| 7 | 7px | `--spacing-7` |
+| 10 | 10px | `--spacing-10` |
+| 14 | 14px | `--spacing-14` |
+| 15 | 15px | `--spacing-15` |
 | 16 | 16px | `--spacing-16` |
-| 24 | 24px | `--spacing-24` |
-| 32 | 32px | `--spacing-32` |
+| 20 | 20px | `--spacing-20` |
+| 22 | 22px | `--spacing-22` |
+| 25 | 25px | `--spacing-25` |
+| 30 | 30px | `--spacing-30` |
+| 35 | 35px | `--spacing-35` |
 | 40 | 40px | `--spacing-40` |
-| 56 | 56px | `--spacing-56` |
-| 80 | 80px | `--spacing-80` |
-| 120 | 120px | `--spacing-120` |
+| 50 | 50px | `--spacing-50` |
+| 100 | 100px | `--spacing-100` |
+| 113 | 113px | `--spacing-113` |
 
 ### Border Radius
 
 | Element | Value |
 |---------|-------|
+| tags | 999px |
 | cards | 20px |
-| pills | 9999px |
-| buttons | 12px |
-| large-features | 20px |
-| small-elements | 8px |
+| images | 16px |
+| inputs | 16px |
+| buttons | 16px |
+
+### Shadows
+
+| Name | Value | Token |
+|------|-------|-------|
+| sm | `rgba(0, 0, 0, 0.2) 0px 1px 4px 0px` | `--shadow-sm` |
+| lg | `rgba(250, 166, 0, 0.25) 6px 4px 24px 0px` | `--shadow-lg` |
 
 ### Layout
 
 - **Page max-width:** 1200px
-- **Section gap:** 64px
-- **Card padding:** 32px
-- **Element gap:** 16px
+- **Section gap:** 64-80px
+- **Card padding:** 32-40px
+- **Element gap:** 16-24px
 
 ## Components
 
-### Primary Action Button
-**Role:** The 'go' button — filled vivid green with black text, used for Start for Free, Get Demo, and other conversion moments
+### Primary CTA Button
+**Role:** Filled orange action button — the system’s single most important interactive element
 
-Background #00f575, text #000000, radius 12px, padding 12px 24px, font weight 500 at 15px. The high-contrast green-on-black-text combination is the loudest visual element on any page — it should appear sparingly, no more than 1-2 per viewport. Includes a right arrow icon (→) after the label.
+Fill: #fa5d00. Text: #ffffff, MuotoWeb 16px weight 600, letter-spacing 0.015em. Padding: 12px 24px. Border-radius: 16px. Shadow: rgba(0,0,0,0.2) 0px 1px 4px 0px for subtle lift. Hover darkens the orange ~10%. Used for: 'Try Harvest free', 'Get started for free', 'Start your free trial'.
 
-### Ghost Nav Button
-**Role:** Secondary action in the header — outline button for Sign In and similar low-priority actions
+### Ghost/Text Link
+**Role:** Secondary action — 'Learn more' style links under feature cards
 
-Transparent background, 1px border in #55505b or #e5e7eb at 30% opacity, text #f1f0ec, radius 12px, padding 8px 16px, font weight 450 at 14px. Sits next to the green CTA without competing for attention.
+Text: #fa5d00, MuotoWeb 16px weight 500. No background, no border, no padding. May carry a small → arrow icon. Underline appears on hover.
 
-### Integration Card
-**Role:** Feature card showcasing a third-party integration (AWS, Azure, GCP, etc.)
+### Email Input Field
+**Role:** Hero form input for email capture
 
-Background #2d2734, 1px hairline border in #e5e7eb at ~15% opacity, radius 20px, padding 32px. Contains a 48-64px brand logo at top, h3 heading at 24px weight 500 in #f1f0ec, body text at 14-15px in #d0c9c4, and a 'Learn More →' link at bottom. Cards sit in a 4-column grid with 16-20px gaps.
+Fill: #ffffff. Border: 1px solid #c0bbb6. Border-radius: 16px. Padding: 14px 20px. Placeholder text: #8e8b87 16px. Focus ring: #fa5d00 2px outline with 4px offset.
 
-### Why-Choose Feature Card
-**Role:** Value proposition card in the mid-page section — larger surface with internal structure
+### Feature Card
+**Role:** Three-column feature highlight card with icon, heading, body, and link
 
-Background #2d2734, border #e5e7eb at low opacity, radius 20px, padding 32px. Contains a mini product screenshot or icon at top, followed by heading and body text. Wider format than integration cards, sometimes 2-column internal layout.
+Fill: #fff8f1 (cream, same as canvas — depth comes from shadow not contrast). Border-radius: 20px. Padding: 40px 32px. Optional shadow: rgba(250,166,0,0.25) 6px 4px 24px 0px for warm glow. Icon: dark #1d1e1c at 48px. Heading: MuotoWeb 20-24px weight 600 #1d1e1c. Body: 16px weight 400 #615f5c. Link: orange #fa5d00 weight 500.
 
-### Glass Header
-**Role:** Sticky top navigation with frosted-glass effect
+### Integration Logo Circle
+**Role:** Round badge displaying third-party app logos
 
-Background #1c1624 at ~80% opacity with backdrop-filter blur, 1px bottom border in #e5e7eb at 10% opacity. Contains the Doppler wordmark (left), nav links (center-left, weight 450 at 14px), and CTA cluster (right: ghost 'Get Demo' + green 'Start for Free' + ghost 'Sign In'). Padding 16px 32px.
+48px circle, fill #ffffff, contains colorful third-party brand logo (not a system color — logos are literal brand marks). Arranged in horizontal or grid patterns to show ecosystem breadth.
 
-### Hero Headline
-**Role:** Primary page headline with multi-color word emphasis
+### Navigation Bar
+**Role:** Top sticky navigation with logo, menu items, sign-in, and primary CTA
 
-Font size 64-96px, weight 700, line-height 1.0-1.05, letter-spacing -0.02em. Text in #f1f0ec with one or two key words in #b997ff or the violet-to-orange gradient. The word 'Keep' in the hero uses a background-clip gradient creating a sunset effect from violet to ember.
+Background: #fff8f1 with 1px solid #fff8f1 border (subtle). Logo: orange 'harvest' wordmark with bar-chart icon. Nav links: MuotoWeb 16px weight 500 #1d1e1c. Dropdown chevrons on Features, Why Harvest, Resources. Right side: 'Sign in' as ghost link + 'Try Harvest free' as primary orange CTA.
 
-### Gradient Highlighted Text
-**Role:** Inline text accent within headlines — single words or short phrases that carry brand voice
+### Dashboard Preview Card
+**Role:** Product screenshot container — shows actual app UI as social proof
 
-Uses background: linear-gradient(91deg, #855aff, #ff5632) with -webkit-background-clip: text and -webkit-text-fill-color: transparent. Applied to 1-2 key words per headline. The gradient runs left-to-right, warm at the end.
+White surface (#ffffff) with border-radius 16px, soft shadow, contains literal Harvest product screenshots (timesheet grid, profitability report with bar/line charts). Used in hero area as floating proof elements.
 
-### Product Screenshot Frame
-**Role:** In-context product UI shown in the hero and feature sections
+### Section Heading (Eyebrow + Title)
+**Role:** Reusable section header pattern with small uppercase label and large title
 
-Contained in a dark card surface (#2d2734) with 20px radius, 1px border, and a subtle box-shadow. The product UI itself uses a dark theme with purple accents matching the site. Often shown at slight perspective or with a glow halo.
+Eyebrow: MuotoWeb 14px weight 600 uppercase, letter-spacing 0.015em, #fa5d00 (e.g., 'WHY HARVEST'). Title: MuotoWeb 34-48px weight 400-500 #1d1e1c, centered, max-width ~700px. Optional subtitle in #615f5c 17px.
 
-### Top Banner
-**Role:** Promotional announcement bar above the header
+### Trust Badge Logo Row
+**Role:** Grayscale logo strip for social proof — 'TRUSTED BY 70,000+ COMPANIES'
 
-Full-width strip at top, background #1c1624 with a slightly lighter tint, padding 6-10px vertical, text centered at 12-14px in #f1f0ec. Contains an inline link in #00f575 or #b997ff. Dismissable with a close button at right.
+Label: MuotoWeb 13px weight 600 uppercase #615f5c with #fa5d00 highlight on the number. Logos: rendered in #1d1e1c grayscale at 60-80% opacity, evenly spaced horizontal row. No logos are colored — the grayscale treatment keeps the orange accent uncontested.
 
-### Section Heading
-**Role:** H2 or H3 heading for content sections below the hero
+### Hero Gradient Wash
+**Role:** Decorative flowing gradient background behind hero content
 
-Font size 32-48px, weight 500, line-height 1.15, letter-spacing -0.01em, text #f1f0ec. Centered above section content. May be preceded by a small eyebrow label in #b997ff at 12-14px with 0.03em tracking.
+Soft flowing wash of #fa5d00, #fee3b5, and warm peach tones rendered as an organic flowing shape (not a hard gradient strip). Low opacity (~30-50%), positioned behind the product preview cards. Creates sense of warmth and movement without ever competing with text.
 
-### Link / Inline CTA
-**Role:** Text links with arrow affordance, used for 'Learn More' and navigation
+### Feature Grid (2-column)
+**Role:** Alternating two-column layout: heading+body left, product screenshot right
 
-Color #f1f0ec or #b997ff, weight 500 at 14-15px, followed by a right arrow (→). Underline appears on hover only. No box or background — purely inline.
-
-### Logo Lockup
-**Role:** Doppler brand mark in the header — asterisk + wordmark
-
-Asterisk icon in #b997ff (the lavender violet, the brand's chromatic signature), wordmark 'Doppler' in #f1f0ec at weight 500, ~20px. The asterisk is the visual anchor — it appears in the same violet across the brand.
+Max-width container with 2 equal columns, 40px gap. Left column: heading, paragraph body, optional inline CTA. Right column: product screenshot or illustration. Background alternates: #fff8f1 base with white cards floating above.
 
 ## Do's and Don'ts
 
 ### Do
-- Use #00f575 only for the single most important action per viewport — it is a rationed resource, not a decorative color
-- Apply the 20px radius to all card surfaces, 12px to all buttons, 8px to small inline elements like tags or badges
-- Set letter-spacing to -0.02em on any text 48px and above, and 0.03em on any text 12px and below
-- Use #b997ff for brand wordmarks, highlighted headline words, and eyebrow labels — never for body text or backgrounds
-- Separate surfaces with #e5e7eb at 10-15% opacity borders, not with box-shadows or color fills
-- Keep the hero product screenshot at or above 50% viewport width — the product IS the hero
-- Use weight 450 as the default body and UI weight — weight 500 for headings, weight 700 only for display-size headlines
+- Use #fa5d00 exclusively for primary actions, active states, and brand moments — never for body text or large decorative areas where it would overwhelm the cream canvas
+- Set all page backgrounds to #fff8f1 (cream), not #ffffff — the warmth is the system identity
+- Reserve Monarch serif for hero-grade 72px display headlines only; use MuotoWeb for all headings 50px and below
+- Apply 16px radius to all buttons and inputs, 20px radius to all cards — these two values are the system's tactile signature
+- Use 0.015em positive letter-spacing on all MuotoWeb text — this tracks-wide feel softens the geometric sans into something friendlier
+- Keep shadows warm-tinted (rgba(250,166,0,0.25) for cards, rgba(0,0,0,0.2) for buttons) — never use cold blue or neutral gray shadows that would fight the cream base
+- Place trust/partner logos in grayscale (#1d1e1c) so the orange accent remains the only chromatic focal point
 
 ### Don't
-- Don't add more than one filled green button per viewport — the signal loses meaning with repetition
-- Don't use #b997ff or #00f575 for large background fills — these are accent colors, not surface colors
-- Don't introduce drop shadows on cards — the system uses surface color steps, not elevation shadows
-- Don't use pure white (#ffffff) for text — the warm off-white #f1f0ec is the system standard
-- Don't break the single-font rule — Doppler Repro handles everything from captions to displays
-- Don't use asymmetric or off-grid layouts — every section is centered and symmetrically balanced
-- Don't add photography, lifestyle imagery, or decorative illustrations — product screenshots and logos are the only visual content
+- Don't use #ffffff as the page background — the cream #fff8f1 canvas IS the brand
+- Don't introduce a second accent color — the system's discipline is one orange against warm neutrals
+- Don't use Monarch serif for body text, subheadings, or anything under 48px — it dilutes the hero impact
+- Don't use sharp 0-4px corner radii on cards or buttons — the 16-20px softness is essential to the warm tactile feel
+- Don't use cool blue-tinted shadows or borders — everything in this system carries a warm undertone
+- Don't apply saturated colors to large background fills — keep the orange small, concentrated, and functional
+- Don't use pure #000000 for text — #1d1e1c (warm near-black) preserves the system's warmth
 
 ## Surfaces
 
 | Level | Name | Value | Purpose |
 |-------|------|-------|---------|
-| 0 | Canvas | `#1c1624` | Page background, full-bleed sections, hero field |
-| 1 | Card Surface | `#2d2734` | Integration cards, feature panels, product screenshots, nested containers |
-| 2 | Elevated Panel | `#3a3340` | Modals, popovers, tooltip surfaces — inferred one step above card surface |
+| 1 | Cream Canvas | `#fff8f1` | Page-level background — the warm cream base that defines the entire system mood |
+| 2 | Paper White | `#ffffff` | Card and elevated surface — floats above the cream canvas to create product depth |
+| 3 | Orange Brand Surface | `#fa5d00` | CTA buttons, active states, and brand accent surfaces — the only chromatic surface |
 
 ## Elevation
 
-- **Product Screenshot Frame:** `0 0 60px rgba(185, 151, 255, 0.15)`
-- **Hero Glow:** `radial gradient overlay, no box-shadow`
-
-## Imagery
-
-Product screenshots are the primary visual element — the Doppler dashboard UI rendered at large scale in the hero and feature sections. These screenshots use the same dark palette as the marketing site, creating visual continuity. Integration partner logos (AWS, Azure, GCP, GitHub, etc.) appear as contained 48-64px marks inside cards. No photography, no lifestyle imagery, no illustrations — the product UI IS the hero. Background atmosphere comes from a soft radial gradient (violet→pink→dark) behind the hero, providing subtle warmth without competing with the product shot.
-
-## Layout
-
-Max-width 1200px centered container with generous side padding. Hero is a 2-column split: headline + CTA on the left (50%), product screenshot on the right (50%), with the radial gradient glow centered behind the screenshot. Below the hero, a 4-column card grid for integrations with 20px gaps. Then a centered section heading followed by a 3-column feature card grid. Navigation is a sticky glass header with centered logo+nav and right-aligned CTA cluster. Vertical rhythm: 64px section gaps, 32px card padding, 16px element spacing. The layout is always symmetric and centered — no asymmetric or off-grid compositions.
+- **Primary CTA Button:** `rgba(0, 0, 0, 0.2) 0px 1px 4px 0px`
+- **Feature Card (soft warm glow):** `rgba(250, 166, 0, 0.25) 6px 4px 24px 0px`
 
 ## Agent Prompt Guide
 
-## Quick Color Reference
-- text: #f1f0ec
-- background: #1c1624
-- border: #e5e7eb (at 15% opacity)
-- accent: #b997ff
-- primary action: no distinct CTA color
+Quick Color Reference:
+- text: #1d1e1c
+- background: #fff8f1 (page) / #ffffff (cards)
+- border: #c0bbb6 (input) / #d9d9d9 (divider)
+- accent: #fa5d00 (links, icons, small highlights)
+- primary action: #fa5d00 (filled action)
+- secondary text: #615f5c
 
-## Example Component Prompts
+3 Example Component Prompts:
 
-No distinct primary action color was observed; use the extracted neutral button treatments instead of inventing a filled CTA color.
+1. Create a Primary Action Button: #fa5d00 background, #1d1e1c text, 9999px radius, compact pill padding. Use this filled treatment for the main CTA.
 
-2. **Integration Card**: Background #2d2734, border 1px #e5e7eb at 15% opacity, radius 20px, padding 32px. Top: 56px partner logo. Heading 'Doppler + AWS' at 24px weight 500, color #f1f0ec, letter-spacing -0.24px. Body at 15px weight 400, color #d0c9c4, line-height 1.5. Bottom: 'Learn More →' link at 14px weight 500, color #f1f0ec.
+2. Create a feature card on cream background (#fff8f1). White or cream fill, 20px border-radius, 40px 32px padding. Dark icon (#1d1e1c) at 48px centered top. Heading: MuotoWeb 22px weight 600 #1d1e1c. Body text: 16px weight 400 #615f5c. Orange 'Learn more' link (#fa5d00, weight 500) with → arrow.
 
-3. **Glass Header**: Sticky, full-width, background #1c1624 at 80% opacity with backdrop-filter blur(12px), border-bottom 1px #e5e7eb at 10% opacity. Height ~64px, padding 0 32px. Left: asterisk icon #b997ff + 'Doppler' wordmark in #f1f0ec at 18px weight 500. Center-left: nav links at 14px weight 450, color #f1f0ec, with 24px horizontal gaps. Right cluster: ghost 'Get Demo' button (transparent bg, 1px #55505b border, 12px radius, 8px 16px padding) + filled 'Start for Free' button (#00f575, #000000 text, 12px radius) + ghost 'Sign In' button.
 
-4. **Feature Grid Section**: Background #1c1624, section padding 64px vertical. Centered section heading: 'Why companies choose Doppler' at 48px weight 500, #f1f0ec, letter-spacing -0.96px, max-width 700px. Below: 3-column grid with 20px gaps, each card at #2d2734 with 20px radius and 1px #e5e7eb/15% border, padding 32px. Card content: 120px tall preview area at top, then h3 at 24px weight 500, body at 15px weight 400 in #d0c9c4.
+## Visual Language
 
-5. **Gradient Highlighted Word**: Inline span within a headline. CSS: background: linear-gradient(91deg, #855aff 14.92%, #ff5632 90.53%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block. Apply to a single word in a 64px+ headline to create the signature warm-cool gradient moment.
+Imagery: Product UI screenshots are the dominant visual — real Harvest app interfaces (timesheets, profitability charts) shown as floating cards in the hero and section blocks. No stock photography, no lifestyle imagery, no abstract 3D renders. The app UI IS the hero. 
 
-## Color Rationing Philosophy
+Treatment: Product screenshots are presented in white cards with 16px radius and soft warm-tinted shadows, often floating at slight angles or with offset positions to create depth. The hero features a flowing warm gradient wash (orange to yellow to peach) that sits behind the product cards, suggesting motion and warmth without literal illustration.
 
-The system uses exactly two chromatic colors with strict role separation: #b997ff (lavender) is for brand voice and identity, #00f575 (green) is for action confirmation. They never overlap in role. Lavender never appears on a button; green never appears in a headline. This creates a visual grammar where users learn: 'if it's green, I can click it; if it's violet, it's speaking to me as the brand.' Every other color is a neutral on the dark canvas. The result is an interface that feels calm and information-dense while still having clear moments of color — but those moments are earned, not decorative.
+Icons: Dark (#1d1e1c), filled or outlined geometric shapes at 48px — stopwatch for time tracking, pie chart for reports, receipt for invoicing. Icons sit centered above feature card headings, no color, no decoration. Integration logos appear in 48px white circles with their literal brand colors (the only place external color enters the system). 
+
+Trust/social proof: Partner logos rendered in grayscale at 60-80% opacity in a single horizontal row under a small uppercase label. The grayscale treatment is deliberate — it prevents partner brand colors from competing with Harvest's orange.
+
+Density: Text-dominant with product screenshots as visual punctuation. The cream canvas and generous spacing (64-80px section gaps) create breathing room. Information density is moderate — comfortable for reading, not packed.
+
+## Layout Patterns
+
+Page model: Centered max-width container (~1200px) with generous horizontal padding. Full-bleed cream background extends edge-to-edge, but content is always centered and constrained.
+
+Hero pattern: Centered headline + subtitle + email capture form over a flowing warm gradient wash with two floating product preview cards (dashboard screenshots) positioned left and right at slight offsets. The hero is editorial in feel — large serif headline, soft warm atmosphere, product proof floating around it.
+
+Section rhythm: Consistent vertical rhythm with 64-80px gaps between sections. Sections alternate between centered text-only blocks and 2-column text+screenshot layouts. No alternating dark/light bands — the entire page lives on the warm cream canvas.
+
+Content arrangement: After the centered hero, content moves into a repeating pattern: centered section heading (eyebrow + title), then either a 3-column feature card grid or 2-column alternating text+image blocks. The 2-column blocks are not strictly alternating — both columns can be filled with product screenshots rather than one text/one image.
+
+Grid usage: 3-column card grid for the 'Why Harvest' feature highlights. 2-column grid for detailed feature breakdowns (simple time tracking, integrations, capacity, budget). 1-column centered stack for the email capture CTA.
+
+Navigation: Sticky top bar with logo left, menu center, sign-in + primary CTA right. No sidebar, no mega-menu visible — dropdown indicators suggest sub-menus on hover but the top bar stays slim and clean.
 
 ## Similar Brands
 
-- **Linear** — Same dark-mode product-UI-as-hero approach, similar geometric sans typography with tight tracking at large sizes, purple-tinted dark canvas with single accent for action
-- **Vercel** — Dark canvas with rationed color usage, geometric sans at all sizes, product screenshots as primary visual content, minimal decoration
-- **Railway** — Dark purple-tinted canvas, single vivid accent for primary action, product-forward hero with dashboard screenshot, 20px card radii
-- **Supabase** — Dark mode developer-tool aesthetic with green accent for action, monospace-influenced geometric sans, product UI as hero visual
-- **PlanetScale** — Dark canvas with high-contrast accent color for CTAs, developer-focused density, single custom font handling all type roles, minimal decorative imagery
+- **Toggl Track** — Same warm cream + orange palette, same time-tracking product focus, same soft rounded card aesthetic with single-accent-color discipline
+- **FreshBooks** — Same warm approachable SaaS feel with orange accent, cream backgrounds, and product-screenshot-as-hero treatment
+- **Notion** — Same generous whitespace and warm-neutral palette approach, though Notion uses black where Harvest uses warm near-black and orange
+- **Basecamp** — Same friendly productivity-tool voice with warm backgrounds and rounded components, though Basecamp leans more colorful where Harvest stays disciplined to one orange
+- **QuickBooks** — Same professional-services workflow focus with warm UI palette and product-preview hero pattern
 
 ## Quick Start
 
@@ -226,91 +251,97 @@ The system uses exactly two chromatic colors with strict role separation: #b997f
 ```css
 :root {
   /* Colors */
-  --color-midnight-plum: #1c1624;
-  --color-shadow-plum: #2d2734;
-  --color-bone-white: #f1f0ec;
-  --color-fog-line: #e5e7eb;
-  --color-ash-veil: #d0c9c4;
-  --color-mid-ash: #a5a2a5;
-  --color-iron-edge: #55505b;
-  --color-lavender-spark: #b997ff;
-  --color-signal-green: #00f575;
-  --color-neon-violet: #6b13f5;
-  --color-ember-orange: #ff5632;
-  --color-plasma-pink: #ff9efa;
+  --color-harvest-flame: #fa5d00;
+  --color-marigold-glow: #fee3b5;
+  --color-parchment-shadow: #e3d6c5;
+  --color-ink-black: #1d1e1c;
+  --color-paper-white: #ffffff;
+  --color-cream-canvas: #fff8f1;
+  --color-mist-gray: #d9d9d9;
+  --color-warm-stone: #615f5c;
+  --color-driftwood: #8e8b87;
+  --color-ironwood: #4a4a47;
+  --color-ash: #777571;
+  --color-bone: #c0bbb6;
+  --color-smoke: #a5a19c;
+  --color-graphite: #999999;
 
   /* Typography — Font Families */
-  --font-doppler-repro: 'Doppler Repro', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-muotoweb: 'MuotoWeb', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-monarch: 'Monarch', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Typography — Scale */
-  --text-caption: 12px;
-  --leading-caption: 1.5;
-  --tracking-caption: 0.36px;
-  --text-body-sm: 14px;
-  --leading-body-sm: 1.5;
-  --text-body: 16px;
-  --leading-body: 1.5;
+  --text-caption: 13px;
+  --leading-caption: 1.35;
+  --tracking-caption: 0.2px;
   --text-subheading: 18px;
   --leading-subheading: 1.4;
-  --tracking-subheading: -0.18px;
-  --text-heading-sm: 24px;
-  --leading-heading-sm: 1.2;
-  --tracking-heading-sm: -0.24px;
-  --text-heading: 32px;
-  --leading-heading: 1.15;
-  --tracking-heading: -0.32px;
-  --text-heading-lg: 48px;
-  --leading-heading-lg: 1.05;
-  --tracking-heading-lg: -0.96px;
-  --text-display: 64px;
-  --leading-display: 1.05;
-  --tracking-display: -1.28px;
-  --text-display-xl: 96px;
-  --leading-display-xl: 1;
-  --tracking-display-xl: -1.92px;
+  --tracking-subheading: 0.27px;
+  --text-heading-sm: 20px;
+  --leading-heading-sm: 1.3;
+  --tracking-heading-sm: 0.3px;
+  --text-heading: 24px;
+  --leading-heading: 1.26;
+  --tracking-heading: 0.36px;
+  --text-heading-lg: 28px;
+  --leading-heading-lg: 1.2;
+  --tracking-heading-lg: 0.42px;
+  --text-display: 48px;
+  --leading-display: 1.15;
+  --tracking-display: 0.72px;
+  --text-display-lg: 72px;
+  --leading-display-lg: 1.2;
 
   /* Typography — Weights */
   --font-weight-regular: 400;
-  --font-weight-w450: 450;
   --font-weight-medium: 500;
+  --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
   /* Spacing */
-  --spacing-unit: 8px;
-  --spacing-8: 8px;
+  --spacing-4: 4px;
+  --spacing-5: 5px;
+  --spacing-7: 7px;
+  --spacing-10: 10px;
+  --spacing-14: 14px;
+  --spacing-15: 15px;
   --spacing-16: 16px;
-  --spacing-24: 24px;
-  --spacing-32: 32px;
+  --spacing-20: 20px;
+  --spacing-22: 22px;
+  --spacing-25: 25px;
+  --spacing-30: 30px;
+  --spacing-35: 35px;
   --spacing-40: 40px;
-  --spacing-56: 56px;
-  --spacing-80: 80px;
-  --spacing-120: 120px;
+  --spacing-50: 50px;
+  --spacing-100: 100px;
+  --spacing-113: 113px;
 
   /* Layout */
   --page-max-width: 1200px;
-  --section-gap: 64px;
-  --card-padding: 32px;
-  --element-gap: 16px;
+  --section-gap: 64-80px;
+  --card-padding: 32-40px;
+  --element-gap: 16-24px;
 
   /* Border Radius */
-  --radius-lg: 8px;
-  --radius-xl: 12px;
-  --radius-2xl: 20px;
-  --radius-full: 80px;
-  --radius-full-2: 120px;
-  --radius-full-3: 9999px;
+  --radius-2xl: 16px;
+  --radius-2xl-2: 20px;
+  --radius-full: 999px;
 
   /* Named Radii */
+  --radius-tags: 999px;
   --radius-cards: 20px;
-  --radius-pills: 9999px;
-  --radius-buttons: 12px;
-  --radius-large-features: 20px;
-  --radius-small-elements: 8px;
+  --radius-images: 16px;
+  --radius-inputs: 16px;
+  --radius-buttons: 16px;
+
+  /* Shadows */
+  --shadow-sm: rgba(0, 0, 0, 0.2) 0px 1px 4px 0px;
+  --shadow-lg: rgba(250, 166, 0, 0.25) 6px 4px 24px 0px;
 
   /* Surfaces */
-  --surface-canvas: #1c1624;
-  --surface-card-surface: #2d2734;
-  --surface-elevated-panel: #3a3340;
+  --surface-cream-canvas: #fff8f1;
+  --surface-paper-white: #ffffff;
+  --surface-orange-brand-surface: #fa5d00;
 }
 ```
 
@@ -319,65 +350,72 @@ The system uses exactly two chromatic colors with strict role separation: #b997f
 ```css
 @theme {
   /* Colors */
-  --color-midnight-plum: #1c1624;
-  --color-shadow-plum: #2d2734;
-  --color-bone-white: #f1f0ec;
-  --color-fog-line: #e5e7eb;
-  --color-ash-veil: #d0c9c4;
-  --color-mid-ash: #a5a2a5;
-  --color-iron-edge: #55505b;
-  --color-lavender-spark: #b997ff;
-  --color-signal-green: #00f575;
-  --color-neon-violet: #6b13f5;
-  --color-ember-orange: #ff5632;
-  --color-plasma-pink: #ff9efa;
+  --color-harvest-flame: #fa5d00;
+  --color-marigold-glow: #fee3b5;
+  --color-parchment-shadow: #e3d6c5;
+  --color-ink-black: #1d1e1c;
+  --color-paper-white: #ffffff;
+  --color-cream-canvas: #fff8f1;
+  --color-mist-gray: #d9d9d9;
+  --color-warm-stone: #615f5c;
+  --color-driftwood: #8e8b87;
+  --color-ironwood: #4a4a47;
+  --color-ash: #777571;
+  --color-bone: #c0bbb6;
+  --color-smoke: #a5a19c;
+  --color-graphite: #999999;
 
   /* Typography */
-  --font-doppler-repro: 'Doppler Repro', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-muotoweb: 'MuotoWeb', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-monarch: 'Monarch', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Typography — Scale */
-  --text-caption: 12px;
-  --leading-caption: 1.5;
-  --tracking-caption: 0.36px;
-  --text-body-sm: 14px;
-  --leading-body-sm: 1.5;
-  --text-body: 16px;
-  --leading-body: 1.5;
+  --text-caption: 13px;
+  --leading-caption: 1.35;
+  --tracking-caption: 0.2px;
   --text-subheading: 18px;
   --leading-subheading: 1.4;
-  --tracking-subheading: -0.18px;
-  --text-heading-sm: 24px;
-  --leading-heading-sm: 1.2;
-  --tracking-heading-sm: -0.24px;
-  --text-heading: 32px;
-  --leading-heading: 1.15;
-  --tracking-heading: -0.32px;
-  --text-heading-lg: 48px;
-  --leading-heading-lg: 1.05;
-  --tracking-heading-lg: -0.96px;
-  --text-display: 64px;
-  --leading-display: 1.05;
-  --tracking-display: -1.28px;
-  --text-display-xl: 96px;
-  --leading-display-xl: 1;
-  --tracking-display-xl: -1.92px;
+  --tracking-subheading: 0.27px;
+  --text-heading-sm: 20px;
+  --leading-heading-sm: 1.3;
+  --tracking-heading-sm: 0.3px;
+  --text-heading: 24px;
+  --leading-heading: 1.26;
+  --tracking-heading: 0.36px;
+  --text-heading-lg: 28px;
+  --leading-heading-lg: 1.2;
+  --tracking-heading-lg: 0.42px;
+  --text-display: 48px;
+  --leading-display: 1.15;
+  --tracking-display: 0.72px;
+  --text-display-lg: 72px;
+  --leading-display-lg: 1.2;
 
   /* Spacing */
-  --spacing-8: 8px;
+  --spacing-4: 4px;
+  --spacing-5: 5px;
+  --spacing-7: 7px;
+  --spacing-10: 10px;
+  --spacing-14: 14px;
+  --spacing-15: 15px;
   --spacing-16: 16px;
-  --spacing-24: 24px;
-  --spacing-32: 32px;
+  --spacing-20: 20px;
+  --spacing-22: 22px;
+  --spacing-25: 25px;
+  --spacing-30: 30px;
+  --spacing-35: 35px;
   --spacing-40: 40px;
-  --spacing-56: 56px;
-  --spacing-80: 80px;
-  --spacing-120: 120px;
+  --spacing-50: 50px;
+  --spacing-100: 100px;
+  --spacing-113: 113px;
 
   /* Border Radius */
-  --radius-lg: 8px;
-  --radius-xl: 12px;
-  --radius-2xl: 20px;
-  --radius-full: 80px;
-  --radius-full-2: 120px;
-  --radius-full-3: 9999px;
+  --radius-2xl: 16px;
+  --radius-2xl-2: 20px;
+  --radius-full: 999px;
+
+  /* Shadows */
+  --shadow-sm: rgba(0, 0, 0, 0.2) 0px 1px 4px 0px;
+  --shadow-lg: rgba(250, 166, 0, 0.25) 6px 4px 24px 0px;
 }
 ```
