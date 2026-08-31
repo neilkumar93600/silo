@@ -22,7 +22,7 @@ export function SilviBadge({
     <div
       onClick={onClick}
       className={cn(
-        "inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-[#2d2734]/80 px-3 py-1.5 backdrop-blur-md transition-all select-none",
+        "inline-flex items-center gap-2.5 rounded-full border border-parchment-shadow bg-[#2d2734]/80 px-3 py-1.5 backdrop-blur-md transition-all select-none",
         onClick && "cursor-pointer hover:border-[#b997ff]/40 hover:bg-[#3a3340]",
         className
       )}
@@ -32,7 +32,7 @@ export function SilviBadge({
         <span className="font-semibold text-[#f1f0ec]">{label}</span>
         {statusText && (
           <>
-            <span className="text-white/20">·</span>
+            <span className="text-smoke">·</span>
             <span className="font-mono text-[11px] text-[#a5a2a5]">{statusText}</span>
           </>
         )}

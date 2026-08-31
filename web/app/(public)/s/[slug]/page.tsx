@@ -35,15 +35,15 @@ export default function SharePage({ params }: { params: Promise<{ slug: string }
   }, [slug])
 
   return (
-    <div className="relative flex min-h-svh items-center justify-center bg-void-plum p-6 text-paper-white font-sans">
+    <div className="relative flex min-h-svh items-center justify-center bg-cream-canvas p-6 text-ink-black font-sans">
       <div 
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(185,151,255,0.12),transparent_65%)]"
         aria-hidden="true" 
       />
-      <Card className="w-full max-w-sm border border-lavender-mist bg-eclipse-black text-paper-white z-10">
+      <Card className="w-full max-w-sm border border-lavender-mist bg-eclipse-black text-ink-black z-10">
         {notFound ? (
           <CardHeader>
-            <CardTitle className="text-xl font-semibold text-paper-white">Link not found</CardTitle>
+            <CardTitle className="text-xl font-semibold text-ink-black">Link not found</CardTitle>
             <CardDescription className="text-silver-smoke">This file isn&apos;t public or doesn&apos;t exist.</CardDescription>
           </CardHeader>
         ) : !file ? (
@@ -56,7 +56,7 @@ export default function SharePage({ params }: { params: Promise<{ slug: string }
                   <FileIcon className="size-5" />
                 </div>
                 <div className="min-w-0">
-                  <CardTitle className="truncate text-base font-semibold text-paper-white">{file.originalName}</CardTitle>
+                  <CardTitle className="truncate text-base font-semibold text-ink-black">{file.originalName}</CardTitle>
                   <CardDescription className="font-mono text-[11px] text-silver-smoke mt-0.5">
                     {formatBytes(file.sizeBytes)} · shared {formatDate(file.createdAt)}
                   </CardDescription>

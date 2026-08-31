@@ -82,7 +82,7 @@ export default function SignupPage() {
             <Input
               type="text"
               placeholder="Alex Chen"
-              className="bg-white/[0.04] border-white/10 hover:border-white/20 focus:border-[#b997ff] text-[#f1f0ec] placeholder-white/30 h-11 rounded-xl px-4 transition-all duration-200"
+              className="bg-white/[0.04] border-parchment-shadow hover:border-parchment-shadow focus:border-[#b997ff] text-[#f1f0ec] placeholder-driftwood h-11 rounded-xl px-4 transition-all duration-200"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               autoComplete="name"
@@ -96,7 +96,7 @@ export default function SignupPage() {
             <Input
               type="email"
               placeholder="you@company.com"
-              className="bg-white/[0.04] border-white/10 hover:border-white/20 focus:border-[#b997ff] text-[#f1f0ec] placeholder-white/30 h-11 rounded-xl px-4 transition-all duration-200"
+              className="bg-white/[0.04] border-parchment-shadow hover:border-parchment-shadow focus:border-[#b997ff] text-[#f1f0ec] placeholder-driftwood h-11 rounded-xl px-4 transition-all duration-200"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -110,7 +110,7 @@ export default function SignupPage() {
             </label>
             <PasswordInput
               placeholder="Min. 8 characters"
-              className="bg-white/[0.04] border-white/10 hover:border-white/20 focus:border-[#b997ff] text-[#f1f0ec] placeholder-white/30 h-11 rounded-xl px-4 transition-all duration-200"
+              className="bg-white/[0.04] border-parchment-shadow hover:border-parchment-shadow focus:border-[#b997ff] text-[#f1f0ec] placeholder-driftwood h-11 rounded-xl px-4 transition-all duration-200"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -126,7 +126,7 @@ export default function SignupPage() {
             </label>
             <PasswordInput
               placeholder="Repeat your password"
-              className="bg-white/[0.04] border-white/10 hover:border-white/20 focus:border-[#b997ff] text-[#f1f0ec] placeholder-white/30 h-11 rounded-xl px-4 transition-all duration-200"
+              className="bg-white/[0.04] border-parchment-shadow hover:border-parchment-shadow focus:border-[#b997ff] text-[#f1f0ec] placeholder-driftwood h-11 rounded-xl px-4 transition-all duration-200"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required

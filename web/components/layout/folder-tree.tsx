@@ -34,7 +34,7 @@ function FolderTreeNode({ folder, depth }: { folder: FolderRecord; depth: number
       <div
         className={cn(
           "group flex h-9 items-center gap-1 rounded-lg pr-3 text-sm transition-colors",
-          active ? "bg-void-plum font-medium text-laser-violet" : "text-silver-smoke hover:bg-void-plum/60 hover:text-paper-white",
+          active ? "bg-cream-canvas font-medium text-laser-violet" : "text-silver-smoke hover:bg-cream-canvas/60 hover:text-ink-black",
         )}
         style={{ paddingLeft: 8 + depth * 16 }}
       >
@@ -42,7 +42,7 @@ function FolderTreeNode({ folder, depth }: { folder: FolderRecord; depth: number
           type="button"
           aria-label={expanded ? "Collapse folder" : "Expand folder"}
           onClick={toggle}
-          className="flex size-5 shrink-0 items-center justify-center rounded hover:bg-void-plum"
+          className="flex size-5 shrink-0 items-center justify-center rounded hover:bg-cream-canvas"
         >
           <ChevronRightIcon className={cn("size-3.5 transition-transform", expanded && "rotate-90")} />
         </button>
@@ -87,14 +87,14 @@ export function FolderTree() {
       <div
         className={cn(
           "flex h-9 items-center gap-1 rounded-lg pr-3 text-sm transition-colors",
-          active ? "bg-void-plum font-medium text-laser-violet" : "text-silver-smoke hover:bg-void-plum/60 hover:text-paper-white",
+          active ? "bg-cream-canvas font-medium text-laser-violet" : "text-silver-smoke hover:bg-cream-canvas/60 hover:text-ink-black",
         )}
       >
         <button
           type="button"
           aria-label={expanded ? "Collapse My Drive" : "Expand My Drive"}
           onClick={toggle}
-          className="flex size-5 shrink-0 items-center justify-center rounded hover:bg-void-plum"
+          className="flex size-5 shrink-0 items-center justify-center rounded hover:bg-cream-canvas"
         >
           <ChevronRightIcon className={cn("size-3.5 transition-transform", expanded && "rotate-90")} />
         </button>

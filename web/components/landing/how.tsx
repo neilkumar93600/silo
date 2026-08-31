@@ -67,7 +67,7 @@ const staggerVisible: Variants = {
 function UploadMockup() {
     return (
         <div className="space-y-4">
-            <div className="flex items-center justify-between bg-white/[0.04] p-3.5 rounded-xl border border-white/10 shadow-sm">
+            <div className="flex items-center justify-between bg-white/[0.04] p-3.5 rounded-xl border border-parchment-shadow shadow-sm">
                 <div className="flex items-center gap-3">
                     <div className="size-8 rounded-lg bg-[#b997ff]/20 border border-[#b997ff]/30 flex items-center justify-center text-[#b997ff]">
                         <UploadCloud className="w-4 h-4" />
@@ -93,10 +93,10 @@ function UploadMockup() {
                     <motion.div
                         key={i}
                         variants={rowVariants}
-                        className="bg-white/[0.03] p-3.5 rounded-xl border border-white/10 shadow-sm flex items-center justify-between hover:border-white/20 transition-colors"
+                        className="bg-white/[0.03] p-3.5 rounded-xl border border-parchment-shadow shadow-sm flex items-center justify-between hover:border-parchment-shadow transition-colors"
                     >
                         <div className="flex items-center gap-3">
-                            <div className="size-9 rounded-lg bg-[#2d2734] border border-white/15 flex items-center justify-center text-[#f1f0ec] font-bold text-xs">
+                            <div className="size-9 rounded-lg bg-[#2d2734] border border-parchment-shadow flex items-center justify-center text-[#f1f0ec] font-bold text-xs">
                                 {item.name.split(".").pop()?.toUpperCase()}
                             </div>
                             <div>
@@ -104,7 +104,7 @@ function UploadMockup() {
                                 <p className="text-[10px] text-[#a5a2a5]">{item.size}</p>
                             </div>
                         </div>
-                        <div className="bg-white/[0.05] px-2.5 py-1 rounded-full border border-white/10">
+                        <div className="bg-white/[0.05] px-2.5 py-1 rounded-full border border-parchment-shadow">
                             <span className={"text-xs font-mono font-semibold " + item.color}>{item.status}</span>
                         </div>
                     </motion.div>
@@ -130,9 +130,9 @@ function ShareMockup() {
             <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white/[0.04] rounded-2xl border border-white/10 shadow-sm overflow-hidden"
+                className="bg-white/[0.04] rounded-2xl border border-parchment-shadow shadow-sm overflow-hidden"
             >
-                <div className="bg-white/[0.03] px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
+                <div className="bg-white/[0.03] px-4 py-2.5 border-b border-parchment-shadow flex items-center justify-between">
                     <span className="text-[10px] font-bold text-[#a5a2a5] uppercase tracking-wider">Access Permissions</span>
                     <Link2 className="w-3.5 h-3.5 text-[#b997ff]" />
                 </div>
@@ -149,7 +149,7 @@ function ShareMockup() {
                         ].map((row) => (
                             <motion.div key={row.label} variants={shareLineVariants} className="flex items-center justify-between p-2 rounded-lg bg-white/[0.02]">
                                 <span className="text-xs text-[#f1f0ec]">{row.label}</span>
-                                <span className={"text-[10px] font-mono font-semibold bg-white/[0.04] px-2 py-0.5 rounded-full border border-white/10 " + row.color}>{row.state}</span>
+                                <span className={"text-[10px] font-mono font-semibold bg-white/[0.04] px-2 py-0.5 rounded-full border border-parchment-shadow " + row.color}>{row.state}</span>
                             </motion.div>
                         ))}
                     </motion.div>
@@ -159,7 +159,7 @@ function ShareMockup() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="flex items-center justify-between p-3 rounded-xl bg-white/[0.04] border border-white/10"
+                className="flex items-center justify-between p-3 rounded-xl bg-white/[0.04] border border-parchment-shadow"
             >
                 <div className="flex items-center gap-2">
                     <div className="size-7 rounded-lg bg-[#b997ff]/20 text-[#b997ff] flex items-center justify-center">
@@ -191,7 +191,7 @@ function OrganizeMockup() {
                     <motion.div
                         key={i}
                         variants={rowVariants}
-                        className="bg-white/[0.04] p-4 rounded-xl border border-white/10"
+                        className="bg-white/[0.04] p-4 rounded-xl border border-parchment-shadow"
                     >
                         <div className={"size-8 rounded-lg flex items-center justify-center mb-2 bg-white/[0.05] " + stat.color}>
                             {React.cloneElement(stat.icon as React.ReactElement<{ className?: string }>, { className: "w-4 h-4" })}
@@ -226,7 +226,7 @@ function AssistantMockup() {
                 initial="hidden"
                 animate="visible"
                 variants={staggerVisible}
-                className="flex items-center justify-around py-3 relative bg-white/[0.03] rounded-xl border border-white/10"
+                className="flex items-center justify-around py-3 relative bg-white/[0.03] rounded-xl border border-parchment-shadow"
             >
                 {[
                     { icon: <Search />, active: true, label: "Search" },
@@ -235,7 +235,7 @@ function AssistantMockup() {
                 ].map((item, i) => (
                     <motion.div
                         key={i}
-                        className={"size-9 rounded-xl flex items-center justify-center border transition-all " + (item.active ? "bg-[#b997ff]/20 border-[#b997ff]/40 text-[#b997ff]" : "bg-white/[0.04] border-white/10 text-[#a5a2a5]")}
+                        className={"size-9 rounded-xl flex items-center justify-center border transition-all " + (item.active ? "bg-[#b997ff]/20 border-[#b997ff]/40 text-[#b997ff]" : "bg-white/[0.04] border-parchment-shadow text-[#a5a2a5]")}
                     >
                         {React.cloneElement(item.icon as React.ReactElement<{ className?: string }>, { className: "w-4 h-4" })}
                     </motion.div>
@@ -245,7 +245,7 @@ function AssistantMockup() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="bg-[#2d2734] p-4 rounded-xl border border-white/10 space-y-2"
+                className="bg-[#2d2734] p-4 rounded-xl border border-parchment-shadow space-y-2"
             >
                 <div className="flex items-center justify-between">
                     <span className="text-xs font-semibold text-[#f1f0ec]">Silvi Guardian Protocol</span>
@@ -297,7 +297,7 @@ export default function LandingHowItWorks({ className }: { className?: string })
                 </motion.div>
 
                 {/* Steps Header Nav */}
-                <div className="bg-[#2d2734]/60 backdrop-blur-2xl rounded-t-[28px] flex flex-row overflow-x-auto no-scrollbar border-x border-t border-white/15 p-2.5 gap-2 shadow-lg">
+                <div className="bg-[#2d2734]/60 backdrop-blur-2xl rounded-t-[28px] flex flex-row overflow-x-auto no-scrollbar border-x border-t border-parchment-shadow p-2.5 gap-2 shadow-lg">
                     {steps.map((step, index) => (
                         <button
                             key={step.id}
@@ -323,7 +323,7 @@ export default function LandingHowItWorks({ className }: { className?: string })
                 </div>
 
                 {/* Step Body Content */}
-                <div className="bg-[#2d2734]/40 backdrop-blur-3xl rounded-b-[28px] border-x border-b border-white/15 min-h-[480px] p-8 md:p-16 relative shadow-[0_25px_50px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.08)]">
+                <div className="bg-[#2d2734]/40 backdrop-blur-3xl rounded-b-[28px] border-x border-b border-parchment-shadow min-h-[480px] p-8 md:p-16 relative shadow-[0_25px_50px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.08)]">
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={activeTab}
@@ -359,7 +359,7 @@ export default function LandingHowItWorks({ className }: { className?: string })
                             </div>
 
                             <div className="flex items-center justify-center">
-                                <div className="w-full max-w-[500px] rounded-3xl p-6 border border-white/15 bg-[#1c1624]/80 shadow-2xl backdrop-blur-xl">
+                                <div className="w-full max-w-[500px] rounded-3xl p-6 border border-parchment-shadow bg-[#1c1624]/80 shadow-2xl backdrop-blur-xl">
                                     {renderMockup()}
                                 </div>
                             </div>

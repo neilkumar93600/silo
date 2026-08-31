@@ -1,13 +1,17 @@
-import * as React from "react";
-import { cn } from "@/lib/utils";
-import type { BaseIconProps } from "../types";
+"use client";
 
-export interface SilviIconGlyphProps extends BaseIconProps {
+import * as React from "react";
+import { SilviOrb } from "@/components/assistant/silvi-orb";
+import { cn } from "@/lib/utils";
+import type { IconSize } from "../types";
+
+export interface SilviIconGlyphProps extends React.HTMLAttributes<HTMLDivElement> {
+  size?: IconSize;
   glow?: boolean;
 }
 
 /**
- * Compact Silvi AI Mascot icon glyph for buttons, toolbars, and status badges
+ * Compact Silvi AI Mascot icon glyph based on the original plasma orb design
  */
 export function SilviIcon({
   size = 20,
@@ -15,47 +19,20 @@ export function SilviIcon({
   className,
   ...props
 }: SilviIconGlyphProps) {
+  const numSize = typeof size === "number" ? size : parseInt(String(size), 10) || 20;
+
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      width={size}
-      height={size}
-      aria-label="Silvi Icon"
-      role="img"
-      className={cn("shrink-0 select-none", className)}
+    <div
+      className={cn("inline-flex items-center justify-center shrink-0 select-none", className)}
       {...props}
     >
-      <defs>
-        <radialGradient id="silvi-glyph-body" cx="40%" cy="30%" r="70%">
-          <stop offset="0%" stopColor="#ffffff" />
-          <stop offset="50%" stopColor="#cbd5e1" />
-          <stop offset="100%" stopColor="#94a3b8" />
-        </radialGradient>
-      </defs>
-
-      {/* Head Sphere */}
-      <circle
-        cx="12"
-        cy="12"
-        r="9"
-        fill="url(#silvi-glyph-body)"
-        stroke="#ffffff"
-        strokeWidth="0.75"
-        strokeOpacity="0.8"
+      <SilviOrb
+        status="idle"
+        size={numSize}
+        showGlow={glow}
+        showRings={false}
+        interactive={false}
       />
-
-      {/* Ears */}
-      <circle cx="3.5" cy="11" r="1.5" fill="#c026d3" />
-      <circle cx="20.5" cy="11" r="1.5" fill="#06b6d4" />
-
-      {/* Dark Visor */}
-      <rect x="6.5" y="8.5" width="11" height="7" rx="3.5" fill="#18181b" />
-
-      {/* Visor Eyes */}
-      <circle cx="9.5" cy="12" r="1" fill="#00f575" />
-      <circle cx="14.5" cy="12" r="1" fill="#00f575" />
-    </svg>
+    </div>
   );
 }

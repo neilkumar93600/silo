@@ -65,8 +65,8 @@ export default function LandingFaq({ className }: { className?: string }) {
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4 pt-6 border-t border-white/10">
-                            <div className="flex flex-col gap-1 p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                        <div className="grid grid-cols-2 gap-4 pt-6 border-t border-parchment-shadow">
+                            <div className="flex flex-col gap-1 p-4 rounded-xl bg-white/[0.03] border border-parchment-shadow">
                                 <span className="text-[11px] font-semibold text-[#a5a2a5] uppercase tracking-wider">
                                     Private by default
                                 </span>
@@ -75,7 +75,7 @@ export default function LandingFaq({ className }: { className?: string }) {
                                     <Lock className="w-4 h-4 text-[#00f575]" strokeWidth={2} />
                                 </span>
                             </div>
-                            <div className="flex flex-col gap-1 p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                            <div className="flex flex-col gap-1 p-4 rounded-xl bg-white/[0.03] border border-parchment-shadow">
                                 <span className="text-[11px] font-semibold text-[#a5a2a5] uppercase tracking-wider">
                                     Free Storage
                                 </span>
@@ -98,7 +98,7 @@ export default function LandingFaq({ className }: { className?: string }) {
                                         "transition-all duration-300 rounded-2xl overflow-hidden border backdrop-blur-xl " +
                                         (isOpen
                                             ? "bg-[#2d2734]/80 border-[#b997ff]/40 shadow-[0_8px_30px_rgba(0,0,0,0.4),0_0_20px_rgba(185,151,255,0.15),inset_0_1px_1px_rgba(255,255,255,0.1)]"
-                                            : "bg-white/[0.03] border-white/10 hover:border-white/20 hover:bg-white/[0.06]")
+                                            : "bg-white/[0.03] border-parchment-shadow hover:border-parchment-shadow hover:bg-white/[0.06]")
                                     }
                                 >
                                     <button
@@ -106,7 +106,7 @@ export default function LandingFaq({ className }: { className?: string }) {
                                         className="w-full flex items-center justify-between p-5 text-left cursor-pointer focus:outline-none group relative"
                                     >
                                         <div className="flex items-center gap-3.5 pr-4">
-                                            <div className={"size-2 rounded-full transition-all " + (isOpen ? "bg-[#00f575] shadow-[0_0_8px_#00f575]" : "bg-white/20 group-hover:bg-white/40")} />
+                                            <div className={"size-2 rounded-full transition-all " + (isOpen ? "bg-[#00f575] shadow-[0_0_8px_#00f575]" : "bg-marigold-glow/50 group-hover:bg-marigold-glow/70")} />
                                             <h3 className="text-sm md:text-base font-semibold text-[#f1f0ec] leading-snug tracking-tight">
                                                 {faq.question}
                                             </h3>
@@ -118,7 +118,7 @@ export default function LandingFaq({ className }: { className?: string }) {
                                                 "size-8 shrink-0 rounded-xl flex items-center justify-center border transition-all duration-300 " +
                                                 (isOpen
                                                     ? "bg-[#b997ff] border-[#b997ff] text-black shadow-md"
-                                                    : "border-white/10 text-[#a5a2a5] group-hover:text-white group-hover:border-white/20 bg-white/[0.04]")
+                                                    : "border-parchment-shadow text-[#a5a2a5] group-hover:text-white group-hover:border-parchment-shadow bg-white/[0.04]")
                                             }
                                         >
                                             <ChevronDown className="w-4 h-4" strokeWidth={2} />
@@ -135,7 +135,7 @@ export default function LandingFaq({ className }: { className?: string }) {
                                                 transition={{ duration: 0.3, ease: "easeOut" }}
                                                 className="overflow-hidden"
                                             >
-                                                <div className="px-6 pb-5 pt-0 border-t border-white/10">
+                                                <div className="px-6 pb-5 pt-0 border-t border-parchment-shadow">
                                                     <p className="text-xs md:text-sm text-[#d0c9c4] leading-relaxed mt-4 pl-5">
                                                         {faq.answer}
                                                     </p>

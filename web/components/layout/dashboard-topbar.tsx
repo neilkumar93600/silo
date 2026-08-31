@@ -124,7 +124,7 @@ export function DashboardTopbar({ title, children }: { title: React.ReactNode; c
         "group relative hidden h-9 items-center gap-2 rounded-xl border px-3.5 text-xs font-semibold transition-all duration-200 cursor-pointer md:flex",
         open
           ? "border-[#b997ff]/60 bg-[#b997ff]/15 text-[#f1f0ec] shadow-[0_0_14px_rgba(185,151,255,0.25)] ring-1 ring-[#b997ff]/40"
-          : "border-white/10 bg-white/[0.04] text-[#f1f0ec] hover:border-[#00f575]/40 hover:bg-white/[0.08] hover:text-white",
+          : "border-parchment-shadow bg-white/[0.04] text-[#f1f0ec] hover:border-[#00f575]/40 hover:bg-white/[0.08] hover:text-white",
       )}
       aria-label="Toggle Silvi Assistant"
       aria-expanded={open}
@@ -133,7 +133,7 @@ export function DashboardTopbar({ title, children }: { title: React.ReactNode; c
           real progress still shows in the panel's own working indicator. */}
       <SilviOrb status="idle" size={18} showGlow={false} interactive={false} />
       <span className="font-semibold tracking-tight">Ask Silvi</span>
-      <Kbd className="hidden md:inline-flex ml-0.5 h-4.5 px-1 text-[10px] bg-white/5 text-[#a5a2a5] border border-white/10">
+      <Kbd className="hidden md:inline-flex ml-0.5 h-4.5 px-1 text-[10px] bg-marigold-glow/30 text-[#a5a2a5] border border-parchment-shadow">
         ⌘J
       </Kbd>
     </Button>

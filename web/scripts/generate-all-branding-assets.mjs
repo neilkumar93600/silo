@@ -44,8 +44,8 @@ export function generateLogoSvg({
   <defs>
     <!-- Background Gradient -->
     <linearGradient id="sqBgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#19191d" />
-      <stop offset="100%" stop-color="#0e0e11" />
+      <stop offset="0%" stop-color="#1d1e1c" />
+      <stop offset="100%" stop-color="#111110" />
     </linearGradient>
 
     <!-- Squircle Border Rim -->
@@ -54,57 +54,57 @@ export function generateLogoSvg({
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0.02" />
     </linearGradient>
 
-    <!-- LEFT LOBE: Large, High Purple-Magenta Cloud Puff -->
+    <!-- LEFT LOBE: Large, High Harvest-Flame Cloud Puff -->
     <linearGradient id="leftLobeGrad" x1="15%" y1="10%" x2="85%" y2="90%">
-      <stop offset="0%" stop-color="#7033ea" />
-      <stop offset="30%" stop-color="#9333ea" />
-      <stop offset="60%" stop-color="#c026d3" />
-      <stop offset="85%" stop-color="#e11d48" />
-      <stop offset="100%" stop-color="#f43f5e" />
+      <stop offset="0%" stop-color="#c2410c" />
+      <stop offset="30%" stop-color="#ea580c" />
+      <stop offset="60%" stop-color="#fa5d00" />
+      <stop offset="85%" stop-color="#ff7a1f" />
+      <stop offset="100%" stop-color="#ffab5c" />
     </linearGradient>
 
     <radialGradient id="leftLobeRadial" cx="35%" cy="52%" r="55%">
-      <stop offset="0%" stop-color="#f472b6" stop-opacity="0.95" />
-      <stop offset="45%" stop-color="#d946ef" stop-opacity="0.8" />
-      <stop offset="75%" stop-color="#a21caf" stop-opacity="0.2" />
-      <stop offset="100%" stop-color="#581c87" stop-opacity="0" />
+      <stop offset="0%" stop-color="#ffd8a8" stop-opacity="0.95" />
+      <stop offset="45%" stop-color="#ffb347" stop-opacity="0.8" />
+      <stop offset="75%" stop-color="#fa5d00" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#c2410c" stop-opacity="0" />
     </radialGradient>
 
     <linearGradient id="leftRimStroke" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f472b6" stop-opacity="0.95" />
-      <stop offset="40%" stop-color="#ec4899" stop-opacity="0.7" />
-      <stop offset="100%" stop-color="#fda4af" stop-opacity="0.95" />
+      <stop offset="0%" stop-color="#ffd8a8" stop-opacity="0.95" />
+      <stop offset="40%" stop-color="#fa5d00" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#fee3b5" stop-opacity="0.95" />
     </linearGradient>
 
-    <!-- RIGHT LOBE: Smaller, Lower Cyan-Mint Capsule -->
+    <!-- RIGHT LOBE: Smaller, Lower Marigold Capsule -->
     <linearGradient id="rightLobeGrad" x1="15%" y1="15%" x2="90%" y2="90%">
-      <stop offset="0%" stop-color="#0284c7" />
-      <stop offset="25%" stop-color="#06b6d4" />
-      <stop offset="55%" stop-color="#14b8a6" />
-      <stop offset="85%" stop-color="#10b981" />
-      <stop offset="100%" stop-color="#34d399" />
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="25%" stop-color="#fbbf24" />
+      <stop offset="55%" stop-color="#fcd34d" />
+      <stop offset="85%" stop-color="#fee3b5" />
+      <stop offset="100%" stop-color="#fff3d6" />
     </linearGradient>
 
     <radialGradient id="rightLobeRadial" cx="72%" cy="60%" r="50%">
-      <stop offset="0%" stop-color="#67e8f9" stop-opacity="0.95" />
-      <stop offset="45%" stop-color="#2dd4bf" stop-opacity="0.8" />
-      <stop offset="75%" stop-color="#0d9488" stop-opacity="0.2" />
-      <stop offset="100%" stop-color="#064e3b" stop-opacity="0" />
+      <stop offset="0%" stop-color="#fff3d6" stop-opacity="0.95" />
+      <stop offset="45%" stop-color="#fee3b5" stop-opacity="0.8" />
+      <stop offset="75%" stop-color="#fbbf24" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#b45309" stop-opacity="0" />
     </radialGradient>
 
     <linearGradient id="rightRimStroke" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#67e8f9" stop-opacity="0.95" />
-      <stop offset="50%" stop-color="#2dd4bf" stop-opacity="0.7" />
-      <stop offset="100%" stop-color="#a7f3d0" stop-opacity="0.95" />
+      <stop offset="0%" stop-color="#fff3d6" stop-opacity="0.95" />
+      <stop offset="50%" stop-color="#fcd34d" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#ffedc2" stop-opacity="0.95" />
     </linearGradient>
 
     <!-- FROSTED GLASS PIN -->
     <linearGradient id="pinFrostedGlass" x1="50%" y1="0%" x2="50%" y2="100%">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="0.99" />
-      <stop offset="22%" stop-color="#eaedf2" stop-opacity="0.96" />
-      <stop offset="50%" stop-color="#cbd5e1" stop-opacity="0.88" />
-      <stop offset="72%" stop-color="#94a3b8" stop-opacity="0.65" />
-      <stop offset="90%" stop-color="#cbd5e1" stop-opacity="0.78" />
+      <stop offset="22%" stop-color="#f1f0ec" stop-opacity="0.96" />
+      <stop offset="50%" stop-color="#e3d6c5" stop-opacity="0.88" />
+      <stop offset="72%" stop-color="#c0bbb6" stop-opacity="0.65" />
+      <stop offset="90%" stop-color="#e3d6c5" stop-opacity="0.78" />
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0.92" />
     </linearGradient>
 
@@ -257,41 +257,41 @@ export function generateSocialCardSvg() {
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
   <defs>
     <radialGradient id="ogBg" cx="50%" cy="35%" r="85%">
-      <stop offset="0%" stop-color="#241b32" />
-      <stop offset="50%" stop-color="#16131f" />
-      <stop offset="100%" stop-color="#0c0a12" />
+      <stop offset="0%" stop-color="#fff3e0" />
+      <stop offset="50%" stop-color="#fff8f1" />
+      <stop offset="100%" stop-color="#fbe8d3" />
     </radialGradient>
 
-    <radialGradient id="ogVioletAurora" cx="30%" cy="40%" r="45%">
-      <stop offset="0%" stop-color="#9333ea" stop-opacity="0.35" />
-      <stop offset="60%" stop-color="#c026d3" stop-opacity="0.1" />
-      <stop offset="100%" stop-color="#16131f" stop-opacity="0" />
+    <radialGradient id="ogFlameAurora" cx="30%" cy="40%" r="45%">
+      <stop offset="0%" stop-color="#fa5d00" stop-opacity="0.28" />
+      <stop offset="60%" stop-color="#ff7a1f" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#fff8f1" stop-opacity="0" />
     </radialGradient>
 
-    <radialGradient id="ogGreenAurora" cx="70%" cy="40%" r="45%">
-      <stop offset="0%" stop-color="#00f575" stop-opacity="0.28" />
-      <stop offset="60%" stop-color="#06b6d4" stop-opacity="0.08" />
-      <stop offset="100%" stop-color="#16131f" stop-opacity="0" />
+    <radialGradient id="ogMarigoldAurora" cx="70%" cy="40%" r="45%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.28" />
+      <stop offset="60%" stop-color="#fee3b5" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#fff8f1" stop-opacity="0" />
     </radialGradient>
 
     <linearGradient id="textBoneGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#ffffff" />
-      <stop offset="60%" stop-color="#f1f0ec" />
-      <stop offset="100%" stop-color="#d0c9c4" />
+      <stop offset="0%" stop-color="#1d1e1c" />
+      <stop offset="60%" stop-color="#33322f" />
+      <stop offset="100%" stop-color="#4a4a47" />
     </linearGradient>
 
     <linearGradient id="badgeBorder" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#c026d3" stop-opacity="0.7" />
-      <stop offset="100%" stop-color="#00f575" stop-opacity="0.7" />
+      <stop offset="0%" stop-color="#fa5d00" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#fbbf24" stop-opacity="0.5" />
     </linearGradient>
   </defs>
 
   <rect width="1200" height="630" fill="url(#ogBg)" />
 
-  <circle cx="340" cy="240" r="420" fill="url(#ogVioletAurora)" />
-  <circle cx="860" cy="240" r="420" fill="url(#ogGreenAurora)" />
+  <circle cx="340" cy="240" r="420" fill="url(#ogFlameAurora)" />
+  <circle cx="860" cy="240" r="420" fill="url(#ogMarigoldAurora)" />
 
-  <g opacity="0.04" stroke="#ffffff" stroke-width="1">
+  <g opacity="0.05" stroke="#1d1e1c" stroke-width="1">
     <line x1="0" y1="105" x2="1200" y2="105" />
     <line x1="0" y1="210" x2="1200" y2="210" />
     <line x1="0" y1="315" x2="1200" y2="315" />
@@ -313,9 +313,9 @@ export function generateSocialCardSvg() {
 
   <!-- Security Badge -->
   <g transform="translate(600, 395)">
-    <rect x="-155" y="-18" width="310" height="36" rx="18" fill="#241b32" stroke="url(#badgeBorder)" stroke-width="1.5" />
-    <circle cx="-130" cy="0" r="4" fill="#00f575" />
-    <text text-anchor="middle" x="10" y="5" fill="#c026d3" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="2">ZERO-KNOWLEDGE STORAGE</text>
+    <rect x="-155" y="-18" width="310" height="36" rx="18" fill="#ffffff" stroke="url(#badgeBorder)" stroke-width="1.5" />
+    <circle cx="-130" cy="0" r="4" fill="#fa5d00" />
+    <text text-anchor="middle" x="10" y="5" fill="#fa5d00" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="2">ZERO-KNOWLEDGE STORAGE</text>
   </g>
 
   <!-- Main Headline -->
@@ -324,12 +324,12 @@ export function generateSocialCardSvg() {
   </text>
 
   <!-- Tagline -->
-  <text x="600" y="520" text-anchor="middle" fill="#d0c9c4" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="400">
+  <text x="600" y="520" text-anchor="middle" fill="#615f5c" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="400">
     Files stay private by default. Share by revocable link or direct grant.
   </text>
 
   <!-- Domain Identifier -->
-  <text x="600" y="575" text-anchor="middle" fill="#00f575" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" letter-spacing="3">
+  <text x="600" y="575" text-anchor="middle" fill="#fa5d00" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" letter-spacing="3">
     SILO.APP
   </text>
 </svg>

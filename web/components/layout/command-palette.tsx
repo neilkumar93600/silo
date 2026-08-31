@@ -115,7 +115,7 @@ export function CommandPalette() {
           value={query}
           onValueChange={setQuery}
         />
-        <CommandList className="max-h-[380px] p-2 text-paper-white">
+        <CommandList className="max-h-[380px] p-2 text-ink-black">
           <CommandEmpty className="py-6 text-center text-xs text-silver-smoke">
             No matching files, folders, or commands found.
           </CommandEmpty>

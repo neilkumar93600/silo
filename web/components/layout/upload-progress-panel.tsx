@@ -94,7 +94,7 @@ function QueueRow({
         <MimeIcon mimeType={item.mimeType} className="mt-0.5 size-4" />
 
         <div className="min-w-0 flex-1">
-          <p className="truncate text-[13px] font-medium leading-tight text-paper-white">
+          <p className="truncate text-[13px] font-medium leading-tight text-ink-black">
             {item.name}
           </p>
           <p className="mt-0.5 font-mono text-[10px] text-ash-wisp">
@@ -117,7 +117,7 @@ function QueueRow({
               type="button"
               aria-label="Dismiss"
               onClick={onDismiss}
-              className="flex size-5 items-center justify-center rounded-full text-ash-wisp transition-colors hover:bg-void-plum hover:text-paper-white"
+              className="flex size-5 items-center justify-center rounded-full text-ash-wisp transition-colors hover:bg-cream-canvas hover:text-ink-black"
             >
               <XIcon className="size-3" />
             </button>
@@ -130,7 +130,7 @@ function QueueRow({
                 type="button"
                 aria-label="Cancel"
                 onClick={onCancel}
-                className="flex size-5 items-center justify-center rounded-full text-ash-wisp transition-colors hover:bg-void-plum hover:text-paper-white"
+                className="flex size-5 items-center justify-center rounded-full text-ash-wisp transition-colors hover:bg-cream-canvas hover:text-ink-black"
               >
                 <XIcon className="size-3" />
               </button>
@@ -196,7 +196,7 @@ function QueueSection({
       {/* Section header */}
       <div className="flex items-center gap-2">
         <Icon className="size-4 text-laser-violet" />
-        <span className="text-[12px] font-semibold text-paper-white">{label}</span>
+        <span className="text-[12px] font-semibold text-ink-black">{label}</span>
         <span className="ml-auto font-mono text-[10px] text-silver-smoke">
           {done.length}/{items.length} done
           {totalSpeed > 0 && ` · ${formatSpeed(totalSpeed)}`}
@@ -256,7 +256,7 @@ export function UploadProgressPanel() {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 16, scale: 0.97 }}
       transition={{ duration: 0.22, ease: "easeOut" }}
-      className="fixed right-4 bottom-4 z-50 flex w-[340px] flex-col overflow-hidden rounded-2xl border border-lavender-mist bg-void-plum shadow-2xl shadow-black/40"
+      className="fixed right-4 bottom-4 z-50 flex w-[340px] flex-col overflow-hidden rounded-2xl border border-lavender-mist bg-cream-canvas shadow-2xl shadow-black/40"
     >
       {/* ── Header ── */}
       <div className="flex items-center gap-3 border-b border-lavender-mist/60 px-4 py-3">
@@ -271,7 +271,7 @@ export function UploadProgressPanel() {
         )}
 
         <div className="min-w-0 flex-1">
-          <p className="text-[13px] font-semibold text-paper-white">
+          <p className="text-[13px] font-semibold text-ink-black">
             {activeCount > 0
               ? `${activeCount} transfer${activeCount > 1 ? "s" : ""} in progress`
               : "All transfers complete"}
@@ -288,7 +288,7 @@ export function UploadProgressPanel() {
               type="button"
               onClick={handleDismissAll}
               title="Clear completed"
-              className="rounded-md px-2 py-1 font-mono text-[10px] text-ash-wisp transition-colors hover:bg-void-plum hover:text-paper-white"
+              className="rounded-md px-2 py-1 font-mono text-[10px] text-ash-wisp transition-colors hover:bg-cream-canvas hover:text-ink-black"
             >
               Clear
             </button>
@@ -298,7 +298,7 @@ export function UploadProgressPanel() {
             type="button"
             aria-label={minimised ? "Expand" : "Minimise"}
             onClick={() => setMinimised((v) => !v)}
-            className="flex size-7 items-center justify-center rounded-lg text-ash-wisp transition-colors hover:bg-void-plum hover:text-paper-white"
+            className="flex size-7 items-center justify-center rounded-lg text-ash-wisp transition-colors hover:bg-cream-canvas hover:text-ink-black"
           >
             {minimised ? (
               <ChevronUpIcon className="size-4" />

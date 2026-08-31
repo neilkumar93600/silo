@@ -35,7 +35,7 @@ export function ShowcaseForgotPassword() {
   return (
     <div ref={scope} className="relative w-full flex flex-col gap-3.5 xl:gap-4">
       {/* Silvi Security Sentinel Card */}
-      <div className="bg-[#2d2734]/85 backdrop-blur-xl border border-white/15 p-4 xl:p-4.5 rounded-2xl flex items-center justify-between shadow-[0_10px_30px_rgba(0,0,0,0.35)]">
+      <div className="bg-[#2d2734]/85 backdrop-blur-xl border border-parchment-shadow p-4 xl:p-4.5 rounded-2xl flex items-center justify-between shadow-[0_10px_30px_rgba(0,0,0,0.35)]">
         <div className="flex items-center gap-3">
           <SilviOrb status="checking" size={38} showGlow showRings interactive={false} />
           <div>
@@ -52,13 +52,13 @@ export function ShowcaseForgotPassword() {
         </div>
       </div>
 
-      <div className="bg-[#2d2734]/85 backdrop-blur-2xl border border-white/15 p-5 xl:p-6 rounded-3xl w-full relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
+      <div className="bg-[#2d2734]/85 backdrop-blur-2xl border border-parchment-shadow p-5 xl:p-6 rounded-3xl w-full relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
         {/* Ambient glow */}
         <div className="absolute top-0 left-0 size-48 bg-[#b997ff]/10 rounded-full blur-3xl pointer-events-none" />
 
         {/* Top row */}
         <div className="sfp-top flex items-center justify-between mb-4 opacity-0 translate-y-2">
-          <div className="size-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
+          <div className="size-10 rounded-xl bg-white/[0.04] border border-parchment-shadow flex items-center justify-center">
             <KeyRound className="w-5 h-5 text-[#b997ff]" />
           </div>
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#00f575]/10 border border-[#00f575]/25 text-[#00f575] text-[10px] font-mono font-bold">
@@ -83,7 +83,7 @@ export function ShowcaseForgotPassword() {
         {/* Metrics grid */}
         <div className="grid grid-cols-2 gap-3 mb-4 xl:mb-5 w-full">
           {SEC_METRICS.map(({ label, val }) => (
-            <div key={label} className="sfp-metric p-3 rounded-2xl bg-white/[0.03] border border-white/10 opacity-0 translate-y-2">
+            <div key={label} className="sfp-metric p-3 rounded-2xl bg-white/[0.03] border border-parchment-shadow opacity-0 translate-y-2">
               <div className="text-[9px] font-mono tracking-wider text-[#a5a2a5] uppercase mb-0.5">
                 {label}
               </div>
@@ -98,7 +98,7 @@ export function ShowcaseForgotPassword() {
             <span className="text-[#a5a2a5]">VAULT SECURITY STATUS</span>
             <span className="text-[#00f575] font-bold">OPTIMAL</span>
           </div>
-          <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+          <div className="h-1.5 w-full bg-marigold-glow/40 rounded-full overflow-hidden">
             <div
               className="sfp-bar-fill h-full rounded-full bg-gradient-to-r from-[#b997ff] to-[#00f575] origin-left scale-x-0"
               style={{ width: "94%" }}

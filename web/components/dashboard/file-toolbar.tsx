@@ -34,23 +34,23 @@ export function FileSortMenu({
     <DropdownMenu>
       <DropdownMenuTrigger
         render={
-          <Button variant="outline" className="border-lavender-mist bg-eclipse-black text-paper-white hover:border-laser-violet hover:bg-void-plum hover:text-laser-violet">
+          <Button variant="outline" className="border-lavender-mist bg-eclipse-black text-ink-black hover:border-laser-violet hover:bg-cream-canvas hover:text-laser-violet">
             <ArrowUpDownIcon data-icon="inline-start" />
             {SORT_LABELS[sortKey]}
           </Button>
         }
       />
-      <DropdownMenuContent align="end" className="border-lavender-mist bg-eclipse-black text-paper-white">
+      <DropdownMenuContent align="end" className="border-lavender-mist bg-eclipse-black text-ink-black">
         <DropdownMenuLabel className="font-mono text-[11px] uppercase text-ash-wisp">Sort by</DropdownMenuLabel>
         <DropdownMenuRadioGroup value={sortKey} onValueChange={(value) => onSortChange(value as SortKey, sortDirection)}>
-          <DropdownMenuRadioItem value="date" className="hover:bg-void-plum hover:text-laser-violet">Date uploaded</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="name" className="hover:bg-void-plum hover:text-laser-violet">Name</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="size" className="hover:bg-void-plum hover:text-laser-violet">Size</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="date" className="hover:bg-cream-canvas hover:text-laser-violet">Date uploaded</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="name" className="hover:bg-cream-canvas hover:text-laser-violet">Name</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="size" className="hover:bg-cream-canvas hover:text-laser-violet">Size</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
         <DropdownMenuSeparator className="bg-lavender-mist/60" />
         <DropdownMenuRadioGroup value={sortDirection} onValueChange={(value) => onSortChange(sortKey, value as SortDirection)}>
-          <DropdownMenuRadioItem value="desc" className="hover:bg-void-plum hover:text-laser-violet">Descending</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="asc" className="hover:bg-void-plum hover:text-laser-violet">Ascending</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="desc" className="hover:bg-cream-canvas hover:text-laser-violet">Descending</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="asc" className="hover:bg-cream-canvas hover:text-laser-violet">Ascending</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>

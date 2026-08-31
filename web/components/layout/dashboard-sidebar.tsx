@@ -58,7 +58,7 @@ function NavRow({ item, active, collapsed }: { item: NavItem; active: boolean; c
       className={cn(
         "relative flex h-10 items-center gap-3 rounded-xl px-3 text-sm transition-all duration-200 cursor-pointer hover:-translate-y-0.5 active:scale-[0.98]",
         collapsed && "justify-center px-0",
-        active ? "bg-void-plum font-medium text-laser-violet shadow-[0_0_12px_rgba(185,151,255,0.15)]" : "text-silver-smoke hover:bg-void-plum/60 hover:text-paper-white",
+        active ? "bg-cream-canvas font-medium text-laser-violet shadow-[0_0_12px_rgba(185,151,255,0.15)]" : "text-silver-smoke hover:bg-cream-canvas/60 hover:text-ink-black",
       )}
     >
       <item.icon className={cn("size-4 shrink-0", active ? "text-laser-violet" : "text-silver-smoke")} />
@@ -88,7 +88,7 @@ function NewButton({ collapsed }: { collapsed: boolean }) {
       variant="secondary"
       data-tour="tour-new"
       className={cn(
-        "gap-2 rounded-xl bg-void-plum text-paper-white hover:bg-void-plum/80",
+        "gap-2 rounded-xl bg-cream-canvas text-ink-black hover:bg-cream-canvas/80",
         collapsed ? "size-10 p-0" : "w-full justify-start",
       )}
     >
@@ -155,13 +155,13 @@ export function DashboardSidebar() {
               href="/dashboard"
               className="flex size-9 items-center justify-center transition-opacity group-hover:opacity-0"
             >
-              <Logo className="h-7 w-auto shrink-0 text-paper-white" />
+              <Logo className="h-7 w-auto shrink-0 text-ink-black" />
             </Link>
             <button
               type="button"
               aria-label="Expand sidebar"
               onClick={toggleCollapsed}
-              className="absolute inset-0 flex items-center justify-center rounded-lg text-silver-smoke opacity-0 transition-opacity hover:text-paper-white group-hover:opacity-100"
+              className="absolute inset-0 flex items-center justify-center rounded-lg text-silver-smoke opacity-0 transition-opacity hover:text-ink-black group-hover:opacity-100"
             >
               <PanelLeftIcon className="size-5" />
             </button>
@@ -169,14 +169,14 @@ export function DashboardSidebar() {
         ) : (
           <div className="flex items-center justify-between gap-3">
             <Link href="/dashboard" className="flex min-w-0 items-center gap-3">
-              <Logo className="h-7 w-auto shrink-0 text-paper-white" />
-              <span className="truncate text-xl font-freckle tracking-wide text-paper-white">Silo</span>
+              <Logo className="h-7 w-auto shrink-0 text-ink-black" />
+              <span className="truncate text-xl font-freckle tracking-wide text-ink-black">Silo</span>
             </Link>
             <button
               type="button"
               aria-label="Collapse sidebar"
               onClick={toggleCollapsed}
-              className="shrink-0 rounded-lg p-1.5 text-silver-smoke hover:bg-void-plum/60 hover:text-paper-white"
+              className="shrink-0 rounded-lg p-1.5 text-silver-smoke hover:bg-cream-canvas/60 hover:text-ink-black"
             >
               <PanelLeftIcon className="size-4" />
             </button>

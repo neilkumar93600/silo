@@ -77,7 +77,7 @@ function FileThumbnail({
   }, [file.id, isImage, isAudio, isVideo])
 
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-t-[13px] border-b border-lavender-mist bg-void-plum group/thumb">
+    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-t-[13px] border-b border-lavender-mist bg-cream-canvas group/thumb">
       <button
         type="button"
         onClick={onPreview}
@@ -151,8 +151,8 @@ export function FileGrid({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.2, ease: "easeOut", delay: Math.min(index, 10) * 0.03 }}
             className={cn(
-              "group/card flex flex-col overflow-hidden rounded-[20px] border border-lavender-mist bg-eclipse-black text-paper-white transition-all duration-200 hover:border-laser-violet hover:bg-void-plum/60 hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,0,0,0.4)]",
-              isSelected && "border-laser-violet bg-void-plum ring-2 ring-laser-violet/70 shadow-[0_0_20px_rgba(185,151,255,0.2)]"
+              "group/card flex flex-col overflow-hidden rounded-[20px] border border-lavender-mist bg-eclipse-black text-ink-black transition-all duration-200 hover:border-laser-violet hover:bg-cream-canvas/60 hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,0,0,0.4)]",
+              isSelected && "border-laser-violet bg-cream-canvas ring-2 ring-laser-violet/70 shadow-[0_0_20px_rgba(185,151,255,0.2)]"
             )}
             onMouseEnter={() => onHoverFile?.(file.id)}
             onMouseLeave={() => onHoverFile?.(null)}
@@ -169,7 +169,7 @@ export function FileGrid({
             <div className="flex items-center gap-2 p-3">
               <FileTypeBadge mimeType={file.mimeType} className="size-6 shrink-0 rounded-md" />
               <button onClick={() => onPreview(file)} className="min-w-0 flex-1 text-left cursor-pointer">
-                <p className="truncate text-sm font-medium text-paper-white group-hover/card:text-laser-violet transition-colors">
+                <p className="truncate text-sm font-medium text-ink-black group-hover/card:text-laser-violet transition-colors">
                   {file.originalName}
                 </p>
               </button>

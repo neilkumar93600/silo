@@ -48,13 +48,13 @@ export default function LandingFooter({ className }: { className?: string }) {
     return (
         <footer
             id="main-footer"
-            className={"w-full bg-[#1c1624] pt-24 pb-12 px-6 sm:px-12 md:px-16 lg:px-24 font-sans text-white/80 overflow-hidden relative border-t border-white/10 " + (className || "")}
+            className={"w-full bg-[#1c1624] pt-24 pb-12 px-6 sm:px-12 md:px-16 lg:px-24 font-sans text-warm-stone overflow-hidden relative border-t border-parchment-shadow " + (className || "")}
         >
             <div className="absolute right-0 bottom-0 size-[450px] bg-[#b997ff]/[0.04] rounded-full blur-[120px] pointer-events-none select-none z-0" aria-hidden="true" />
             <div className="absolute left-0 bottom-0 size-[350px] bg-[#00f575]/[0.03] rounded-full blur-[100px] pointer-events-none select-none z-0" aria-hidden="true" />
 
             <div className="max-w-[1280px] mx-auto w-full relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 pb-16 border-b border-white/10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 pb-16 border-b border-parchment-shadow">
 
                     {/* Brand + newsletter */}
                     <div className="lg:col-span-5 flex flex-col items-start justify-between">
@@ -79,7 +79,7 @@ export default function LandingFooter({ className }: { className?: string }) {
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         type="email"
-                                        className="w-full bg-white/[0.04] border border-white/15 focus:border-[#b997ff] text-[#f1f0ec] placeholder-white/30 text-xs sm:text-sm rounded-full py-3.5 pl-5 pr-14 focus:outline-none transition-all"
+                                        className="w-full bg-white/[0.04] border border-parchment-shadow focus:border-[#b997ff] text-[#f1f0ec] placeholder-driftwood text-xs sm:text-sm rounded-full py-3.5 pl-5 pr-14 focus:outline-none transition-all"
                                     />
                                     <button
                                         type="submit"
@@ -131,7 +131,7 @@ export default function LandingFooter({ className }: { className?: string }) {
                     </div>
                     <button
                         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                        className="size-10 rounded-full bg-white/[0.06] border border-white/10 hover:border-[#b997ff]/40 hover:bg-white/10 text-[#f1f0ec] flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer shadow-sm"
+                        className="size-10 rounded-full bg-white/[0.06] border border-parchment-shadow hover:border-[#b997ff]/40 hover:bg-marigold-glow/50 text-[#f1f0ec] flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer shadow-sm"
                         aria-label="Back to top"
                     >
                         <ArrowUp className="w-4 h-4 stroke-[2.5]" />

@@ -28,7 +28,8 @@ export type SilviMood =
   | "happy"
   | "sleepy";
 
-export interface SilviIconProps extends BaseIconProps {
+export interface SilviIconProps extends React.HTMLAttributes<HTMLDivElement> {
+  size?: IconSize;
   mood?: SilviMood;
   glow?: boolean;
   animated?: boolean;

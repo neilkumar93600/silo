@@ -74,7 +74,7 @@ export function GlobalWindowDropzone() {
               <UploadCloudIcon className="size-10" />
             </div>
             <div className="flex flex-col gap-1">
-              <h3 className="text-xl font-semibold text-paper-white tracking-tight">
+              <h3 className="text-xl font-semibold text-ink-black tracking-tight">
                 Drop files to upload
               </h3>
               <p className="text-xs text-silver-smoke max-w-xs font-mono">

@@ -10,13 +10,11 @@ import {
   CheckIcon,
   XIcon,
   CopyIcon,
-  SparklesIcon,
   FolderIcon,
   HardDriveIcon,
   StarIcon,
   ClockIcon,
   AlertTriangleIcon,
-  FileTextIcon,
   ArrowUpRightIcon,
 } from "lucide-react"
 
@@ -39,27 +37,27 @@ import {
 import { TypingAnimation } from "@/components/ui/typing-animation"
 import { cn } from "@/lib/utils"
 
-// Status badge configuration adhering to Doppler DESIGN.md tokens
+// Status badge configuration adhering to Getharvest DESIGN.md tokens
 const STATUS_BADGE: Record<SilviStatus, { label: string; className: string }> = {
   idle: {
     label: "Ready",
-    className: "bg-accent/70 text-[#00f575] border-border/80",
+    className: "badge-harvest",
   },
   thinking: {
     label: "Thinking...",
-    className: "bg-[#6b13f5]/10 text-[#6b13f5] border-[#6b13f5]/30 animate-pulse",
+    className: "bg-harvest-flame/10 text-harvest-flame border-harvest-flame/30 animate-pulse",
   },
   typing: {
     label: "Generating...",
-    className: "bg-[#00f575]/10 text-[#00f575] border-[#00f575]/30",
+    className: "bg-harvest-flame/10 text-harvest-flame border-harvest-flame/30",
   },
   checking: {
     label: "Action Required",
-    className: "bg-[#ff5632]/10 text-[#ff5632] border-[#ff5632]/30 animate-pulse",
+    className: "bg-destructive/10 text-destructive border-destructive/30 animate-pulse",
   },
   processing: {
     label: "Processing...",
-    className: "bg-[#6b13f5]/10 text-[#6b13f5] border-[#6b13f5]/30 animate-pulse",
+    className: "bg-harvest-flame/10 text-harvest-flame border-harvest-flame/30 animate-pulse",
   },
 }
 
@@ -102,10 +100,10 @@ function MarkdownContent({ content }: { content: string }) {
           return (
             <div
               key={i}
-              className="my-2 rounded-lg border border-border/80 bg-carbon-ink shadow-xs overflow-hidden"
+              className="my-2 rounded-lg border border-border/80 bg-white shadow-harvest-sm overflow-hidden"
             >
               <div className="flex items-center justify-between border-b border-border/60 bg-muted/40 px-3 py-1.5 text-[11px] font-mono text-muted-foreground">
-                <span className="font-semibold uppercase tracking-wider text-[#b997ff]">
+                <span className="font-semibold uppercase tracking-wider text-harvest-flame">
                   {part.lang}
                 </span>
                 <button
@@ -115,8 +113,8 @@ function MarkdownContent({ content }: { content: string }) {
                 >
                   {copiedIndex === i ? (
                     <>
-                      <CheckIcon className="size-3 text-signal-green" />
-                      <span className="text-signal-green">Copied</span>
+                      <CheckIcon className="size-3 text-harvest-flame" />
+                      <span className="text-harvest-flame">Copied</span>
                     </>
                   ) : (
                     <>
@@ -126,7 +124,7 @@ function MarkdownContent({ content }: { content: string }) {
                   )}
                 </button>
               </div>
-              <pre className="overflow-x-auto p-3 font-mono text-xs leading-normal text-laser-violet bg-void-plum">
+              <pre className="overflow-x-auto p-3 font-mono text-xs leading-normal text-ink-black bg-white">
                 <code>{part.content}</code>
               </pre>
             </div>
@@ -140,14 +138,14 @@ function MarkdownContent({ content }: { content: string }) {
             {lines.map((line, lineIdx) => {
               if (line.startsWith("### ")) {
                 return (
-                  <h4 key={lineIdx} className="font-semibold text-sm text-[#b997ff] mt-2 mb-0.5">
+                  <h4 key={lineIdx} className="font-semibold text-sm text-harvest-flame mt-2 mb-0.5">
                     {line.replace("### ", "")}
                   </h4>
                 )
               }
               if (line.startsWith("## ")) {
                 return (
-                  <h3 key={lineIdx} className="font-semibold text-[15px] text-[#b997ff] mt-2.5 mb-1">
+                  <h3 key={lineIdx} className="font-semibold text-[15px] text-harvest-flame mt-2.5 mb-1">
                     {line.replace("## ", "")}
                   </h3>
                 )
@@ -155,7 +153,7 @@ function MarkdownContent({ content }: { content: string }) {
               if (line.startsWith("- ") || line.startsWith("* ")) {
                 return (
                   <div key={lineIdx} className="flex items-start gap-2 ml-1 my-0.5">
-                    <span className="size-1.5 rounded-full bg-[#b997ff] shrink-0 mt-2" />
+                    <span className="size-1.5 rounded-full bg-harvest-flame shrink-0 mt-2" />
                     <span>{parseInlineFormatting(line.slice(2))}</span>
                   </div>
                 )
@@ -165,7 +163,7 @@ function MarkdownContent({ content }: { content: string }) {
                 if (match) {
                   return (
                     <div key={lineIdx} className="flex items-start gap-2 ml-1 my-0.5">
-                      <span className="font-mono text-xs font-semibold text-[#b997ff] shrink-0 mt-0.5">
+                      <span className="font-mono text-xs font-semibold text-harvest-flame shrink-0 mt-0.5">
                         {match[1]}.
                       </span>
                       <span>{parseInlineFormatting(match[2])}</span>
@@ -190,7 +188,7 @@ function parseInlineFormatting(text: string) {
   return parts.map((seg, idx) => {
     if (seg.startsWith("**") && seg.endsWith("**")) {
       return (
-        <strong key={idx} className="font-semibold text-[#b997ff]">
+        <strong key={idx} className="font-semibold text-harvest-flame">
           {seg.slice(2, -2)}
         </strong>
       )
@@ -199,7 +197,7 @@ function parseInlineFormatting(text: string) {
       return (
         <code
           key={idx}
-          className="rounded bg-muted/60 px-1.5 py-0.5 font-mono text-xs font-medium text-[#b997ff] border border-border/50"
+          className="rounded bg-muted/60 px-1.5 py-0.5 font-mono text-xs font-medium text-harvest-flame border border-border/50"
         >
           {seg.slice(1, -1)}
         </code>
@@ -233,7 +231,7 @@ function AssistantMessageBubble({
   if (role === "user") {
     return (
       <div className="flex flex-col items-end gap-1 pl-8">
-        <div className="rounded-lg bg-[#b997ff] px-3.5 py-2.5 text-xs text-white shadow-xs leading-relaxed max-w-[85%] whitespace-pre-wrap">
+        <div className="rounded-lg bg-harvest-flame px-3.5 py-2.5 text-xs text-white shadow-harvest-sm leading-relaxed max-w-[85%] whitespace-pre-wrap">
           {content}
         </div>
         {createdAt && (
@@ -251,7 +249,7 @@ function AssistantMessageBubble({
         <SilviOrb status={isStreaming ? "typing" : "idle"} size={24} showGlow={isStreaming} interactive={false} />
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-1">
-        <div className="relative rounded-lg border border-border/80 bg-card p-3.5 shadow-xs">
+        <div className="relative rounded-lg border border-border/80 bg-card p-3.5 shadow-harvest-sm">
           <div className="relative">
             <MarkdownContent content={content} />
             {isStreaming && (
@@ -259,7 +257,7 @@ function AssistantMessageBubble({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: [1, 0, 1] }}
                 transition={{ duration: 0.7, repeat: Infinity, ease: "easeInOut" }}
-                className="inline-block w-2 h-3.5 ml-1 rounded-xs bg-[#00f575] align-middle shadow-[0_0_8px_rgba(0,245,117,0.6)]"
+                className="inline-block w-2 h-3.5 ml-1 rounded-xs bg-harvest-flame align-middle shadow-[0_0_8px_rgba(250,93,0,0.5)]"
               />
             )}
           </div>
@@ -267,8 +265,8 @@ function AssistantMessageBubble({
             <span className="font-mono text-[10px] flex items-center gap-1.5">
               {isStreaming ? (
                 <>
-                  <span className="inline-block size-1.5 rounded-full bg-[#00f575] animate-pulse" />
-                  <span className="text-[#00f575] font-sans font-medium">Silvi is typing...</span>
+                  <span className="inline-block size-1.5 rounded-full bg-harvest-flame animate-pulse" />
+                  <span className="text-harvest-flame font-sans font-medium">Silvi is typing...</span>
                 </>
               ) : createdAt ? (
                 new Date(createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
@@ -285,8 +283,8 @@ function AssistantMessageBubble({
               >
                 {copied ? (
                   <>
-                    <CheckIcon className="size-3 text-signal-green" />
-                    <span className="text-signal-green text-[10px]">Copied</span>
+                    <CheckIcon className="size-3 text-harvest-flame" />
+                    <span className="text-harvest-flame text-[10px]">Copied</span>
                   </>
                 ) : (
                   <>
@@ -311,24 +309,24 @@ function PendingConfirmationCard() {
     <motion.div
       initial={{ opacity: 0, y: 8, scale: 0.98 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      className="flex flex-col gap-3 rounded-lg border-2 border-[#ff5632]/40 bg-[#ff5632]/10 p-4 shadow-sm"
+      className="flex flex-col gap-3 rounded-lg border-2 border-destructive/40 bg-destructive/10 p-4 shadow-sm"
     >
       <div className="flex items-start gap-2.5">
-        <div className="rounded-full bg-[#ff5632]/10 p-1.5 text-[#ff5632] shrink-0 mt-0.5">
+        <div className="rounded-full bg-destructive/10 p-1.5 text-destructive shrink-0 mt-0.5">
           <AlertTriangleIcon className="size-4" />
         </div>
         <div className="flex flex-col gap-1 min-w-0 flex-1">
-          <span className="text-xs font-semibold text-[#b997ff]">Action Confirmation Required</span>
+          <span className="text-xs font-semibold text-destructive">Action Confirmation Required</span>
           <p className="text-xs text-foreground/80 leading-relaxed">{pending.summary}</p>
         </div>
       </div>
 
-      <div className="flex items-center gap-2 pt-1 border-t border-[#ff5632]/20">
+      <div className="flex items-center gap-2 pt-1 border-t border-destructive/20">
         <Button
           size="sm"
           onClick={() => confirm(true)}
           disabled={isStreaming}
-          className="h-8 gap-1.5 rounded-lg bg-[#ff5632] text-white hover:bg-[#ff5632]/90 px-3 text-xs font-medium"
+          className="h-8 gap-1.5 rounded-lg bg-destructive text-white hover:bg-destructive/90 px-3 text-xs font-medium"
         >
           <CheckIcon className="size-3.5" />
           Confirm Action
@@ -394,7 +392,7 @@ function AssistantHistoryMenu() {
       />
       <DropdownMenuContent align="end" className="w-72 max-h-80 overflow-y-auto">
         <DropdownMenuGroup>
-          <DropdownMenuLabel className="text-xs font-semibold text-[#b997ff]">
+          <DropdownMenuLabel className="text-xs font-semibold text-harvest-flame">
             Conversations
           </DropdownMenuLabel>
           <DropdownMenuItem
@@ -402,7 +400,7 @@ function AssistantHistoryMenu() {
               startNewConversation()
               setOpen(false)
             }}
-            className="gap-2 font-medium text-[#00f575]"
+            className="gap-2 font-medium text-harvest-flame"
           >
             <PlusIcon className="size-4" />
             New conversation
@@ -506,9 +504,9 @@ function AssistantComposer({ onQuickPrompt }: { onQuickPrompt: (prompt: string) 
             type="button"
             disabled={disabled}
             onClick={() => onQuickPrompt(item.prompt)}
-            className="flex shrink-0 items-center gap-1.5 rounded-full border border-border/80 bg-muted/40 px-2.5 py-1 text-[11px] font-medium text-muted-foreground hover:border-[#00f575]/40 hover:bg-accent hover:text-[#00f575] hover:-translate-y-0.5 active:scale-95 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+            className="flex shrink-0 items-center gap-1.5 rounded-full border border-border/80 bg-muted/40 px-2.5 py-1 text-[11px] font-medium text-muted-foreground hover:border-harvest-flame/40 hover:bg-accent hover:text-harvest-flame hover:-translate-y-0.5 active:scale-95 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
           >
-            <item.icon className="size-3 text-[#00f575]" />
+            <item.icon className="size-3 text-harvest-flame" />
             <span>{item.title}</span>
           </button>
         ))}
@@ -539,7 +537,7 @@ function AssistantComposer({ onQuickPrompt }: { onQuickPrompt: (prompt: string) 
           onClick={submit}
           disabled={disabled || !value.trim()}
           aria-label="Send message"
-          className="size-8 rounded-lg bg-[#00f575] text-[#000000] hover:bg-[#00f575]/90 hover:shadow-[0_0_14px_rgba(0,245,117,0.4)] disabled:opacity-40 transition-all cursor-pointer"
+          className="btn-primary-harvest size-8 disabled:opacity-40 transition-all cursor-pointer"
         >
           {isStreaming ? <Spinner className="size-3.5" /> : <SendIcon className="size-3.5" />}
         </Button>
@@ -592,7 +590,7 @@ export function AssistantPanel() {
           <SilviOrb status="idle" size={28} showGlow={false} />
           <div className="flex flex-col min-w-0">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-semibold tracking-tight text-[#b997ff]">Silvi</span>
+              <span className="text-sm font-semibold tracking-tight text-harvest-flame">Silvi</span>
               <span
                 className={cn(
                   "rounded-full border px-2 py-0.5 text-[10px] font-medium transition-colors",
@@ -662,7 +660,7 @@ export function AssistantPanel() {
             </motion.div>
             <TypingAnimation
               duration={40}
-              className="text-base font-semibold text-[#b997ff] mb-1"
+              className="text-base font-semibold text-harvest-flame mb-1"
               showCursor={false}
             >
               Hi, I'm Silvi
@@ -677,10 +675,10 @@ export function AssistantPanel() {
                   key={idx}
                   type="button"
                   onClick={() => sendMessage(item.prompt)}
-                  className="group flex items-center justify-between rounded-xl border border-border/80 bg-background p-3 text-left hover:border-primary/40 hover:bg-accent/50 hover:-translate-y-0.5 active:scale-[0.99] transition-all shadow-xs cursor-pointer"
+                  className="group flex items-center justify-between rounded-xl border border-border/80 bg-background p-3 text-left hover:border-primary/40 hover:bg-accent/50 hover:-translate-y-0.5 active:scale-[0.99] transition-all shadow-harvest-sm cursor-pointer"
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="rounded-lg bg-accent/60 p-2 text-[#00f575] group-hover:bg-accent transition-colors">
+                    <div className="rounded-lg bg-accent/60 p-2 text-harvest-flame group-hover:bg-accent transition-colors">
                       <item.icon className="size-4" />
                     </div>
                     <div className="flex flex-col min-w-0">
@@ -721,12 +719,12 @@ export function AssistantPanel() {
               <motion.div
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex items-center gap-3 rounded-lg border border-border/80 bg-card p-3.5 shadow-xs"
+                className="flex items-center gap-3 rounded-lg border border-border/80 bg-card p-3.5 shadow-harvest-sm"
               >
                 <SilviOrb status={status} size={26} showGlow showRings />
                 <div className="flex flex-col gap-1 min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-medium text-[#b997ff]">
+                    <span className="text-xs font-medium text-harvest-flame">
                       {status === "thinking"
                         ? "Silvi is thinking..."
                         : status === "processing"
@@ -734,9 +732,9 @@ export function AssistantPanel() {
                         : "Silvi is working..."}
                     </span>
                     <div className="flex items-center gap-1">
-                      <span className="size-1.5 rounded-full bg-[#00f575] animate-bounce [animation-delay:-0.3s]" />
-                      <span className="size-1.5 rounded-full bg-[#00f575] animate-bounce [animation-delay:-0.15s]" />
-                      <span className="size-1.5 rounded-full bg-[#ff9efa] animate-bounce" />
+                      <span className="size-1.5 rounded-full bg-harvest-flame animate-bounce [animation-delay:-0.3s]" />
+                      <span className="size-1.5 rounded-full bg-harvest-flame animate-bounce [animation-delay:-0.15s]" />
+                      <span className="size-1.5 rounded-full bg-harvest-flame/60 animate-bounce" />
                     </div>
                   </div>
                   {toolTrace.length > 0 ? (

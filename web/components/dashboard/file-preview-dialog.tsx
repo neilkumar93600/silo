@@ -111,7 +111,7 @@ function AudioPlayer({
   }
 
   return (
-    <div className="flex w-full flex-col items-center gap-5 rounded-2xl border border-lavender-mist/60 bg-carbon-ink p-6 text-paper-white shadow-xl">
+    <div className="flex w-full flex-col items-center gap-5 rounded-2xl border border-lavender-mist/60 bg-carbon-ink p-6 text-ink-black shadow-xl">
       <audio
         ref={audioRef}
         src={src}
@@ -124,7 +124,7 @@ function AudioPlayer({
       />
 
       {/* Album Artwork & Rotating Disc Visual */}
-      <div className="relative flex size-44 items-center justify-center overflow-hidden rounded-2xl border border-lavender-mist bg-void-plum shadow-2xl">
+      <div className="relative flex size-44 items-center justify-center overflow-hidden rounded-2xl border border-lavender-mist bg-cream-canvas shadow-2xl">
         {coverUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -154,7 +154,7 @@ function AudioPlayer({
 
       {/* Track Info */}
       <div className="flex w-full flex-col items-center text-center">
-        <h4 className="truncate text-base font-semibold text-paper-white max-w-[280px]">
+        <h4 className="truncate text-base font-semibold text-ink-black max-w-[280px]">
           {songTitle}
         </h4>
         <p className="truncate text-xs text-silver-smoke mt-0.5 max-w-[240px]">
@@ -182,7 +182,7 @@ function AudioPlayer({
         <button
           type="button"
           onClick={cycleRate}
-          className="rounded-lg px-2 py-1 text-xs font-mono font-medium text-silver-smoke hover:bg-void-plum hover:text-paper-white transition-colors"
+          className="rounded-lg px-2 py-1 text-xs font-mono font-medium text-silver-smoke hover:bg-cream-canvas hover:text-ink-black transition-colors"
           title="Playback speed"
         >
           {playbackRate}x
@@ -204,8 +204,8 @@ function AudioPlayer({
           type="button"
           onClick={toggleLoop}
           className={cn(
-            "rounded-lg p-2 text-silver-smoke hover:bg-void-plum hover:text-paper-white transition-colors",
-            isLooping && "text-laser-violet bg-void-plum"
+            "rounded-lg p-2 text-silver-smoke hover:bg-cream-canvas hover:text-ink-black transition-colors",
+            isLooping && "text-laser-violet bg-cream-canvas"
           )}
           title={isLooping ? "Disable repeat" : "Repeat track"}
         >
@@ -218,7 +218,7 @@ function AudioPlayer({
         <button
           type="button"
           onClick={toggleMute}
-          className="text-silver-smoke hover:text-paper-white transition-colors"
+          className="text-silver-smoke hover:text-ink-black transition-colors"
           aria-label={isMuted ? "Unmute" : "Mute"}
         >
           {isMuted || volume === 0 ? <VolumeXIcon className="size-4" /> : <Volume2Icon className="size-4" />}
@@ -344,12 +344,12 @@ export function FilePreviewDialog({
 
   return (
     <Dialog open={file !== null} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-xl border-lavender-mist bg-eclipse-black text-paper-white overflow-hidden p-6">
+      <DialogContent className="max-w-xl border-lavender-mist bg-eclipse-black text-ink-black overflow-hidden p-6">
         {file && (
           <div className="flex flex-col gap-5">
             <DialogHeader>
               <div className="flex items-center justify-between pr-8">
-                <DialogTitle className="truncate text-paper-white text-lg font-semibold max-w-sm">
+                <DialogTitle className="truncate text-ink-black text-lg font-semibold max-w-sm">
                   {file.originalName}
                 </DialogTitle>
                 {files.length > 1 && currentIndex >= 0 && (
@@ -364,12 +364,12 @@ export function FilePreviewDialog({
             </DialogHeader>
 
             {/* Media Content with Carousel Prev / Next Overlay Buttons */}
-            <div className="relative flex min-h-48 items-center justify-center rounded-xl border border-lavender-mist/60 bg-void-plum p-4 group">
+            <div className="relative flex min-h-48 items-center justify-center rounded-xl border border-lavender-mist/60 bg-cream-canvas p-4 group">
               {hasPrev && (
                 <button
                   type="button"
                   onClick={handlePrev}
-                  className="absolute left-2 z-10 flex size-9 items-center justify-center rounded-full bg-carbon-ink/80 text-paper-white shadow-lg backdrop-blur-sm border border-lavender-mist hover:bg-laser-violet transition-all cursor-pointer opacity-80 group-hover:opacity-100"
+                  className="absolute left-2 z-10 flex size-9 items-center justify-center rounded-full bg-carbon-ink/80 text-ink-black shadow-lg backdrop-blur-sm border border-lavender-mist hover:bg-laser-violet transition-all cursor-pointer opacity-80 group-hover:opacity-100"
                   aria-label="Previous file"
                 >
                   <ChevronLeftIcon className="size-5" />
@@ -380,7 +380,7 @@ export function FilePreviewDialog({
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="absolute right-2 z-10 flex size-9 items-center justify-center rounded-full bg-carbon-ink/80 text-paper-white shadow-lg backdrop-blur-sm border border-lavender-mist hover:bg-laser-violet transition-all cursor-pointer opacity-80 group-hover:opacity-100"
+                  className="absolute right-2 z-10 flex size-9 items-center justify-center rounded-full bg-carbon-ink/80 text-ink-black shadow-lg backdrop-blur-sm border border-lavender-mist hover:bg-laser-violet transition-all cursor-pointer opacity-80 group-hover:opacity-100"
                   aria-label="Next file"
                 >
                   <ChevronRightIcon className="size-5" />

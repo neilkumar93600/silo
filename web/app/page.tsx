@@ -31,7 +31,7 @@ const SOFTWARE_APPLICATION_JSON_LD = {
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-void-plum text-paper-white font-sans">
+    <div className="min-h-screen bg-cream-canvas text-ink-black font-sans">
       <LandingHero />
       <LandingMetrics />
       <div id="features">

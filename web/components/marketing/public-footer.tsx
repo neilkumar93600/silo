@@ -23,12 +23,12 @@ const columns = [
 
 export function PublicFooter() {
   return (
-    <footer className="border-t border-lavender-mist bg-void-plum text-paper-white">
+    <footer className="border-t border-lavender-mist bg-cream-canvas text-ink-black">
       <div className="mx-auto max-w-[1440px] px-6 py-16">
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
           <div className="col-span-2 sm:col-span-2">
-            <Link href="/" className="flex items-center gap-2 text-[18px] font-semibold tracking-[-0.025em] text-paper-white">
-              <Logo className="h-5 w-auto shrink-0 text-paper-white" />
+            <Link href="/" className="flex items-center gap-2 text-[18px] font-semibold tracking-[-0.025em] text-ink-black">
+              <Logo className="h-5 w-auto shrink-0 text-ink-black" />
               <span className="font-freckle text-[22px] tracking-wide">Silo</span>
             </Link>
             <p className="mt-3 max-w-sm text-[14px] leading-[1.5] text-ash-wisp">

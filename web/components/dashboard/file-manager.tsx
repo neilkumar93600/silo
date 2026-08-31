@@ -479,7 +479,7 @@ export function FileManager({ query = "", mode = { type: "folder", folderId: "ro
         </div>
       )}
 
-      <Card className="border border-lavender-mist bg-eclipse-black text-paper-white">
+      <Card className="border border-lavender-mist bg-eclipse-black text-ink-black">
         <CardContent className="flex flex-col gap-4 p-6">
           {files === null ? (
             <div className="flex flex-col gap-3">
@@ -494,7 +494,7 @@ export function FileManager({ query = "", mode = { type: "folder", folderId: "ro
                 <div className="h-44 w-56">
                   <FolderComponent color="brand" size="sm" />
                 </div>
-                <h2 className="text-lg font-semibold tracking-[-0.02em] text-paper-white">Welcome to Silo</h2>
+                <h2 className="text-lg font-semibold tracking-[-0.02em] text-ink-black">Welcome to Silo</h2>
                 <p className="max-w-sm font-mono text-[11px] text-ash-wisp">
                   Use the New button in the sidebar or drag and drop files anywhere to upload.
                 </p>
@@ -526,7 +526,7 @@ export function FileManager({ query = "", mode = { type: "folder", folderId: "ro
                       size="icon-sm"
                       aria-label="List view"
                       onClick={() => setViewMode("list")}
-                      className={viewMode === "list" ? "bg-void-plum text-paper-white" : "text-silver-smoke hover:text-paper-white"}
+                      className={viewMode === "list" ? "bg-cream-canvas text-ink-black" : "text-silver-smoke hover:text-ink-black"}
                     >
                       <ListIcon />
                     </Button>
@@ -535,7 +535,7 @@ export function FileManager({ query = "", mode = { type: "folder", folderId: "ro
                       size="icon-sm"
                       aria-label="Grid view"
                       onClick={() => setViewMode("grid")}
-                      className={viewMode === "grid" ? "bg-void-plum text-paper-white" : "text-silver-smoke hover:text-paper-white"}
+                      className={viewMode === "grid" ? "bg-cream-canvas text-ink-black" : "text-silver-smoke hover:text-ink-black"}
                     >
                       <LayoutGridIcon />
                     </Button>

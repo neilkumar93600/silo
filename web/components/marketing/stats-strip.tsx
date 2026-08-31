@@ -38,7 +38,7 @@ const stats = [
 
 export function StatsStrip() {
   return (
-    <section className="bg-void-plum py-16 px-6">
+    <section className="bg-cream-canvas py-16 px-6">
       <div className="mx-auto max-w-[1440px] grid gap-6 sm:grid-cols-3">
         {stats.map((item, i) => (
           <motion.div

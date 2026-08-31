@@ -54,11 +54,11 @@ export function HowItWorks() {
   const active = steps.find((s) => s.id === activeId) ?? steps[0]!
 
   return (
-    <section id="how-it-works" className="bg-void-plum py-24 px-6">
+    <section id="how-it-works" className="bg-cream-canvas py-24 px-6">
       <div className="mx-auto max-w-[1248px]">
         <div className="mb-12 max-w-xl">
           <span className="text-[12px] font-medium tracking-[0.08em] text-laser-violet uppercase">Process</span>
-          <h2 className="mt-3 text-[32px] sm:text-[42px] leading-[1.12] font-medium tracking-[-0.04em] text-paper-white">
+          <h2 className="mt-3 text-[32px] sm:text-[42px] leading-[1.12] font-medium tracking-[-0.04em] text-ink-black">
             From upload to shared, in four steps.
           </h2>
         </div>
@@ -73,7 +73,7 @@ export function HowItWorks() {
                 onClick={() => setActiveId(step.id)}
                 className={cn(
                   "flex items-center gap-2.5 rounded-xl px-4 py-2.5 text-[14px] transition-colors",
-                  isActive ? "bg-void-plum text-laser-violet font-medium" : "text-silver-smoke hover:text-paper-white"
+                  isActive ? "bg-cream-canvas text-laser-violet font-medium" : "text-silver-smoke hover:text-ink-black"
                 )}
               >
                 <step.icon className="size-4" strokeWidth={2.25} />
@@ -93,10 +93,10 @@ export function HowItWorks() {
               transition={{ duration: 0.3 }}
               className="w-full lg:max-w-xl"
             >
-              <div className="flex size-14 items-center justify-center rounded-xl border border-lavender-mist bg-void-plum text-laser-violet">
+              <div className="flex size-14 items-center justify-center rounded-xl border border-lavender-mist bg-cream-canvas text-laser-violet">
                 <active.icon className="size-6" strokeWidth={2} />
               </div>
-              <h3 className="mt-5 text-[26px] font-semibold tracking-[-0.02em] text-paper-white">{active.heading}</h3>
+              <h3 className="mt-5 text-[26px] font-semibold tracking-[-0.02em] text-ink-black">{active.heading}</h3>
               <p className="mt-3 text-[15px] leading-[1.6] text-silver-smoke">{active.description}</p>
               <div className="mt-6 flex flex-col gap-2.5">
                 {active.points.map((point) => (
@@ -104,7 +104,7 @@ export function HowItWorks() {
                     <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-chart-2/15">
                       <CheckIcon className="size-3 text-chart-2" strokeWidth={3} />
                     </span>
-                    <span className="text-[14px] font-medium text-paper-white">{point}</span>
+                    <span className="text-[14px] font-medium text-ink-black">{point}</span>
                   </div>
                 ))}
               </div>
@@ -120,7 +120,7 @@ export function HowItWorks() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.05 }}
                 transition={{ duration: 0.3 }}
-                className="relative flex size-full items-center justify-center rounded-[20px] border border-lavender-mist bg-void-plum/60"
+                className="relative flex size-full items-center justify-center rounded-[20px] border border-lavender-mist bg-cream-canvas/60"
               >
                 <span className="absolute left-4 top-4 flex items-center gap-1.5">
                   <span className="size-1.5 rounded-full bg-lavender-mist" />

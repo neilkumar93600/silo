@@ -104,7 +104,7 @@ function ResetPasswordContent() {
               </label>
               <PasswordInput
                 placeholder="Min. 8 characters"
-                className="bg-white/[0.04] border-white/10 hover:border-white/20 focus:border-[#b997ff] text-[#f1f0ec] placeholder-white/30 h-12 rounded-xl px-4 transition-all duration-200"
+                className="bg-white/[0.04] border-parchment-shadow hover:border-parchment-shadow focus:border-[#b997ff] text-[#f1f0ec] placeholder-driftwood h-12 rounded-xl px-4 transition-all duration-200"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -120,7 +120,7 @@ function ResetPasswordContent() {
               </label>
               <PasswordInput
                 placeholder="Repeat your password"
-                className="bg-white/[0.04] border-white/10 hover:border-white/20 focus:border-[#b997ff] text-[#f1f0ec] placeholder-white/30 h-12 rounded-xl px-4 transition-all duration-200"
+                className="bg-white/[0.04] border-parchment-shadow hover:border-parchment-shadow focus:border-[#b997ff] text-[#f1f0ec] placeholder-driftwood h-12 rounded-xl px-4 transition-all duration-200"
                 value={confirm}
                 onChange={(e) => setConfirm(e.target.value)}
                 required

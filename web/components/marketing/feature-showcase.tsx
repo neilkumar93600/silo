@@ -55,7 +55,7 @@ export function FeatureShowcase() {
               transition={{ duration: 0.6, delay: i * 0.08, ease: "easeOut" }}
               className="group relative flex flex-col rounded-[18px] border border-border bg-card p-8 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
             >
-              <div className="flex size-11 items-center justify-center rounded-lg bg-void-plum text-laser-violet transition-transform duration-300 group-hover:scale-105">
+              <div className="flex size-11 items-center justify-center rounded-lg bg-cream-canvas text-laser-violet transition-transform duration-300 group-hover:scale-105">
                 <feature.icon className="size-5" strokeWidth={1.75} />
               </div>
               <h3 className="mt-6 text-[19px] font-semibold tracking-[-0.025em] text-foreground">

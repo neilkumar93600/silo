@@ -32,7 +32,7 @@ export function HeroSection() {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.1, duration: 0.7, ease: "easeOut" }}
-          className="mt-6 max-w-4xl text-[42px] leading-[1.08] font-semibold tracking-[-0.05em] text-paper-white sm:text-[60px] md:text-[68px]"
+          className="mt-6 max-w-4xl text-[42px] leading-[1.08] font-semibold tracking-[-0.05em] text-ink-black sm:text-[60px] md:text-[68px]"
         >
           Keep what&apos;s yours, <br className="hidden sm:inline" />
           <span className="font-serif italic font-medium text-laser-violet">share what you choose.</span>

@@ -55,7 +55,7 @@ function FolderNameForm({
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <DialogHeader>
-        <DialogTitle className="text-paper-white">{title}</DialogTitle>
+        <DialogTitle className="text-ink-black">{title}</DialogTitle>
         {description && <DialogDescription className="text-silver-smoke">{description}</DialogDescription>}
       </DialogHeader>
       <div className="flex flex-col gap-1.5">
@@ -66,7 +66,7 @@ function FolderNameForm({
           onChange={(e) => setName(e.target.value)}
           autoFocus
           maxLength={255}
-          className="border-lavender-mist bg-void-plum text-paper-white focus-visible:ring-laser-violet"
+          className="border-lavender-mist bg-cream-canvas text-ink-black focus-visible:ring-laser-violet"
         />
       </div>
       <DialogFooter>
@@ -81,7 +81,7 @@ function FolderNameForm({
 export function FolderNameDialog({ open, onOpenChange, ...formProps }: FolderNameDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="border-lavender-mist bg-eclipse-black text-paper-white">
+      <DialogContent className="border-lavender-mist bg-eclipse-black text-ink-black">
         <FolderNameForm key={open ? "open" : "closed"} onOpenChange={onOpenChange} {...formProps} />
       </DialogContent>
     </Dialog>

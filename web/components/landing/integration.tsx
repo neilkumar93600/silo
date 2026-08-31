@@ -109,7 +109,7 @@ export default function LandingHighlights({ className }: { className?: string })
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.1 }}
                             transition={{ duration: 0.4, delay: index * 0.04 }}
-                            className="bg-[#2d2734]/70 border border-white/10 hover:border-white/25 rounded-2xl p-7 flex flex-col hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(0,0,0,0.5)] transition-all duration-300 group backdrop-blur-md cursor-pointer"
+                            className="bg-[#2d2734]/70 border border-parchment-shadow hover:border-parchment-shadow rounded-2xl p-7 flex flex-col hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(0,0,0,0.5)] transition-all duration-300 group backdrop-blur-md cursor-pointer"
                         >
                             <div className={"size-12 rounded-xl flex items-center justify-center mb-6 border transition-transform duration-300 group-hover:scale-110 " + item.color}>
                                 <item.icon className="size-5" strokeWidth={2} />

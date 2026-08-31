@@ -44,14 +44,14 @@ const scenarios: Scenario[] = [
                     Found 2 encrypted files matching &ldquo;Q3 invoices&rdquo;:
                 </p>
                 <div className="space-y-1.5 pt-1">
-                    <div className="flex items-center justify-between p-2 rounded-lg bg-white/[0.04] border border-white/10 hover:border-[#b997ff]/30 transition-colors">
+                    <div className="flex items-center justify-between p-2 rounded-lg bg-white/[0.04] border border-parchment-shadow hover:border-[#b997ff]/30 transition-colors">
                         <div className="flex items-center gap-2">
                             <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#00f575]/10 text-[#00f575] border border-[#00f575]/20 font-bold">XLS</span>
                             <span className="text-xs font-medium text-[#f1f0ec]">q3-invoices-final.xlsx</span>
                         </div>
                         <span className="text-[11px] font-mono text-[#a5a2a5]">1.1 MB · Private</span>
                     </div>
-                    <div className="flex items-center justify-between p-2 rounded-lg bg-white/[0.04] border border-white/10 hover:border-[#b997ff]/30 transition-colors">
+                    <div className="flex items-center justify-between p-2 rounded-lg bg-white/[0.04] border border-parchment-shadow hover:border-[#b997ff]/30 transition-colors">
                         <div className="flex items-center gap-2">
                             <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#ff5632]/10 text-[#ff5632] border border-[#ff5632]/20 font-bold">PDF</span>
                             <span className="text-xs font-medium text-[#f1f0ec]">tax-filings-q3.pdf</span>
@@ -76,14 +76,14 @@ const scenarios: Scenario[] = [
                     Here is your current storage breakdown across 1.4 GB used:
                 </p>
                 <div className="space-y-1.5">
-                    <div className="flex items-center justify-between text-xs text-[#f1f0ec] p-2 rounded-lg bg-white/[0.04] border border-white/10">
+                    <div className="flex items-center justify-between text-xs text-[#f1f0ec] p-2 rounded-lg bg-white/[0.04] border border-parchment-shadow">
                         <div className="flex items-center gap-2">
                             <span className="size-2 rounded-full bg-[#b997ff]" />
                             <span>Videos & Media</span>
                         </div>
                         <span className="font-mono text-[#b997ff] font-semibold">812 MB (58%)</span>
                     </div>
-                    <div className="flex items-center justify-between text-xs text-[#f1f0ec] p-2 rounded-lg bg-white/[0.04] border border-white/10">
+                    <div className="flex items-center justify-between text-xs text-[#f1f0ec] p-2 rounded-lg bg-white/[0.04] border border-parchment-shadow">
                         <div className="flex items-center gap-2">
                             <span className="size-2 rounded-full bg-[#ff9efa]" />
                             <span>Compressed Archives</span>
@@ -125,7 +125,7 @@ const scenarios: Scenario[] = [
                             <CheckIcon className="size-3.5" />
                             Approve Action
                         </button>
-                        <button className="flex h-7 items-center gap-1.5 rounded-lg border border-white/15 bg-white/[0.04] px-3 text-xs text-[#d0c9c4] hover:text-white hover:bg-white/10 transition-all cursor-pointer">
+                        <button className="flex h-7 items-center gap-1.5 rounded-lg border border-parchment-shadow bg-white/[0.04] px-3 text-xs text-[#d0c9c4] hover:text-white hover:bg-marigold-glow/50 transition-all cursor-pointer">
                             <XIcon className="size-3.5" />
                             Cancel
                         </button>
@@ -226,7 +226,7 @@ export default function LandingSilvi({ className }: { className?: string }) {
                                             className={"flex items-center gap-3 p-3.5 rounded-xl border text-left transition-all duration-200 cursor-pointer hover:-translate-y-0.5 " + (
                                                 isSelected
                                                     ? "bg-[#2d2734] border-[#b997ff] shadow-[0_0_20px_rgba(185,151,255,0.25)] text-white"
-                                                    : "bg-white/[0.03] border-white/10 hover:border-white/20 hover:bg-white/[0.06] text-[#d0c9c4]"
+                                                    : "bg-white/[0.03] border-parchment-shadow hover:border-parchment-shadow hover:bg-white/[0.06] text-[#d0c9c4]"
                                             )}
                                         >
                                             <div className={"size-8 rounded-lg flex items-center justify-center shrink-0 " + (
@@ -252,10 +252,10 @@ export default function LandingSilvi({ className }: { className?: string }) {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true, amount: 0.2 }}
                             transition={{ duration: 0.6 }}
-                            className="rounded-3xl border border-white/15 bg-[#2d2734]/50 backdrop-blur-3xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7),inset_0_1px_1px_rgba(255,255,255,0.12)] overflow-hidden"
+                            className="rounded-3xl border border-parchment-shadow bg-[#2d2734]/50 backdrop-blur-3xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7),inset_0_1px_1px_rgba(255,255,255,0.12)] overflow-hidden"
                         >
                             {/* Vault Console Header */}
-                            <div className="flex h-16 items-center justify-between border-b border-white/10 px-6 bg-white/[0.02]">
+                            <div className="flex h-16 items-center justify-between border-b border-parchment-shadow px-6 bg-white/[0.02]">
                                 <div className="flex items-center gap-3.5">
                                     <SilviOrb status={activeScenario.status} size={42} showGlow={true} showRings={true} interactive={true} />
                                     <div>
@@ -297,7 +297,7 @@ export default function LandingSilvi({ className }: { className?: string }) {
                                             <div className="mt-1 shrink-0">
                                                 <SilviOrb status={activeScenario.status} size={28} showGlow={false} interactive={false} />
                                             </div>
-                                            <div className="flex-1 rounded-2xl rounded-tl-sm border border-white/10 bg-white/[0.04] p-4 text-xs leading-relaxed max-w-[92%] backdrop-blur-md">
+                                            <div className="flex-1 rounded-2xl rounded-tl-sm border border-parchment-shadow bg-white/[0.04] p-4 text-xs leading-relaxed max-w-[92%] backdrop-blur-md">
                                                 {activeScenario.renderResponse()}
                                             </div>
                                         </div>
@@ -306,10 +306,10 @@ export default function LandingSilvi({ className }: { className?: string }) {
                             </div>
 
                             {/* Console Input Bar */}
-                            <div className="p-4 border-t border-white/10 bg-white/[0.01] flex items-center gap-3">
-                                <div className="flex-1 bg-white/[0.04] border border-white/10 rounded-xl px-3.5 py-2 text-xs text-[#a5a2a5] flex items-center justify-between">
+                            <div className="p-4 border-t border-parchment-shadow bg-white/[0.01] flex items-center gap-3">
+                                <div className="flex-1 bg-white/[0.04] border border-parchment-shadow rounded-xl px-3.5 py-2 text-xs text-[#a5a2a5] flex items-center justify-between">
                                     <span>Ask Silvi to find, organize, or protect files...</span>
-                                    <span className="font-mono text-[10px] text-white/40">⌘ + J</span>
+                                    <span className="font-mono text-[10px] text-driftwood">⌘ + J</span>
                                 </div>
                                 <button className="size-8 rounded-lg bg-[#00f575] text-black flex items-center justify-center hover:bg-[#00f575]/90 transition-all cursor-pointer shadow-[0_0_12px_rgba(0,245,117,0.3)]">
                                     <ArrowRight size={14} />

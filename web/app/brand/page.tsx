@@ -107,7 +107,7 @@ export default function BrandShowcasePage() {
     cream: "bg-[#fff8f1] border-[#e3d6c5]",
     white: "bg-[#ffffff] border-[#c0bbb6]",
     charcoal: "bg-[#1d1e1c] border-[#4a4a47]",
-    dark: "bg-[#18181b] border-white/20",
+    dark: "bg-[#18181b] border-parchment-shadow",
   };
 
   const filteredIcons = ALL_CUSTOM_ICONS.filter((item) => {
@@ -183,7 +183,7 @@ export default function BrandShowcasePage() {
                         ? "bg-white border-[#c0bbb6]"
                         : bg === "charcoal"
                         ? "bg-[#1d1e1c] border-[#4a4a47]"
-                        : "bg-[#18181b] border-white/40"
+                        : "bg-[#18181b] border-bone"
                     }`}
                     title={bg}
                   />
@@ -482,7 +482,7 @@ export default function BrandShowcasePage() {
                   alt="Silo OpenGraph Preview"
                   className="w-full h-auto object-cover"
                 />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-[#c0bbb6] text-xs font-mono text-[#fa5d00] font-semibold flex items-center gap-1.5 shadow-sm">
+                <div className="absolute top-4 right-4 bg-paper-white/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-[#c0bbb6] text-xs font-mono text-[#fa5d00] font-semibold flex items-center gap-1.5 shadow-sm">
                   <span className="size-2 rounded-full bg-[#fa5d00] animate-pulse" />
                   1200 × 630 PNG
                 </div>

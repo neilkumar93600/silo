@@ -113,7 +113,7 @@ export default function TrashPage() {
               variant="outline"
               size="sm"
               onClick={() => setEmptyConfirmOpen(true)}
-              className="border-lavender-mist bg-void-plum text-silver-smoke hover:border-destructive hover:bg-destructive/10 hover:text-destructive"
+              className="border-lavender-mist bg-cream-canvas text-silver-smoke hover:border-destructive hover:bg-destructive/10 hover:text-destructive"
             >
               <Trash2Icon data-icon="inline-start" />
               Empty trash
@@ -123,7 +123,7 @@ export default function TrashPage() {
       </div>
 
       <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-6 p-4 md:p-8">
-        <Card className="border border-lavender-mist bg-eclipse-black text-paper-white">
+        <Card className="border border-lavender-mist bg-eclipse-black text-ink-black">
           <CardContent className="flex flex-col gap-4 p-6">
             {items === null ? (
               <div className="flex flex-col gap-3">
@@ -141,9 +141,9 @@ export default function TrashPage() {
       </div>
 
       <AlertDialog open={pendingDelete !== null} onOpenChange={(open) => !open && setPendingDelete(null)}>
-        <AlertDialogContent className="border-lavender-mist bg-eclipse-black text-paper-white">
+        <AlertDialogContent className="border-lavender-mist bg-eclipse-black text-ink-black">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-paper-white">Delete &quot;{pendingDelete?.name}&quot; forever?</AlertDialogTitle>
+            <AlertDialogTitle className="text-ink-black">Delete &quot;{pendingDelete?.name}&quot; forever?</AlertDialogTitle>
             <AlertDialogDescription className="text-silver-smoke">
               {pendingDelete?.type === "folder"
                 ? "This permanently deletes the folder and everything inside it. This cannot be undone."
@@ -151,22 +151,22 @@ export default function TrashPage() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="border-lavender-mist bg-void-plum text-paper-white hover:bg-lavender-mist/40">Cancel</AlertDialogCancel>
+            <AlertDialogCancel className="border-lavender-mist bg-cream-canvas text-ink-black hover:bg-lavender-mist/40">Cancel</AlertDialogCancel>
             <AlertDialogAction onClick={confirmDeleteForever} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">Delete forever</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
 
       <AlertDialog open={emptyConfirmOpen} onOpenChange={setEmptyConfirmOpen}>
-        <AlertDialogContent className="border-lavender-mist bg-eclipse-black text-paper-white">
+        <AlertDialogContent className="border-lavender-mist bg-eclipse-black text-ink-black">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-paper-white">Empty trash?</AlertDialogTitle>
+            <AlertDialogTitle className="text-ink-black">Empty trash?</AlertDialogTitle>
             <AlertDialogDescription className="text-silver-smoke">
               This permanently deletes everything in Trash. This cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="border-lavender-mist bg-void-plum text-paper-white hover:bg-lavender-mist/40">Cancel</AlertDialogCancel>
+            <AlertDialogCancel className="border-lavender-mist bg-cream-canvas text-ink-black hover:bg-lavender-mist/40">Cancel</AlertDialogCancel>
             <AlertDialogAction onClick={confirmEmptyTrash} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">Empty trash</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

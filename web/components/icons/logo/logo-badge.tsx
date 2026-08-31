@@ -26,7 +26,7 @@ export function LogoBadge({
   return (
     <div
       className={cn(
-        "relative flex items-center justify-center shrink-0 select-none overflow-hidden bg-[#18181b] border border-white/10 shadow-harvest-sm",
+        "relative flex items-center justify-center shrink-0 select-none overflow-hidden bg-[#18181b] border border-parchment-shadow shadow-harvest-sm",
         isCircle ? "rounded-full" : "rounded-[22%]",
         glow && "shadow-harvest-lg",
         className

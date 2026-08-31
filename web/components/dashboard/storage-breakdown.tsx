@@ -136,7 +136,7 @@ export function StorageBreakdown() {
 
   if (!files || !breakdown) {
     return (
-      <div className="flex flex-col gap-2 rounded-xl border border-lavender-mist bg-void-plum p-3">
+      <div className="flex flex-col gap-2 rounded-xl border border-lavender-mist bg-cream-canvas p-3">
         <Skeleton className="h-1.5 w-full rounded-full bg-lavender-mist" />
         <Skeleton className="h-3 w-24 rounded-full bg-lavender-mist" />
       </div>
@@ -147,13 +147,13 @@ export function StorageBreakdown() {
   const activeSegments = CATEGORIES.filter((c) => (breakdown.get(c.label)?.bytes ?? 0) > 0)
 
   return (
-    <div className="flex flex-col gap-2 rounded-xl border border-lavender-mist bg-void-plum overflow-hidden transition-all duration-200 hover:border-laser-violet/50 hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
+    <div className="flex flex-col gap-2 rounded-xl border border-lavender-mist bg-cream-canvas overflow-hidden transition-all duration-200 hover:border-laser-violet/50 hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
       {/* Header row */}
       <button
         onClick={() => setExpanded((v) => !v)}
         className="flex items-center justify-between px-3 pt-3 cursor-pointer"
       >
-        <span className="text-xs font-medium text-paper-white">Storage</span>
+        <span className="text-xs font-medium text-ink-black">Storage</span>
         <div className="flex items-center gap-1.5">
           <span className="font-mono text-[11px] text-laser-violet">{pct}%</span>
           {expanded ? (
@@ -204,7 +204,7 @@ export function StorageBreakdown() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1.5">
                         <cat.icon className="size-3.5" style={{ color: cat.color }} />
-                        <span className="font-mono text-[11px] text-paper-white">{cat.label}</span>
+                        <span className="font-mono text-[11px] text-ink-black">{cat.label}</span>
                         <span className="font-mono text-[10px] text-ash-wisp">
                           {count} {count === 1 ? "file" : "files"}
                         </span>

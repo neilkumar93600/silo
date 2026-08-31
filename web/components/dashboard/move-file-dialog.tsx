@@ -43,11 +43,11 @@ function PickerRow({
         onClick={() => onSelect(folder.id)}
         className={cn(
           "flex h-9 cursor-pointer items-center gap-1 rounded-lg pr-3 text-sm transition-colors",
-          selected ? "bg-void-plum text-laser-violet" : "text-silver-smoke hover:bg-void-plum/60 hover:text-paper-white",
+          selected ? "bg-cream-canvas text-laser-violet" : "text-silver-smoke hover:bg-cream-canvas/60 hover:text-ink-black",
         )}
         style={{ paddingLeft: 8 + depth * 16 }}
       >
-        <button type="button" onClick={toggle} className="flex size-5 shrink-0 items-center justify-center rounded hover:bg-void-plum">
+        <button type="button" onClick={toggle} className="flex size-5 shrink-0 items-center justify-center rounded hover:bg-cream-canvas">
           <ChevronRightIcon className={cn("size-3.5 transition-transform", expanded && "rotate-90")} />
         </button>
         <FolderIcon className="size-4 shrink-0" />
@@ -104,14 +104,14 @@ function MovePicker({
   return (
     <>
       <DialogHeader>
-        <DialogTitle className="truncate text-paper-white">Move &quot;{file.originalName}&quot;</DialogTitle>
+        <DialogTitle className="truncate text-ink-black">Move &quot;{file.originalName}&quot;</DialogTitle>
       </DialogHeader>
       <div className="max-h-64 overflow-y-auto rounded-xl border border-lavender-mist/60 p-1">
         <div
           onClick={() => setSelectedId("root")}
           className={cn(
             "flex h-9 cursor-pointer items-center gap-2 rounded-lg px-2 text-sm transition-colors",
-            selectedId === "root" ? "bg-void-plum text-laser-violet" : "text-silver-smoke hover:bg-void-plum/60 hover:text-paper-white",
+            selectedId === "root" ? "bg-cream-canvas text-laser-violet" : "text-silver-smoke hover:bg-cream-canvas/60 hover:text-ink-black",
           )}
         >
           <FolderIcon className="size-4 shrink-0" />
@@ -147,7 +147,7 @@ export function MoveFileDialog({
 }) {
   return (
     <Dialog open={file !== null} onOpenChange={onOpenChange}>
-      <DialogContent className="border-lavender-mist bg-eclipse-black text-paper-white">
+      <DialogContent className="border-lavender-mist bg-eclipse-black text-ink-black">
         {file && <MovePicker key={file.id} file={file} onOpenChange={onOpenChange} onMove={onMove} />}
       </DialogContent>
     </Dialog>

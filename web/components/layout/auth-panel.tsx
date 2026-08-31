@@ -38,7 +38,7 @@ export function AuthPanel() {
   }
 
   return (
-    <div className="relative flex h-full w-full flex-col justify-between overflow-hidden bg-void-plum p-6 sm:p-8 text-paper-white select-none">
+    <div className="relative flex h-full w-full flex-col justify-between overflow-hidden bg-cream-canvas p-6 sm:p-8 text-ink-black select-none">
       {/* Background Image Artwork */}
       <Image
         src="/auth-artwork.jpg"
@@ -53,7 +53,7 @@ export function AuthPanel() {
 
       {/* Top Header Overlay */}
       <div className="relative z-10 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5 text-xs font-semibold tracking-wider uppercase text-paper-white">
+        <Link href="/" className="flex items-center gap-2.5 text-xs font-semibold tracking-wider uppercase text-ink-black">
           <span className="flex size-7 items-center justify-center rounded-lg bg-laser-violet text-xs font-bold text-white">
             S
           </span>
@@ -63,7 +63,7 @@ export function AuthPanel() {
         <div className="flex items-center gap-3">
           <Link
             href="/"
-            className="rounded-full border border-lavender-mist bg-eclipse-black/80 px-4 py-1.5 font-mono text-[11px] text-paper-white backdrop-blur-md transition-all hover:border-laser-violet hover:text-laser-violet"
+            className="rounded-full border border-lavender-mist bg-eclipse-black/80 px-4 py-1.5 font-mono text-[11px] text-ink-black backdrop-blur-md transition-all hover:border-laser-violet hover:text-laser-violet"
           >
             Explore
           </Link>
@@ -80,7 +80,7 @@ export function AuthPanel() {
             </div>
           </div>
           <div className="min-w-0">
-            <p className="truncate text-sm font-semibold text-paper-white tracking-tight">{currentSlide.title}</p>
+            <p className="truncate text-sm font-semibold text-ink-black tracking-tight">{currentSlide.title}</p>
             <p className="truncate font-mono text-[11px] text-silver-smoke">{currentSlide.subtitle}</p>
           </div>
         </div>
@@ -90,14 +90,14 @@ export function AuthPanel() {
           <button
             onClick={prevSlide}
             aria-label="Previous slide"
-            className="flex size-9 items-center justify-center rounded-full border border-lavender-mist bg-eclipse-black/90 text-paper-white backdrop-blur-md transition-all hover:border-laser-violet hover:text-laser-violet active:scale-95 cursor-pointer shadow-sm"
+            className="flex size-9 items-center justify-center rounded-full border border-lavender-mist bg-eclipse-black/90 text-ink-black backdrop-blur-md transition-all hover:border-laser-violet hover:text-laser-violet active:scale-95 cursor-pointer shadow-sm"
           >
             <ArrowLeftIcon className="size-4.5" />
           </button>
           <button
             onClick={nextSlide}
             aria-label="Next slide"
-            className="flex size-9 items-center justify-center rounded-full border border-lavender-mist bg-eclipse-black/90 text-paper-white backdrop-blur-md transition-all hover:border-laser-violet hover:text-laser-violet active:scale-95 cursor-pointer shadow-sm"
+            className="flex size-9 items-center justify-center rounded-full border border-lavender-mist bg-eclipse-black/90 text-ink-black backdrop-blur-md transition-all hover:border-laser-violet hover:text-laser-violet active:scale-95 cursor-pointer shadow-sm"
           >
             <ArrowRightIcon className="size-4.5" />
           </button>

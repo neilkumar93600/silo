@@ -52,7 +52,7 @@ export function TrashTable({ items, onRestore, onDeleteForever }: TrashTableProp
         </TableHeader>
         <TableBody>
           {items.map((item) => (
-            <TableRow key={`${item.type}-${item.id}`} className="border-b border-lavender-mist/40 transition-colors hover:bg-void-plum/60">
+            <TableRow key={`${item.type}-${item.id}`} className="border-b border-lavender-mist/40 transition-colors hover:bg-cream-canvas/60">
               <TableCell className="max-w-64">
                 <div className="flex items-center gap-3 truncate font-medium">
                   {item.type === "folder" ? (
@@ -60,7 +60,7 @@ export function TrashTable({ items, onRestore, onDeleteForever }: TrashTableProp
                   ) : (
                     <FileTypeBadge mimeType={item.mimeType ?? ""} />
                   )}
-                  <span className="truncate text-paper-white">{item.name}</span>
+                  <span className="truncate text-ink-black">{item.name}</span>
                 </div>
               </TableCell>
               <TableCell className="font-mono text-[12px] text-silver-smoke">{item.sizeBytes !== undefined ? formatBytes(item.sizeBytes) : "—"}</TableCell>
@@ -97,7 +97,7 @@ export function TrashTable({ items, onRestore, onDeleteForever }: TrashTableProp
                 <FileTypeBadge mimeType={item.mimeType ?? ""} />
               )}
               <div className="min-w-0">
-                <p className="truncate text-sm font-medium text-paper-white">{item.name}</p>
+                <p className="truncate text-sm font-medium text-ink-black">{item.name}</p>
                 <p className="font-mono text-[11px] text-ash-wisp">
                   {item.sizeBytes !== undefined && `${formatBytes(item.sizeBytes)} · `}
                   trashed {formatDate(item.deletedAt)}

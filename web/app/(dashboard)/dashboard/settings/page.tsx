@@ -81,20 +81,20 @@ function ProfileCard() {
   const unchanged = name.trim() === (session?.user?.name ?? "").trim()
 
   return (
-    <Card className="max-w-2xl border border-lavender-mist bg-eclipse-black text-paper-white">
+    <Card className="max-w-2xl border border-lavender-mist bg-eclipse-black text-ink-black">
       <CardHeader className="p-6">
-        <CardTitle className="text-xl font-semibold tracking-[-0.03em] text-paper-white">Account Vault</CardTitle>
+        <CardTitle className="text-xl font-semibold tracking-[-0.03em] text-ink-black">Account Vault</CardTitle>
         <CardDescription className="text-silver-smoke">Your Silo identity and encryption scope.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-6 p-6 pt-0">
-        <div className="flex items-center gap-4 rounded-xl border border-lavender-mist/60 bg-void-plum p-4">
+        <div className="flex items-center gap-4 rounded-xl border border-lavender-mist/60 bg-cream-canvas p-4">
           <Avatar className="size-12 shrink-0 border border-lavender-mist">
             <AvatarFallback className="bg-carbon-ink text-sm font-mono font-bold text-laser-violet">
               {initialsOf(session?.user?.name)}
             </AvatarFallback>
           </Avatar>
           <div className="min-w-0">
-            <p className="truncate text-base font-semibold text-paper-white">{session?.user?.name ?? "…"}</p>
+            <p className="truncate text-base font-semibold text-ink-black">{session?.user?.name ?? "…"}</p>
             <p className="truncate font-mono text-xs text-ash-wisp">{session?.user?.email}</p>
           </div>
         </div>
@@ -108,7 +108,7 @@ function ProfileCard() {
               id="display-name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="border-lavender-mist bg-void-plum text-paper-white"
+              className="border-lavender-mist bg-cream-canvas text-ink-black"
             />
             <Button onClick={saveName} disabled={saving || unchanged} className="shrink-0">
               {saving ? "Saving…" : "Save"}
@@ -118,7 +118,7 @@ function ProfileCard() {
 
         <Button
           variant="outline"
-          className="w-fit border-lavender-mist bg-void-plum text-silver-smoke hover:border-laser-violet hover:text-laser-violet"
+          className="w-fit border-lavender-mist bg-cream-canvas text-silver-smoke hover:border-laser-violet hover:text-laser-violet"
           onClick={async () => {
             await authClient.signOut()
             clearFileCache()
@@ -167,9 +167,9 @@ function PasswordCard() {
   }
 
   return (
-    <Card className="max-w-2xl border border-lavender-mist bg-eclipse-black text-paper-white">
+    <Card className="max-w-2xl border border-lavender-mist bg-eclipse-black text-ink-black">
       <CardHeader className="p-6">
-        <CardTitle className="text-xl font-semibold tracking-[-0.03em] text-paper-white">Password</CardTitle>
+        <CardTitle className="text-xl font-semibold tracking-[-0.03em] text-ink-black">Password</CardTitle>
         <CardDescription className="text-silver-smoke">Change your account password.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4 p-6 pt-0">
@@ -182,7 +182,7 @@ function PasswordCard() {
             type="password"
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
-            className="border-lavender-mist bg-void-plum text-paper-white"
+            className="border-lavender-mist bg-cream-canvas text-ink-black"
           />
         </div>
         <div className="flex flex-col gap-1.5">
@@ -194,7 +194,7 @@ function PasswordCard() {
             type="password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
-            className="border-lavender-mist bg-void-plum text-paper-white"
+            className="border-lavender-mist bg-cream-canvas text-ink-black"
           />
         </div>
         <div className="flex flex-col gap-1.5">
@@ -206,7 +206,7 @@ function PasswordCard() {
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="border-lavender-mist bg-void-plum text-paper-white"
+            className="border-lavender-mist bg-cream-canvas text-ink-black"
           />
         </div>
         <Button
@@ -241,7 +241,7 @@ function DangerZoneCard() {
   }
 
   return (
-    <Card className="max-w-2xl border border-destructive/30 bg-eclipse-black text-paper-white">
+    <Card className="max-w-2xl border border-destructive/30 bg-eclipse-black text-ink-black">
       <CardHeader className="p-6">
         <CardTitle className="text-xl font-semibold tracking-[-0.03em] text-destructive">Danger zone</CardTitle>
         <CardDescription className="text-silver-smoke">
@@ -326,15 +326,15 @@ function NotificationPreferencesCard() {
   }
 
   return (
-    <Card className="max-w-2xl border border-lavender-mist bg-eclipse-black text-paper-white">
+    <Card className="max-w-2xl border border-lavender-mist bg-eclipse-black text-ink-black">
       <CardHeader className="p-6">
-        <CardTitle className="text-xl font-semibold tracking-[-0.03em] text-paper-white">Preferences</CardTitle>
+        <CardTitle className="text-xl font-semibold tracking-[-0.03em] text-ink-black">Preferences</CardTitle>
         <CardDescription className="text-silver-smoke">Choose what notifies you.</CardDescription>
       </CardHeader>
       <CardContent className="p-6 pt-0">
-        <div className="flex items-center justify-between gap-4 rounded-xl border border-lavender-mist/60 bg-void-plum p-4">
+        <div className="flex items-center justify-between gap-4 rounded-xl border border-lavender-mist/60 bg-cream-canvas p-4">
           <div className="min-w-0">
-            <p className="text-sm font-medium text-paper-white">File shares</p>
+            <p className="text-sm font-medium text-ink-black">File shares</p>
             <p className="text-xs text-ash-wisp">Notify me when someone shares a file with me.</p>
           </div>
           <Switch

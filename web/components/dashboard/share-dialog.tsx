@@ -56,15 +56,15 @@ function SharePanel({
   return (
     <>
       <DialogHeader>
-        <DialogTitle className="truncate text-paper-white">Share &quot;{file.originalName}&quot;</DialogTitle>
+        <DialogTitle className="truncate text-ink-black">Share &quot;{file.originalName}&quot;</DialogTitle>
         <DialogDescription className="text-silver-smoke">
           Anyone with the link can view a public file. People added below can view and download it directly.
         </DialogDescription>
       </DialogHeader>
 
-      <div className="flex items-center justify-between gap-3 rounded-xl border border-lavender-mist/60 bg-void-plum/60 px-4 py-3">
+      <div className="flex items-center justify-between gap-3 rounded-xl border border-lavender-mist/60 bg-cream-canvas/60 px-4 py-3">
         <div className="flex min-w-0 flex-col">
-          <span className="text-sm font-medium text-paper-white">Public link</span>
+          <span className="text-sm font-medium text-ink-black">Public link</span>
           <span className="truncate font-mono text-[11px] text-ash-wisp">
             {file.visibility === "public" ? "Anyone with the link can view" : "Only you can access this file"}
           </span>
@@ -82,7 +82,7 @@ function SharePanel({
       </Button>
 
       <div className="flex flex-col gap-2">
-        <span className="text-sm font-medium text-paper-white">Share with a person</span>
+        <span className="text-sm font-medium text-ink-black">Share with a person</span>
         <div className="flex gap-2">
           <Input
             type="email"
@@ -90,13 +90,13 @@ function SharePanel({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleAdd()}
-            className="border-lavender-mist bg-void-plum text-paper-white placeholder:text-ash-wisp focus-visible:ring-laser-violet"
+            className="border-lavender-mist bg-cream-canvas text-ink-black placeholder:text-ash-wisp focus-visible:ring-laser-violet"
           />
           <Button
             disabled={submitting || !email.trim()}
             onClick={handleAdd}
             variant="secondary"
-            className="shrink-0 bg-void-plum text-paper-white hover:bg-void-plum/80"
+            className="shrink-0 bg-cream-canvas text-ink-black hover:bg-cream-canvas/80"
           >
             Add
           </Button>
@@ -117,14 +117,14 @@ function SharePanel({
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex min-w-0 flex-1 flex-col">
-                  <span className="truncate text-xs font-medium text-paper-white">{r.name}</span>
+                  <span className="truncate text-xs font-medium text-ink-black">{r.name}</span>
                   <span className="truncate font-mono text-[10px] text-ash-wisp">{r.email}</span>
                 </div>
                 <button
                   type="button"
                   aria-label="Remove access"
                   onClick={() => handleRemove(r.userId)}
-                  className="shrink-0 text-ash-wisp hover:text-paper-white"
+                  className="shrink-0 text-ash-wisp hover:text-ink-black"
                 >
                   <XIcon className="size-4" />
                 </button>
@@ -150,7 +150,7 @@ export function ShareDialog({
 }) {
   return (
     <Dialog open={file !== null} onOpenChange={onOpenChange}>
-      <DialogContent className="border-lavender-mist bg-eclipse-black text-paper-white">
+      <DialogContent className="border-lavender-mist bg-eclipse-black text-ink-black">
         {file && <SharePanel key={file.id} file={file} onToggleVisibility={onToggleVisibility} onCopyLink={onCopyLink} />}
       </DialogContent>
     </Dialog>

@@ -22,15 +22,15 @@ const FAQS = [
 
 export function FaqSection() {
   return (
-    <section id="faq" className="bg-void-plum py-24 px-6">
+    <section id="faq" className="bg-cream-canvas py-24 px-6">
       <div className="mx-auto max-w-3xl">
-        <h2 className="text-center text-[32px] sm:text-[42px] leading-[1.12] font-medium tracking-[-0.04em] text-paper-white">
+        <h2 className="text-center text-[32px] sm:text-[42px] leading-[1.12] font-medium tracking-[-0.04em] text-ink-black">
           Frequently asked questions
         </h2>
         <dl className="mt-12 flex flex-col gap-8">
           {FAQS.map((faq) => (
             <div key={faq.question}>
-              <dt className="text-[16px] font-semibold text-paper-white">{faq.question}</dt>
+              <dt className="text-[16px] font-semibold text-ink-black">{faq.question}</dt>
               <dd className="mt-2 text-[14px] leading-[1.6] text-silver-smoke">{faq.answer}</dd>
             </div>
           ))}

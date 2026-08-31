@@ -68,50 +68,50 @@ export function RowActions({
     <DropdownMenu>
       <DropdownMenuTrigger
         render={
-          <Button variant="ghost" size="icon-sm" className="text-silver-smoke hover:text-paper-white cursor-pointer">
+          <Button variant="ghost" size="icon-sm" className="text-silver-smoke hover:text-ink-black cursor-pointer">
             <MoreHorizontalIcon />
           </Button>
         }
       />
-      <DropdownMenuContent align="end" className="border-lavender-mist bg-eclipse-black text-paper-white">
-        <DropdownMenuItem onClick={() => askAboutFile(file)} className="hover:bg-void-plum hover:text-laser-violet text-laser-violet font-medium">
+      <DropdownMenuContent align="end" className="border-lavender-mist bg-eclipse-black text-ink-black">
+        <DropdownMenuItem onClick={() => askAboutFile(file)} className="hover:bg-cream-canvas hover:text-laser-violet text-laser-violet font-medium">
           <SparklesIcon data-icon="inline-start" className="size-4 text-laser-violet" />
           Ask Silvi
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onDownload(file)} className="hover:bg-void-plum hover:text-laser-violet">
+        <DropdownMenuItem onClick={() => onDownload(file)} className="hover:bg-cream-canvas hover:text-laser-violet">
           <DownloadIcon data-icon="inline-start" />
           Download
         </DropdownMenuItem>
         {!readOnly && (
-          <DropdownMenuItem onClick={() => onRename(file)} className="hover:bg-void-plum hover:text-laser-violet">
+          <DropdownMenuItem onClick={() => onRename(file)} className="hover:bg-cream-canvas hover:text-laser-violet">
             <PencilIcon data-icon="inline-start" />
             Rename
           </DropdownMenuItem>
         )}
         {!readOnly && (
-          <DropdownMenuItem onClick={() => onShare(file)} className="hover:bg-void-plum hover:text-laser-violet">
+          <DropdownMenuItem onClick={() => onShare(file)} className="hover:bg-cream-canvas hover:text-laser-violet">
             <Share2Icon data-icon="inline-start" />
             Share
           </DropdownMenuItem>
         )}
         {!readOnly && (
-          <DropdownMenuItem onClick={() => onMove(file)} className="hover:bg-void-plum hover:text-laser-violet">
+          <DropdownMenuItem onClick={() => onMove(file)} className="hover:bg-cream-canvas hover:text-laser-violet">
             <FolderInputIcon data-icon="inline-start" />
             Move to folder
           </DropdownMenuItem>
         )}
-        <DropdownMenuItem onClick={() => onShowInfo(file)} className="hover:bg-void-plum hover:text-laser-violet">
+        <DropdownMenuItem onClick={() => onShowInfo(file)} className="hover:bg-cream-canvas hover:text-laser-violet">
           <InfoIcon data-icon="inline-start" />
           File information
         </DropdownMenuItem>
         {!readOnly && (
-          <DropdownMenuItem onClick={() => onToggleStar(file)} className="hover:bg-void-plum hover:text-laser-violet">
+          <DropdownMenuItem onClick={() => onToggleStar(file)} className="hover:bg-cream-canvas hover:text-laser-violet">
             {file.starred ? <StarOffIcon data-icon="inline-start" /> : <StarIcon data-icon="inline-start" />}
             {file.starred ? "Remove from starred" : "Add to starred"}
           </DropdownMenuItem>
         )}
         {file.visibility === "public" && (
-          <DropdownMenuItem onClick={() => onCopyLink(file)} className="hover:bg-void-plum hover:text-laser-violet">
+          <DropdownMenuItem onClick={() => onCopyLink(file)} className="hover:bg-cream-canvas hover:text-laser-violet">
             <LinkIcon data-icon="inline-start" />
             Copy share link
           </DropdownMenuItem>
@@ -199,8 +199,8 @@ export function FileTable({
                   e.dataTransfer.setData("text/plain", file.id)
                 }}
                 className={cn(
-                  "border-b border-lavender-mist/40 transition-colors hover:bg-void-plum/60 animate-in fade-in-0 slide-in-from-bottom-1 fill-mode-backwards",
-                  isSelected && "bg-void-plum/80"
+                  "border-b border-lavender-mist/40 transition-colors hover:bg-cream-canvas/60 animate-in fade-in-0 slide-in-from-bottom-1 fill-mode-backwards",
+                  isSelected && "bg-cream-canvas/80"
                 )}
                 style={{ animationDelay: `${Math.min(index, 10) * 30}ms`, animationDuration: "200ms" }}
               >
@@ -230,7 +230,7 @@ export function FileTable({
                     className="group flex items-center gap-3 truncate text-left font-medium cursor-pointer"
                   >
                     <FileTypeBadge mimeType={file.mimeType} />
-                    <span className="truncate text-paper-white group-hover:text-laser-violet transition-colors">
+                    <span className="truncate text-ink-black group-hover:text-laser-violet transition-colors">
                       {file.originalName}
                     </span>
                   </button>
@@ -291,7 +291,7 @@ export function FileTable({
               key={file.id}
               className={cn(
                 "flex animate-in items-center gap-3 fade-in-0 slide-in-from-bottom-1 py-3.5 fill-mode-backwards",
-                isSelected && "bg-void-plum/40 px-2 rounded-lg"
+                isSelected && "bg-cream-canvas/40 px-2 rounded-lg"
               )}
               style={{ animationDelay: `${Math.min(index, 10) * 30}ms`, animationDuration: "200ms" }}
             >
@@ -312,7 +312,7 @@ export function FileTable({
               <button onClick={() => onPreview(file)} className="flex min-w-0 flex-1 items-center gap-3 text-left cursor-pointer">
                 <FileTypeBadge mimeType={file.mimeType} />
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-medium text-paper-white">{file.originalName}</p>
+                  <p className="truncate text-sm font-medium text-ink-black">{file.originalName}</p>
                   <p className="font-mono text-[11px] text-ash-wisp">
                     {formatBytes(file.sizeBytes)} · {formatDate(file.createdAt)}
                     {file.visibility === "public" && " · Public"}

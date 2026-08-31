@@ -50,21 +50,21 @@ function StatCard() {
 
     return (
         <Animate delay={900} direction="scale" className="w-full max-w-[405px] mx-auto lg:mx-0">
-            <div className="w-full rounded-[24px] sm:rounded-[33px] bg-[rgba(17,16,15,0.35)] backdrop-blur-[20px] p-5 sm:p-8 pb-5 sm:pb-6">
-                <p className="text-white text-[16px] sm:text-[20px] font-[450] leading-[20px] mb-3 sm:mb-4">
+            <div className="w-full rounded-[20px] bg-white border border-parchment-shadow shadow-harvest-lg p-5 sm:p-8 pb-5 sm:pb-6">
+                <p className="text-ink-black text-[16px] sm:text-[20px] font-[450] leading-[20px] mb-3 sm:mb-4">
                     Data Encrypted (GB)
                 </p>
 
                 <p className="mb-2 sm:mb-3">
-                    <span className="text-white text-[28px] sm:text-[46px] font-[450] leading-[1]">482,109</span>
-                    <span className="text-white/20 text-[28px] sm:text-[46px] font-[450] leading-[1]">.40</span>
+                    <span className="text-ink-black text-[28px] sm:text-[46px] font-[450] leading-[1]">482,109</span>
+                    <span className="text-driftwood text-[28px] sm:text-[46px] font-[450] leading-[1]">.40</span>
                 </p>
 
                 <div className="flex items-center gap-[10px] mb-6 sm:mb-8">
-                    <span className="px-[6px] py-[7px] bg-white/20 rounded-[6px] text-white text-[12px] sm:text-[14px] font-[450] leading-[14px]">
+                    <span className="badge-harvest px-[6px] py-[7px] text-[12px] sm:text-[14px] font-[450] leading-[14px]">
                         +32.4%
                     </span>
-                    <span className="text-white/80 text-[12px] sm:text-[14px] font-[450] leading-[14px] opacity-70">
+                    <span className="text-warm-stone text-[12px] sm:text-[14px] font-[450] leading-[14px]">
                         vs. previous period (364,502 GB)
                     </span>
                 </div>
@@ -77,10 +77,9 @@ function StatCard() {
                             return (
                                 <div
                                     key={i}
-                                    className="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom"
+                                    className={"flex-1 rounded-[0.5px] animate-bar-grow origin-bottom " + (isProjected ? "bg-marigold-glow" : "bg-harvest-flame")}
                                     style={{
                                         height: `${heightPercent}%`,
-                                        backgroundColor: isProjected ? "rgba(255,255,255,0.1)" : "white",
                                         animationDelay: `${1100 + i * 30}ms`,
                                     }}
                                 />
@@ -92,7 +91,7 @@ function StatCard() {
                         {[0, 1, 2, 3, 4].map((i) => (
                             <div
                                 key={i}
-                                className="absolute top-0 bottom-0 w-px bg-white/10"
+                                className="absolute top-0 bottom-0 w-px bg-parchment-shadow"
                                 style={{ left: `${((i + 1) / 5) * 100}%` }}
                             />
                         ))}
@@ -102,8 +101,7 @@ function StatCard() {
                         {["10:00", "12:00", "14:00", "16:00", "16:00"].map((t, i) => (
                             <span
                                 key={i}
-                                className="text-[9px] sm:text-[10px] font-[450] leading-[10px] text-white/80"
-                                style={{ opacity: i >= 3 ? 0.4 : 1 }}
+                                className={"text-[9px] sm:text-[10px] font-[450] leading-[10px] text-driftwood " + (i >= 3 ? "opacity-40" : "opacity-100")}
                             >
                                 {t}
                             </span>
@@ -130,20 +128,20 @@ function Nav() {
             <nav className="w-full max-w-[1800px] mx-auto px-5 sm:px-8 md:px-[82px] pt-[20px] sm:pt-[30px] flex items-center justify-between relative z-50">
                 <Animate delay={0} direction="down">
                     <div className="flex items-center gap-2.5">
-                        <Logo className="w-[28px] h-[28px] sm:w-[32px] sm:h-[32px] text-white" />
-                        <span className="text-white text-[22px] sm:text-[26px] font-freckle leading-none tracking-wide">
+                        <Logo className="w-[28px] h-[28px] sm:w-[32px] sm:h-[32px]" />
+                        <span className="text-ink-black text-[22px] sm:text-[26px] font-freckle leading-none tracking-wide">
                             Silo
                         </span>
                     </div>
                 </Animate>
 
                 <Animate delay={100} direction="down" className="hidden lg:block">
-                    <div className="h-[52px] px-6 flex items-center gap-[30px] bg-[rgba(10,7,7,0.35)] rounded-[11px] backdrop-blur-[17px]">
+                    <div className="h-[52px] px-6 flex items-center gap-[30px] bg-white/70 border border-parchment-shadow rounded-[16px] backdrop-blur-md shadow-harvest-sm">
                         {NAV_LINKS.map((item) => (
                             <a
                                 key={item.label}
                                 href={item.href}
-                                className="text-white/80 text-[14px] font-[450] leading-[14px] hover:text-white transition-colors"
+                                className="text-warm-stone text-[14px] font-[450] leading-[14px] hover:text-ink-black transition-colors"
                             >
                                 {item.label}
                             </a>
@@ -152,16 +150,16 @@ function Nav() {
                 </Animate>
 
                 <Animate delay={200} direction="down" className="hidden lg:block">
-                    <div className="h-[52px] p-[3px] bg-[rgba(0,0,0,0.35)] rounded-[13px] backdrop-blur-[17px] flex items-center gap-[5px]">
+                    <div className="h-[52px] p-[3px] bg-white/70 border border-parchment-shadow rounded-[16px] backdrop-blur-md shadow-harvest-sm flex items-center gap-[5px]">
                         <a
                             href="/login"
-                            className="h-[46px] px-6 rounded-[11px] text-white text-[14px] font-[450] leading-[14px] hover:bg-white/5 transition-colors flex items-center"
+                            className="h-[46px] px-6 rounded-[13px] text-ink-black text-[14px] font-[450] leading-[14px] hover:bg-marigold-glow/50 transition-colors flex items-center"
                         >
                             Log in
                         </a>
                         <a
                             href="/signup"
-                            className="h-[46px] px-6 bg-[#E9E9E9] rounded-[11px] text-[#0A0707] text-[14px] font-[450] leading-[14px] hover:bg-white transition-colors flex items-center"
+                            className="btn-primary-harvest h-[46px] px-6 text-[14px] leading-[14px] flex items-center"
                         >
                             Get started
                         </a>
@@ -172,14 +170,14 @@ function Nav() {
                     <button
                         onClick={() => setIsOpen(!isOpen)}
                         aria-label="Toggle menu"
-                        className="w-[44px] h-[44px] flex items-center justify-center rounded-[11px] bg-[rgba(10,7,7,0.35)] backdrop-blur-[17px] transition-colors hover:bg-white/10"
+                        className="w-[44px] h-[44px] flex items-center justify-center rounded-[13px] bg-white/70 border border-parchment-shadow backdrop-blur-md transition-colors hover:bg-marigold-glow/50"
                     >
                         <div className="relative w-5 h-5">
                             <Menu
-                                className={`w-5 h-5 text-white absolute inset-0 transition-all duration-300 ease-out ${isOpen ? "opacity-0 rotate-90 scale-75" : "opacity-100 rotate-0 scale-100"}`}
+                                className={`w-5 h-5 text-ink-black absolute inset-0 transition-all duration-300 ease-out ${isOpen ? "opacity-0 rotate-90 scale-75" : "opacity-100 rotate-0 scale-100"}`}
                             />
                             <X
-                                className={`w-5 h-5 text-white absolute inset-0 transition-all duration-300 ease-out ${isOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-75"}`}
+                                className={`w-5 h-5 text-ink-black absolute inset-0 transition-all duration-300 ease-out ${isOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-75"}`}
                             />
                         </div>
                     </button>
@@ -191,11 +189,11 @@ function Nav() {
             >
                 <div
                     onClick={() => setIsOpen(false)}
-                    className={`absolute inset-0 bg-[#080A19]/90 backdrop-blur-[24px] transition-opacity duration-500 ${isOpen ? "opacity-100" : "opacity-0"}`}
+                    className={`absolute inset-0 bg-cream-canvas/90 backdrop-blur-md transition-opacity duration-500 ${isOpen ? "opacity-100" : "opacity-0"}`}
                 />
 
                 <div
-                    className={`absolute top-[76px] sm:top-[86px] left-4 right-4 sm:left-6 sm:right-6 bg-[rgba(17,16,15,0.6)] backdrop-blur-[30px] rounded-[20px] border border-white/[0.06] p-6 sm:p-8 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] origin-top ${isOpen ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-4 scale-[0.97]"}`}
+                    className={`absolute top-[76px] sm:top-[86px] left-4 right-4 sm:left-6 sm:right-6 bg-white shadow-harvest-lg rounded-[20px] border border-parchment-shadow p-6 sm:p-8 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] origin-top ${isOpen ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-4 scale-[0.97]"}`}
                 >
                     <div className="flex flex-col gap-1">
                         {NAV_LINKS.map((item, i) => (
@@ -204,14 +202,14 @@ function Nav() {
                                 href={item.href}
                                 onClick={() => setIsOpen(false)}
                                 style={{ transitionDelay: isOpen ? `${100 + i * 50}ms` : "0ms" }}
-                                className={`flex items-center justify-between px-4 py-4 rounded-[12px] text-white/90 text-[18px] font-[450] hover:bg-white/[0.06] transition-all duration-300 ${isOpen ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-3"}`}
+                                className={`flex items-center justify-between px-4 py-4 rounded-[12px] text-ink-black text-[18px] font-[450] hover:bg-marigold-glow/40 transition-all duration-300 ${isOpen ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-3"}`}
                             >
                                 {item.label}
                             </a>
                         ))}
                     </div>
 
-                    <div className="h-px bg-white/10 my-5" />
+                    <div className="h-px bg-parchment-shadow my-5" />
 
                     <div
                         className="flex flex-col gap-3 transition-all duration-300"
@@ -219,13 +217,13 @@ function Nav() {
                     >
                         <a
                             href="/signup"
-                            className={`w-full h-[50px] bg-[#E9E9E9] rounded-[12px] text-[#0A0707] text-[15px] font-[450] transition-colors hover:bg-white flex items-center justify-center ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+                            className={`btn-primary-harvest w-full h-[50px] text-[15px] flex items-center justify-center ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
                         >
                             Get started
                         </a>
                         <a
                             href="/login"
-                            className={`w-full h-[50px] rounded-[12px] border border-white/30 text-white text-[15px] font-[450] transition-colors hover:bg-white/5 flex items-center justify-center ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+                            className={`w-full h-[50px] rounded-[16px] border border-bone text-ink-black text-[15px] font-[450] transition-colors hover:bg-marigold-glow/40 flex items-center justify-center ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
                         >
                             Log in
                         </a>
@@ -238,15 +236,11 @@ function Nav() {
 
 export default function LandingHero({ className }: { className?: string }) {
     return (
-        <section className={"relative w-full h-screen overflow-hidden bg-[#080A19] " + (className || "")}>
-            <video
-                className="absolute inset-0 w-full h-full object-cover"
-                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260813_092641_de52eb87-daf2-41db-92cb-7a56eae012a5.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-            />
+        <section className={"relative w-full h-screen overflow-hidden bg-cream-canvas " + (className || "")}>
+            {/* Hero Gradient Wash — soft flowing warm wash behind hero content (per DESIGN.md) */}
+            <div className="absolute inset-0 bg-gradient-to-br from-marigold-glow/70 via-cream-canvas to-cream-canvas" />
+            <div className="absolute -top-32 -right-32 size-[500px] rounded-full bg-harvest-flame/10 blur-[130px]" />
+            <div className="absolute bottom-0 -left-40 size-[450px] rounded-full bg-marigold-glow/60 blur-[130px]" />
 
             <div className="relative z-10 h-full flex flex-col">
                 <Nav />
@@ -255,13 +249,13 @@ export default function LandingHero({ className }: { className?: string }) {
                     <div className="w-full max-w-[1800px] mx-auto px-5 sm:px-8 md:px-[82px] flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 lg:gap-12">
                         <div className="max-w-[593px]">
                             <Animate delay={300} direction="up">
-                                <h1 className="text-white text-[36px] sm:text-[52px] md:text-[64px] lg:text-[72px] font-normal leading-[0.95] mb-5 sm:mb-8">
+                                <h1 className="font-serif text-ink-black text-[36px] sm:text-[52px] md:text-[64px] lg:text-[72px] font-normal leading-[0.95] mb-5 sm:mb-8">
                                     Keep what&apos;s yours, share what you choose
                                 </h1>
                             </Animate>
 
                             <Animate delay={500} direction="up">
-                                <p className="text-white/80 text-[16px] sm:text-[18px] md:text-[20px] font-[450] leading-[1.3] max-w-[370px] mb-7 sm:mb-10">
+                                <p className="text-warm-stone text-[16px] sm:text-[18px] md:text-[20px] font-[450] leading-[1.3] max-w-[370px] mb-7 sm:mb-10">
                                     Zero-knowledge encrypted storage, automated organization, and permissions you can verify
                                 </p>
                             </Animate>
@@ -270,13 +264,13 @@ export default function LandingHero({ className }: { className?: string }) {
                                 <div className="flex flex-wrap gap-3 sm:gap-4">
                                     <a
                                         href="/signup"
-                                        className="h-[46px] sm:h-[51px] px-5 sm:px-[27px] bg-[#E9E9E9] rounded-[12px] text-[#0A0707] text-[14px] sm:text-[15.5px] font-[450] leading-[15.5px] transition-opacity hover:opacity-90 flex items-center"
+                                        className="btn-primary-harvest h-[46px] sm:h-[51px] px-5 sm:px-[27px] text-[14px] sm:text-[15.5px] leading-[15.5px] flex items-center"
                                     >
                                         Get started for free
                                     </a>
                                     <a
                                         href="#how-it-works"
-                                        className="h-[46px] sm:h-[51px] px-5 sm:px-[27px] rounded-[12px] border border-white text-white text-[14px] sm:text-[15.5px] font-[450] leading-[15.5px] transition-opacity hover:opacity-80 flex items-center"
+                                        className="h-[46px] sm:h-[51px] px-5 sm:px-[27px] rounded-[16px] border border-bone text-ink-black text-[14px] sm:text-[15.5px] font-[450] leading-[15.5px] transition-colors hover:bg-marigold-glow/30 flex items-center"
                                     >
                                         See how it works
                                     </a>
@@ -284,8 +278,8 @@ export default function LandingHero({ className }: { className?: string }) {
                             </Animate>
 
                             <Animate delay={800} direction="up">
-                                <p className="text-white/80 text-[13px] font-[450] mt-4 flex items-center gap-1.5">
-                                    <span className="size-1.5 rounded-full bg-white/60" />
+                                <p className="text-warm-stone text-[13px] font-[450] mt-4 flex items-center gap-1.5">
+                                    <span className="size-1.5 rounded-full bg-harvest-flame" />
                                     5 GB encrypted storage free · No credit card required
                                 </p>
                             </Animate>

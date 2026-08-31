@@ -28,13 +28,13 @@ export function PublicHeader() {
       className={cn(
         "sticky top-0 z-40 transition-colors duration-300",
         scrolled
-          ? "border-b border-lavender-mist bg-void-plum/90 backdrop-blur-md"
+          ? "border-b border-lavender-mist bg-cream-canvas/90 backdrop-blur-md"
           : "border-b border-transparent bg-transparent"
       )}
     >
       <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-6">
-        <Link href="/" className="flex items-center gap-2 text-[18px] font-semibold tracking-[-0.025em] text-paper-white">
-          <Logo className="h-5 w-auto shrink-0 text-paper-white" />
+        <Link href="/" className="flex items-center gap-2 text-[18px] font-semibold tracking-[-0.025em] text-ink-black">
+          <Logo className="h-5 w-auto shrink-0 text-ink-black" />
           <span className="font-freckle text-[21px] tracking-wide">Silo</span>
         </Link>
 
@@ -43,7 +43,7 @@ export function PublicHeader() {
             <li key={link.label}>
               <Link
                 href={link.href}
-                className="block rounded-full px-4 py-1.5 text-[14px] font-medium text-paper-white/75 transition-colors hover:bg-eclipse-black hover:text-paper-white"
+                className="block rounded-full px-4 py-1.5 text-[14px] font-medium text-ink-black/75 transition-colors hover:bg-eclipse-black hover:text-ink-black"
               >
                 {link.label}
               </Link>

@@ -24,7 +24,7 @@ export function Logo({
   return (
     <div
       className={cn(
-        "relative flex items-center justify-center shrink-0 select-none overflow-hidden bg-[#18181b] border border-white/10 shadow-sm",
+        "relative flex items-center justify-center shrink-0 select-none overflow-hidden bg-[#18181b] border border-parchment-shadow shadow-sm",
         bgRadius,
         className
       )}

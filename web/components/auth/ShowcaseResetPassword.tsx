@@ -36,7 +36,7 @@ export function ShowcaseResetPassword() {
   return (
     <div ref={scope} className="relative w-full flex flex-col gap-3.5 xl:gap-4">
       {/* Silvi Security Sentinel Card */}
-      <div className="bg-[#2d2734]/85 backdrop-blur-xl border border-white/15 p-4 xl:p-4.5 rounded-2xl flex items-center justify-between shadow-[0_10px_30px_rgba(0,0,0,0.35)]">
+      <div className="bg-[#2d2734]/85 backdrop-blur-xl border border-parchment-shadow p-4 xl:p-4.5 rounded-2xl flex items-center justify-between shadow-[0_10px_30px_rgba(0,0,0,0.35)]">
         <div className="flex items-center gap-3">
           <SilviOrb status="processing" size={38} showGlow showRings interactive={false} />
           <div>
@@ -54,13 +54,13 @@ export function ShowcaseResetPassword() {
         </div>
       </div>
 
-      <div className="bg-[#2d2734]/85 backdrop-blur-2xl border border-white/15 p-5 xl:p-6 rounded-3xl w-full relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
+      <div className="bg-[#2d2734]/85 backdrop-blur-2xl border border-parchment-shadow p-5 xl:p-6 rounded-3xl w-full relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
         {/* Ambient glow */}
         <div className="absolute -top-12 -right-12 size-48 bg-[#b997ff]/10 rounded-full blur-3xl pointer-events-none" />
 
         {/* Top row */}
         <div className="srp-top flex items-center justify-between mb-4 opacity-0 translate-y-2">
-          <div className="size-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
+          <div className="size-10 rounded-xl bg-white/[0.04] border border-parchment-shadow flex items-center justify-center">
             <KeyRound className="w-5 h-5 text-[#00f575]" />
           </div>
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#00f575]/10 border border-[#00f575]/25 text-[#00f575] text-[10px] font-mono font-bold">
@@ -82,12 +82,12 @@ export function ShowcaseResetPassword() {
           {STEPS.map(({ label, val, done, active }) => (
             <div
               key={label}
-              className="srp-step flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-2xl bg-white/[0.03] border border-white/10 opacity-0 translate-y-2"
+              className="srp-step flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-2xl bg-white/[0.03] border border-parchment-shadow opacity-0 translate-y-2"
             >
               <div className="flex items-center gap-3 min-w-0">
                 <div
                   className={`size-2 rounded-full shrink-0 ${
-                    done ? "bg-[#00f575]" : active ? "bg-[#b997ff] animate-pulse" : "bg-white/20"
+                    done ? "bg-[#00f575]" : active ? "bg-[#b997ff] animate-pulse" : "bg-marigold-glow/50"
                   }`}
                 />
                 <div className="min-w-0">
@@ -108,7 +108,7 @@ export function ShowcaseResetPassword() {
             <span className="text-[#a5a2a5]">ENTROPY STRENGTH</span>
             <span className="text-[#00f575] font-bold">SHIELD ARMED</span>
           </div>
-          <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+          <div className="h-1.5 w-full bg-marigold-glow/40 rounded-full overflow-hidden">
             <div
               className="srp-bar-fill h-full rounded-full bg-gradient-to-r from-[#b997ff] to-[#00f575] origin-left scale-x-0"
               style={{ width: "95%" }}

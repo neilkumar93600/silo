@@ -120,7 +120,7 @@ export default function RootLayout({
         "font-sans"
       )}
     >
-      <body className="bg-void-plum text-paper-white font-sans selection:bg-laser-violet selection:text-white">
+      <body className="bg-cream-canvas text-ink-black font-sans selection:bg-laser-violet selection:text-white">
         <ThemeProvider>
           <TooltipProvider>{children}</TooltipProvider>
           <Toaster />
