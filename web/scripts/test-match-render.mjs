@@ -1,4 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+import fs from 'fs';
+import path from 'path';
+import sharp from 'sharp';
+
+export function getEnhancedMasterSvg({
+  width = 1024,
+  height = 1024,
+  includeBackground = true,
+  bgType = 'squircle'
+} = {}) {
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="${width}" height="${height}">
   <defs>
     <!-- Background Gradient -->
     <linearGradient id="sqBgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -78,7 +89,7 @@
     </radialGradient>
 
     <!-- Pin Fine Specular Edge Border -->
-    <linearGradient id="pinEdgeStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="pinEdgeStroke" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
       <stop offset="50%" stop-color="#ffffff" stop-opacity="0.35" />
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0.9" />
@@ -90,12 +101,17 @@
     </filter>
   </defs>
 
-  
+  ${includeBackground ? (
+    bgType === 'circle'
+      ? '<circle cx="512" cy="512" r="512" fill="url(#sqBgGrad)" stroke="url(#sqBorderGrad)" stroke-width="2" />'
+      : '<rect width="1024" height="1024" rx="224" fill="url(#sqBgGrad)" stroke="url(#sqBorderGrad)" stroke-width="2" />'
+  ) : ''}
 
   <!-- Master Cloud-Pin Mark -->
   <g id="silo-brand-mark" filter="url(#masterDropShadow)">
     <!-- LEFT LOBE (Purple / Magenta / Fuchsia Capsule) -->
     <g id="left-lobe">
+      <!-- Base Capsule Shape -->
       <path
         d="M 512 778 
            L 305 778 
@@ -106,6 +122,7 @@
            Z"
         fill="url(#leftLobeGrad)"
       />
+      <!-- Radial Volume Glow -->
       <path
         d="M 512 778 
            L 305 778 
@@ -116,6 +133,7 @@
            Z"
         fill="url(#leftLobeRadial)"
       />
+      <!-- Neon Edge Highlight -->
       <path
         d="M 512 778 
            L 305 778 
@@ -131,6 +149,7 @@
 
     <!-- RIGHT LOBE (Cyan / Teal / Emerald Capsule) -->
     <g id="right-lobe">
+      <!-- Base Capsule Shape -->
       <path
         d="M 512 778 
            L 719 778 
@@ -141,6 +160,7 @@
            Z"
         fill="url(#rightLobeGrad)"
       />
+      <!-- Radial Volume Glow -->
       <path
         d="M 512 778 
            L 719 778 
@@ -151,6 +171,7 @@
            Z"
         fill="url(#rightLobeRadial)"
       />
+      <!-- Neon Edge Highlight -->
       <path
         d="M 512 778 
            L 719 778 
@@ -166,6 +187,7 @@
 
     <!-- FROSTED GLASS PIN TEARDROP (Center Overlay) -->
     <g id="frosted-glass-pin">
+      <!-- Pin Solid Body -->
       <path
         d="M 512 778
            C 460 706 322 530 322 388
@@ -178,6 +200,7 @@
         stroke-width="4"
       />
 
+      <!-- Specular Highlight Dome -->
       <path
         d="M 512 778
            C 460 706 322 530 322 388
@@ -188,6 +211,7 @@
         fill="url(#pinSpecularDome)"
       />
 
+      <!-- Subsurface Color Glow Bleed Through Frosted Pin Base -->
       <path
         d="M 512 778
            C 485 738 410 636 390 560
@@ -207,3 +231,18 @@
     </g>
   </g>
 </svg>
+`.trim();
+}
+
+async function renderCheck() {
+  const dir = path.resolve('public');
+  const svg = getEnhancedMasterSvg({ includeBackground: true });
+  fs.writeFileSync('test-match-icon.svg', svg);
+  await sharp(Buffer.from(svg))
+    .resize(1024, 1024)
+    .png()
+    .toFile('test-match-icon.png');
+  console.log('Rendered test-match-icon.png');
+}
+
+renderCheck().catch(console.error);
