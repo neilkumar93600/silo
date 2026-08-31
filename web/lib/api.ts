@@ -373,6 +373,8 @@ export function deleteAssistantConversation(id: string) {
 export type AssistantStreamEvent =
   | { type: "token"; data: string }
   | { type: "pending_confirmation"; data: AssistantPending }
+  | { type: "tool_call_start"; data: { id: string; name: string; label: string } }
+  | { type: "tool_call_result"; data: { id: string; ok: boolean } }
   | { type: "done"; data: null }
   | { type: "error"; data: string }
 

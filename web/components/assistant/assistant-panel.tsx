@@ -561,6 +561,7 @@ export function AssistantPanel() {
     isStreaming,
     pending,
     status,
+    toolTrace,
     startNewConversation,
     sendMessage,
   } = useAssistant()
@@ -738,18 +739,47 @@ export function AssistantPanel() {
                       <span className="size-1.5 rounded-full bg-[#ff9efa] animate-bounce" />
                     </div>
                   </div>
-                  <TypingAnimation
-                    duration={30}
-                    className="text-[11px] text-muted-foreground"
-                    showCursor={true}
-                    cursorStyle="line"
-                  >
-                    {status === "thinking"
-                      ? "Analyzing storage, inspecting directories, or preparing files..."
-                      : status === "processing"
-                      ? "Executing folder or file operation safely..."
-                      : "Generating detailed response..."}
-                  </TypingAnimation>
+                  {toolTrace.length > 0 ? (
+                    <div className="flex flex-col gap-1 mt-0.5">
+                      {toolTrace.map((call) => (
+                        <motion.div
+                          key={call.id}
+                          initial={{ opacity: 0, y: 4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="flex items-center gap-1.5 text-[11px]"
+                        >
+                          {call.status === "running" ? (
+                            <Spinner className="size-3 shrink-0 text-muted-foreground" />
+                          ) : call.status === "done" ? (
+                            <CheckIcon className="size-3 shrink-0 text-signal-green" />
+                          ) : (
+                            <XIcon className="size-3 shrink-0 text-destructive" />
+                          )}
+                          <span
+                            className={cn(
+                              "truncate",
+                              call.status === "running" ? "text-muted-foreground" : "text-foreground/80"
+                            )}
+                          >
+                            {call.label}
+                          </span>
+                        </motion.div>
+                      ))}
+                    </div>
+                  ) : (
+                    <TypingAnimation
+                      duration={30}
+                      className="text-[11px] text-muted-foreground"
+                      showCursor={true}
+                      cursorStyle="line"
+                    >
+                      {status === "thinking"
+                        ? "Analyzing storage, inspecting directories, or preparing files..."
+                        : status === "processing"
+                        ? "Executing folder or file operation safely..."
+                        : "Generating detailed response..."}
+                    </TypingAnimation>
+                  )}
                 </div>
               </motion.div>
             )}

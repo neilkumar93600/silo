@@ -7,6 +7,7 @@ import { MoreHorizontalIcon, PencilIcon, Trash2Icon, StarIcon, StarOffIcon } fro
 import type { FolderRecord } from "@/lib/api"
 import { formatRelativeTime } from "@/lib/format"
 import { Button } from "@/components/ui/button"
+import FolderComponent from "@/components/ui/folder-component"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -123,13 +124,10 @@ export function FolderGrid({ folders, onRename, onTrash, onToggleStar, onDropFil
             </DropdownMenu>
 
             <Link href={`/dashboard/folder/${folder.id}`} className="flex flex-col items-center gap-2">
-              <div className="relative w-24">
-                <FolderGlyph
-                  empty={folder.itemCount === 0}
-                  className="w-full drop-shadow-sm transition-transform duration-200 group-hover/card:scale-105"
-                />
+              <div className="relative h-[122px] w-36">
+                <FolderComponent color="brand" size="xs" empty={folder.itemCount === 0} openOnClick={false} />
                 {folder.starred && (
-                  <StarIcon className="absolute -right-1 -top-1 size-4 fill-primary text-primary drop-shadow" />
+                  <StarIcon className="absolute -right-1 -top-1 size-4 fill-primary text-primary drop-shadow z-10" />
                 )}
               </div>
               <span className="line-clamp-1 max-w-full text-sm font-semibold text-foreground group-hover/card:text-primary transition-colors">

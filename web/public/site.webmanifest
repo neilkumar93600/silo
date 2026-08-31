@@ -1,0 +1,37 @@
+{
+  "name": "Silo — Private File Sharing",
+  "short_name": "Silo",
+  "description": "Private file sharing app that stays private by default.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1c1624",
+  "theme_color": "#b997ff",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

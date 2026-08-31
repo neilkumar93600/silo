@@ -61,6 +61,7 @@ const themes = {
 } as const;
 
 const sizeScales = {
+  xs: 0.45,
   sm: 0.65,
   md: 1,
   lg: 1.35,
@@ -68,7 +69,15 @@ const sizeScales = {
 
 type FolderComponentProps = Omit<React.ComponentProps<"div">, "color"> & {
   color?: "black" | "white" | "blue" | "brand";
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
+  // Matches FolderGlyph's `empty` prop: an empty folder shows no cards
+  // peeking out of the flap, just the shell.
+  empty?: boolean;
+  // The big "isOpen" burst (cards fly out much further than on hover) is
+  // meant for a standalone decorative folder. Turn it off when the folder
+  // sits inside a link that navigates on click - otherwise the burst
+  // flashes oversized for a frame before the page navigates away.
+  openOnClick?: boolean;
 };
 
 const BASE_WIDTH = 321;
@@ -80,6 +89,8 @@ const FLAP_PATH =
 const FolderComponent = ({
   color = "black",
   size = "md",
+  empty = false,
+  openOnClick = true,
   className,
   ...props
 }: FolderComponentProps) => {
@@ -110,7 +121,7 @@ const FolderComponent = ({
           setIsHovered(false);
           setIsOpen(false);
         }}
-        onClick={() => setIsOpen((o) => !o)}
+        onClick={() => openOnClick && setIsOpen((o) => !o)}
       >
         <div
           className="absolute top-1/2 left-1/2"
@@ -133,6 +144,7 @@ const FolderComponent = ({
             />
           </div>
 
+          {!empty && (
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
             <motion.div
               className="absolute"
@@ -183,6 +195,7 @@ const FolderComponent = ({
               <Card id={3} theme={theme} />
             </motion.div>
           </div>
+          )}
 
           <motion.div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-4"

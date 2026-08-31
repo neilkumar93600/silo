@@ -72,8 +72,36 @@ export type AssistantEvent =
   // is alive during kimi-k3's long reasoning phase, before real content exists.
   | { type: "heartbeat"; data?: undefined }
   | { type: "pending_confirmation"; data: { summary: string; calls: AssistantToolCall[] } }
+  | { type: "tool_call_start"; data: { id: string; name: string; label: string } }
+  | { type: "tool_call_result"; data: { id: string; ok: boolean } }
   | { type: "done"; data?: undefined }
   | { type: "error"; data: string };
+
+// Human-readable label for the live trace shown while a tool call runs
+// (see AssistantEvent above) - distinct from summarizeToolCall's full
+// sentences, which are only for the confirm/decline card.
+const TOOL_LABELS: Record<string, string> = {
+  get_storage_usage: "Checking storage usage",
+  list_folders: "Listing folders",
+  create_folder: "Creating folder",
+  rename_folder: "Renaming folder",
+  move_folder: "Moving folder",
+  trash_folder: "Moving folder to trash",
+  restore_folder: "Restoring folder",
+  search_files: "Searching files",
+  move_file: "Moving file",
+  rename_file: "Renaming file",
+  star_file: "Updating star",
+  restore_file: "Restoring file",
+  get_share_link: "Getting share link",
+  trash_file: "Moving file to trash",
+  share_file: "Sharing file",
+  set_visibility: "Updating visibility",
+};
+
+function toolCallLabel(name: string): string {
+  return TOOL_LABELS[name] ?? name;
+}
 
 export async function listConversations(ownerId: string) {
   return db
@@ -271,7 +299,12 @@ async function* runLoop(conversationId: string, ownerId: string): AsyncGenerator
       }
 
       for (const call of toolCalls) {
+        yield {
+          type: "tool_call_start",
+          data: { id: call.id, name: call.function.name, label: toolCallLabel(call.function.name) },
+        };
         const resultContent = await runConfirmedTool(call, ownerId);
+        yield { type: "tool_call_result", data: { id: call.id, ok: !resultContent.startsWith("Error:") } };
         await db.insert(messages).values({
           id: randomUUID(),
           conversationId,

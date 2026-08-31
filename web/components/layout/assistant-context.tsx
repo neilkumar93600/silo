@@ -23,6 +23,11 @@ import { formatBytes } from "@/lib/format"
 // decorative label. See runStream below for the transitions.
 export type SilviStatus = "idle" | "thinking" | "typing" | "checking" | "processing"
 
+// Live trace of the current turn's tool calls - reset each time runStream
+// starts, and never persisted (a page reload just won't show past turns'
+// trace, same as streamingContent).
+export type ToolTraceEntry = { id: string; name: string; label: string; status: "running" | "done" | "error" }
+
 type AssistantContextValue = {
   open: boolean
   toggle: () => void
@@ -34,6 +39,7 @@ type AssistantContextValue = {
   isStreaming: boolean
   pending: AssistantPending | null
   status: SilviStatus
+  toolTrace: ToolTraceEntry[]
   sendMessage: (content: string) => Promise<void>
   askAboutFile: (file: FileRecord) => Promise<void>
   confirm: (approve: boolean) => Promise<void>
@@ -54,6 +60,7 @@ export function AssistantProvider({ children }: { children: React.ReactNode }) {
   const [isStreaming, setIsStreaming] = React.useState(false)
   const [pending, setPending] = React.useState<AssistantPending | null>(null)
   const [status, setStatus] = React.useState<SilviStatus>("idle")
+  const [toolTrace, setToolTrace] = React.useState<ToolTraceEntry[]>([])
 
   const refreshConversationList = React.useCallback(async () => {
     try {
@@ -93,6 +100,7 @@ export function AssistantProvider({ children }: { children: React.ReactNode }) {
     setStatus(initialStatus)
     setIsStreaming(true)
     setStreamingContent("")
+    setToolTrace([])
     let gotToken = false
     let sawPending = false
     try {
@@ -107,6 +115,14 @@ export function AssistantProvider({ children }: { children: React.ReactNode }) {
           sawPending = true
           setPending(event.data as AssistantPending)
           setStatus("checking")
+        } else if (event.type === "tool_call_start") {
+          const call = event.data as { id: string; name: string; label: string }
+          setToolTrace((prev) => [...prev, { ...call, status: "running" }])
+        } else if (event.type === "tool_call_result") {
+          const result = event.data as { id: string; ok: boolean }
+          setToolTrace((prev) =>
+            prev.map((t) => (t.id === result.id ? { ...t, status: result.ok ? "done" : "error" } : t)),
+          )
         } else if (event.type === "error") {
           toast.error(event.data as string)
         }
@@ -166,11 +182,13 @@ export function AssistantProvider({ children }: { children: React.ReactNode }) {
     setPending(null)
     setStatus("idle")
     setStreamingContent("")
+    setToolTrace([])
   }
 
   async function selectConversation(id: string) {
     setActiveConversationId(id)
     setStreamingContent("")
+    setToolTrace([])
     try {
       const [detail, msgs] = await Promise.all([getAssistantConversation(id), getAssistantMessages(id)])
       setPending(detail.pending)
@@ -202,6 +220,7 @@ export function AssistantProvider({ children }: { children: React.ReactNode }) {
     isStreaming,
     pending,
     status,
+    toolTrace,
     sendMessage,
     askAboutFile,
     confirm,
