@@ -24,9 +24,10 @@ export function LogoIcon({
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 1024 1024"
       fill="none"
+      width={size}
+      height={size}
       aria-label="Silo Mark"
       role="img"
-      style={size ? { width: size, height: size } : undefined}
       className={cn("shrink-0 select-none", className)}
       {...props}
     >
@@ -150,10 +151,6 @@ export function LogoIcon({
           <path
             d="M 552 778 L 735 778 C 830 778 872 705 872 612 C 872 522 815 492 730 492 C 660 492 602 532 570 580 L 552 612 Z"
             fill="url(#silo-icon-rightGrad)"
-          />
-          <path
-            d="M 552 778 L 735 778 C 830 778 872 705 872 612 C 872 522 815 492 730 492 C 660 492 602 532 570 580 L 552 612 Z"
-            fill="url(#silo-icon-rightGlow)"
           />
           <path
             d="M 552 778 L 735 778 C 830 778 872 705 872 612 C 872 522 815 492 730 492 C 660 492 602 532 570 580"

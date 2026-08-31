@@ -2,7 +2,7 @@ import * as React from "react";
 
 export type IconSize = number | string;
 
-export interface BaseIconProps extends React.SVGProps<SVGSVGElement> {
+export interface BaseIconProps extends React.SVGAttributes<SVGSVGElement> {
   size?: IconSize;
   className?: string;
 }
@@ -10,7 +10,8 @@ export interface BaseIconProps extends React.SVGProps<SVGSVGElement> {
 export type LogoVariant = "color" | "white" | "monochrome" | "outline";
 export type LogoBackground = "squircle" | "circle" | "none";
 
-export interface LogoProps extends BaseIconProps {
+export interface LogoProps extends React.HTMLAttributes<HTMLDivElement> {
+  size?: IconSize;
   variant?: LogoVariant;
   withBackground?: boolean;
   bgType?: LogoBackground;

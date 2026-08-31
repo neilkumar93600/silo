@@ -3,8 +3,12 @@ import { cn } from "@/lib/utils";
 import { LogoIcon } from "./logo-icon";
 import type { LogoProps } from "../types";
 
+/**
+ * Master Logo component
+ * Supports standalone vector rendering, squircle container, circle container, and monochrome modes.
+ */
 export function Logo({
-  size = 24,
+  size = 32,
   variant = "color",
   withBackground = false,
   bgType = "squircle",
@@ -12,27 +16,22 @@ export function Logo({
   ...props
 }: LogoProps) {
   if (!withBackground) {
-    return <LogoIcon size={size} variant={variant} className={className} {...props} />;
+    return <LogoIcon size={size} variant={variant} className={className} />;
   }
 
-  const isCircle = bgType === "circle";
-  const numSize = typeof size === "number" ? size : parseInt(String(size), 10) || 40;
-  const padding = Math.max(4, Math.round(numSize * 0.15));
+  const bgRadius = bgType === "circle" ? "rounded-full" : "rounded-[22%]";
 
   return (
     <div
-      style={{ width: size, height: size }}
       className={cn(
-        "relative shrink-0 flex items-center justify-center bg-gradient-to-b from-[#231b2e] via-[#1c1624] to-[#120e18] border border-white/10 shadow-[0_8px_20px_rgba(0,0,0,0.5)] overflow-hidden",
-        isCircle ? "rounded-full" : "rounded-2xl",
+        "relative flex items-center justify-center shrink-0 select-none overflow-hidden bg-[#18181b] border border-white/10 shadow-sm",
+        bgRadius,
         className
       )}
+      {...props}
     >
-      <div
-        className="size-full flex items-center justify-center"
-        style={{ padding }}
-      >
-        <LogoIcon variant={variant} className="size-full" {...props} />
+      <div className="flex items-center justify-center p-[10%]">
+        <LogoIcon size={size} variant={variant} />
       </div>
     </div>
   );

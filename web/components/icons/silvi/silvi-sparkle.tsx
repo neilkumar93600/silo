@@ -3,10 +3,10 @@ import { cn } from "@/lib/utils";
 import type { BaseIconProps } from "../types";
 
 /**
- * Cyber-Sparkle Starburst Icon with Neon Violet & Signal Green highlights
+ * Silvi Cyber Sparkle Accent Icon
  */
 export function SilviSparkle({
-  size = 20,
+  size = 18,
   className,
   ...props
 }: BaseIconProps) {
@@ -15,35 +15,25 @@ export function SilviSparkle({
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"
-      aria-label="Silvi Sparkle"
+      width={size}
+      height={size}
+      aria-label="Sparkle"
       role="img"
-      style={size ? { width: size, height: size } : undefined}
       className={cn("shrink-0 select-none", className)}
       {...props}
     >
       <defs>
         <linearGradient id="sparkle-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#ff9efa" />
-          <stop offset="50%" stopColor="#b997ff" />
-          <stop offset="100%" stopColor="#00f575" />
+          <stop offset="0%" stopColor="#fa5d00" />
+          <stop offset="50%" stopColor="#fee3b5" />
+          <stop offset="100%" stopColor="#fa5d00" />
         </linearGradient>
       </defs>
-
-      {/* Main 4-point Diamond Star */}
       <path
-        d="M 12 2 Q 12 12 2 12 Q 12 12 12 22 Q 12 12 22 12 Q 12 12 12 2 Z"
+        d="M 12 1 C 12 7.5 17.5 12 23 12 C 17.5 12 12 16.5 12 23 C 12 16.5 6.5 12 1 12 C 6.5 12 12 7.5 12 1 Z"
         fill="url(#sparkle-grad)"
       />
-
-      {/* Secondary Mini Sparkle */}
-      <path
-        d="M 19 3 Q 19 6 16 6 Q 19 6 19 9 Q 19 6 22 6 Q 19 6 19 3 Z"
-        fill="#00f575"
-        opacity="0.85"
-      />
-
-      {/* Tertiary Micro Sparkle */}
-      <circle cx="5" cy="19" r="1.5" fill="#ff9efa" opacity="0.9" />
+      <circle cx="12" cy="12" r="1.5" fill="#ffffff" />
     </svg>
   );
 }

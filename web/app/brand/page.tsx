@@ -41,7 +41,6 @@ import {
   Layers,
   Share2,
   Shield,
-  Eye,
   Sliders,
 } from "lucide-react";
 
@@ -78,13 +77,13 @@ const ALL_CUSTOM_ICONS: IconItem[] = [
 ];
 
 const SILVI_MOODS: { mood: SilviMood; label: string; desc: string }[] = [
-  { mood: "idle", label: "Idle / Ready", desc: "Default resting state with calm blinking eyes" },
+  { mood: "idle", label: "Idle / Ready", desc: "Default resting state with calm ready eyes" },
   { mood: "thinking", label: "Thinking / Scanning", desc: "Horizontal cyan scanning visor slits" },
-  { mood: "typing", label: "Typing / Generating", desc: "Excited wide eyes with green pupil dots" },
-  { mood: "checking", label: "Security Inspection", desc: "Alert shield-focused eyes with warning tone" },
+  { mood: "typing", label: "Typing / Generating", desc: "Active generator state with pulse dots" },
+  { mood: "checking", label: "Security Inspection", desc: "Alert shield-focused eyes with audit ring" },
   { mood: "processing", label: "Processing Stream", desc: "High-speed quantum aperture eye" },
-  { mood: "success", label: "Success / Done", desc: "Cheerful arched eyes with emerald aura" },
-  { mood: "happy", label: "Happy / Approved", desc: "Joyful expression with cheerful smile" },
+  { mood: "success", label: "Success / Done", desc: "Cheerful checkmark eyes with green aura" },
+  { mood: "happy", label: "Happy / Approved", desc: "Joyful expression with cheerful curve" },
   { mood: "alert", label: "Alert / Warning", desc: "Cryptographic confirmation required" },
   { mood: "sleepy", label: "Sleepy / Standby", desc: "Low power sleeping standby mode" },
 ];
@@ -92,7 +91,7 @@ const SILVI_MOODS: { mood: SilviMood; label: string; desc: string }[] = [
 export default function BrandShowcasePage() {
   const [copiedId, setCopiedId] = React.useState<string | null>(null);
   const [logoSize, setLogoSize] = React.useState<number>(96);
-  const [selectedBg, setSelectedBg] = React.useState<string>("midnight");
+  const [selectedBg, setSelectedBg] = React.useState<string>("cream");
   const [activeSilviMood, setActiveSilviMood] = React.useState<SilviMood>("idle");
   const [iconCategory, setIconCategory] = React.useState<string>("all");
   const [searchQuery, setSearchQuery] = React.useState<string>("");
@@ -105,10 +104,10 @@ export default function BrandShowcasePage() {
   };
 
   const bgClasses: Record<string, string> = {
-    midnight: "bg-[#1c1624] border-white/10",
-    black: "bg-[#000000] border-white/15",
-    charcoal: "bg-[#18181b] border-white/10",
-    light: "bg-[#f8fafc] border-slate-300",
+    cream: "bg-[#fff8f1] border-[#e3d6c5]",
+    white: "bg-[#ffffff] border-[#c0bbb6]",
+    charcoal: "bg-[#1d1e1c] border-[#4a4a47]",
+    dark: "bg-[#18181b] border-white/20",
   };
 
   const filteredIcons = ALL_CUSTOM_ICONS.filter((item) => {
@@ -118,73 +117,73 @@ export default function BrandShowcasePage() {
   });
 
   return (
-    <div className="min-h-screen bg-[#1c1624] text-[#f1f0ec] selection:bg-[#b997ff] selection:text-black">
+    <div className="min-h-screen bg-[#fff8f1] text-[#1d1e1c] selection:bg-[#fee3b5] selection:text-[#1d1e1c]">
       <PublicHeader />
 
       <main className="max-w-7xl mx-auto px-6 py-12 md:py-20 space-y-24">
         {/* Hero Section */}
         <section className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#b997ff]/10 border border-[#b997ff]/25 text-xs font-mono text-[#b997ff]">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fee3b5] border border-[#fa5d00]/30 text-xs font-mono text-[#fa5d00] font-medium shadow-sm">
             <SilviSparkle size={14} />
-            <span>Brand System & Interactive Preview Platform</span>
+            <span>Brand System & Design Reference · Getharvest Style</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-[#f1f0ec]">
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-[#1d1e1c]">
             Silo Brand, Logo & <br />
-            <span className="bg-gradient-to-r from-[#b997ff] via-[#ff9efa] to-[#00f575] bg-clip-text text-transparent">
+            <span className="text-[#fa5d00]">
               Custom Icon Platform
             </span>
           </h1>
-          <p className="text-sm md:text-base text-[#d0c9c4] leading-relaxed">
-            A comprehensive design system featuring the Doppler theme-aligned cloud-pin logo mark, expressive Silvi AI mascot states, custom security glyphs, and high-resolution SEO variations.
+          <p className="text-sm md:text-base text-[#615f5c] leading-relaxed">
+            Warm cream canvas (<code className="font-mono text-xs bg-white px-1.5 py-0.5 rounded border border-[#c0bbb6]">#fff8f1</code>), white floating cards, and harvest flame (<code className="font-mono text-xs bg-white px-1.5 py-0.5 rounded border border-[#c0bbb6]">#fa5d00</code>) accents with custom vector icons and responsive mascot states.
           </p>
         </section>
 
         {/* 1. Interactive Master Logo Showcase */}
         <section className="space-y-8">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#e3d6c5] pb-4">
             <div>
-              <h2 className="text-2xl font-bold text-[#f1f0ec] flex items-center gap-2.5">
-                <Layers className="size-5 text-[#b997ff]" />
+              <h2 className="text-2xl font-bold text-[#1d1e1c] flex items-center gap-2.5">
+                <Layers className="size-5 text-[#fa5d00]" />
                 Master Logo & Mark Variations
               </h2>
-              <p className="text-xs text-[#a5a2a5] mt-0.5">
-                High-fidelity vector geometry with volumetric frosted glass pin and neon aurora bulbs
+              <p className="text-xs text-[#615f5c] mt-0.5">
+                High-fidelity asymmetrical cloud geometry (larger left puff) with center frosted glass pin
               </p>
             </div>
 
             {/* Controls */}
-            <div className="flex items-center gap-4 bg-[#2d2734] border border-white/10 p-2 rounded-xl text-xs">
+            <div className="flex items-center gap-4 bg-[#ffffff] border border-[#c0bbb6] shadow-sm p-2 rounded-2xl text-xs">
               <div className="flex items-center gap-2">
-                <Sliders className="size-3.5 text-[#a5a2a5]" />
-                <span className="text-[#d0c9c4]">Size: {logoSize}px</span>
+                <Sliders className="size-3.5 text-[#8e8b87]" />
+                <span className="text-[#615f5c]">Size: {logoSize}px</span>
                 <input
                   type="range"
                   min="32"
                   max="180"
                   value={logoSize}
                   onChange={(e) => setLogoSize(Number(e.target.value))}
-                  className="w-24 accent-[#b997ff] cursor-pointer"
+                  className="w-24 accent-[#fa5d00] cursor-pointer"
                 />
               </div>
 
-              <div className="h-4 w-px bg-white/15" />
+              <div className="h-4 w-px bg-[#d9d9d9]" />
 
               <div className="flex items-center gap-1.5">
-                <span className="text-[#d0c9c4]">Canvas:</span>
-                {["midnight", "black", "charcoal", "light"].map((bg) => (
+                <span className="text-[#615f5c]">Canvas:</span>
+                {["cream", "white", "charcoal", "dark"].map((bg) => (
                   <button
                     key={bg}
                     onClick={() => setSelectedBg(bg)}
                     className={`size-5 rounded-full border transition-all ${
-                      selectedBg === bg ? "ring-2 ring-[#b997ff] scale-110" : "opacity-60"
+                      selectedBg === bg ? "ring-2 ring-[#fa5d00] scale-110" : "opacity-60"
                     } ${
-                      bg === "midnight"
-                        ? "bg-[#1c1624] border-white/20"
-                        : bg === "black"
-                        ? "bg-black border-white/20"
+                      bg === "cream"
+                        ? "bg-[#fff8f1] border-[#c0bbb6]"
+                        : bg === "white"
+                        ? "bg-white border-[#c0bbb6]"
                         : bg === "charcoal"
-                        ? "bg-[#18181b] border-white/20"
-                        : "bg-white border-slate-400"
+                        ? "bg-[#1d1e1c] border-[#4a4a47]"
+                        : "bg-[#18181b] border-white/40"
                     }`}
                     title={bg}
                   />
@@ -196,9 +195,9 @@ export default function BrandShowcasePage() {
           {/* Logo Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Card 1: Master App Squircle */}
-            <div className="rounded-2xl border border-white/10 bg-[#2d2734]/50 p-6 flex flex-col items-center justify-between gap-6 hover:border-[#b997ff]/40 transition-all group">
-              <div className="w-full flex items-center justify-between text-xs text-[#a5a2a5]">
-                <span className="font-semibold text-[#f1f0ec]">App Icon (Squircle)</span>
+            <div className="rounded-[20px] border border-[#e3d6c5] bg-[#ffffff] p-6 flex flex-col items-center justify-between gap-6 hover:shadow-[0_10px_30px_rgba(250,166,0,0.18)] transition-all group">
+              <div className="w-full flex items-center justify-between text-xs text-[#8e8b87]">
+                <span className="font-semibold text-[#1d1e1c]">App Icon (Squircle)</span>
                 <span className="font-mono text-[10px]">App Icon / Favicon</span>
               </div>
 
@@ -206,18 +205,18 @@ export default function BrandShowcasePage() {
                 <Logo size={logoSize} withBackground bgType="squircle" />
               </div>
 
-              <div className="w-full flex items-center gap-2 pt-2 border-t border-white/10">
+              <div className="w-full flex items-center gap-2 pt-2 border-t border-[#f1f0ec]">
                 <button
                   onClick={() => copyToClipboard('<Logo size={48} withBackground bgType="squircle" />', "logo-squircle")}
-                  className="flex-1 py-1.5 px-3 rounded-lg bg-white/[0.05] hover:bg-white/10 text-xs font-medium text-[#f1f0ec] flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  className="flex-1 py-2 px-3 rounded-xl bg-[#fff8f1] hover:bg-[#fee3b5] text-xs font-semibold text-[#1d1e1c] flex items-center justify-center gap-1.5 transition-colors cursor-pointer border border-[#e3d6c5]"
                 >
-                  {copiedId === "logo-squircle" ? <Check size={13} className="text-[#00f575]" /> : <Copy size={13} />}
+                  {copiedId === "logo-squircle" ? <Check size={13} className="text-[#fa5d00]" /> : <Copy size={13} />}
                   Copy JSX
                 </button>
                 <a
                   href="/logo-app.svg"
                   download="silo-app-icon.svg"
-                  className="p-1.5 rounded-lg bg-white/[0.05] hover:bg-white/10 text-[#d0c9c4] hover:text-white transition-colors"
+                  className="p-2 rounded-xl bg-[#fff8f1] hover:bg-[#fee3b5] text-[#615f5c] hover:text-[#1d1e1c] transition-colors border border-[#e3d6c5]"
                   title="Download SVG"
                 >
                   <Download size={14} />
@@ -226,9 +225,9 @@ export default function BrandShowcasePage() {
             </div>
 
             {/* Card 2: Master Vector Mark */}
-            <div className="rounded-2xl border border-white/10 bg-[#2d2734]/50 p-6 flex flex-col items-center justify-between gap-6 hover:border-[#b997ff]/40 transition-all group">
-              <div className="w-full flex items-center justify-between text-xs text-[#a5a2a5]">
-                <span className="font-semibold text-[#f1f0ec]">Vector Mark</span>
+            <div className="rounded-[20px] border border-[#e3d6c5] bg-[#ffffff] p-6 flex flex-col items-center justify-between gap-6 hover:shadow-[0_10px_30px_rgba(250,166,0,0.18)] transition-all group">
+              <div className="w-full flex items-center justify-between text-xs text-[#8e8b87]">
+                <span className="font-semibold text-[#1d1e1c]">Vector Mark</span>
                 <span className="font-mono text-[10px]">Transparent Vector</span>
               </div>
 
@@ -236,18 +235,18 @@ export default function BrandShowcasePage() {
                 <LogoIcon size={logoSize} />
               </div>
 
-              <div className="w-full flex items-center gap-2 pt-2 border-t border-white/10">
+              <div className="w-full flex items-center gap-2 pt-2 border-t border-[#f1f0ec]">
                 <button
                   onClick={() => copyToClipboard('<LogoIcon size={32} />', "logo-mark")}
-                  className="flex-1 py-1.5 px-3 rounded-lg bg-white/[0.05] hover:bg-white/10 text-xs font-medium text-[#f1f0ec] flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  className="flex-1 py-2 px-3 rounded-xl bg-[#fff8f1] hover:bg-[#fee3b5] text-xs font-semibold text-[#1d1e1c] flex items-center justify-center gap-1.5 transition-colors cursor-pointer border border-[#e3d6c5]"
                 >
-                  {copiedId === "logo-mark" ? <Check size={13} className="text-[#00f575]" /> : <Copy size={13} />}
+                  {copiedId === "logo-mark" ? <Check size={13} className="text-[#fa5d00]" /> : <Copy size={13} />}
                   Copy JSX
                 </button>
                 <a
                   href="/logo.svg"
                   download="silo-logo.svg"
-                  className="p-1.5 rounded-lg bg-white/[0.05] hover:bg-white/10 text-[#d0c9c4] hover:text-white transition-colors"
+                  className="p-2 rounded-xl bg-[#fff8f1] hover:bg-[#fee3b5] text-[#615f5c] hover:text-[#1d1e1c] transition-colors border border-[#e3d6c5]"
                   title="Download SVG"
                 >
                   <Download size={14} />
@@ -255,29 +254,29 @@ export default function BrandShowcasePage() {
               </div>
             </div>
 
-            {/* Card 3: Monochrome Bone White */}
-            <div className="rounded-2xl border border-white/10 bg-[#2d2734]/50 p-6 flex flex-col items-center justify-between gap-6 hover:border-[#b997ff]/40 transition-all group">
-              <div className="w-full flex items-center justify-between text-xs text-[#a5a2a5]">
-                <span className="font-semibold text-[#f1f0ec]">Monochrome White</span>
+            {/* Card 3: Monochrome Tone */}
+            <div className="rounded-[20px] border border-[#e3d6c5] bg-[#ffffff] p-6 flex flex-col items-center justify-between gap-6 hover:shadow-[0_10px_30px_rgba(250,166,0,0.18)] transition-all group">
+              <div className="w-full flex items-center justify-between text-xs text-[#8e8b87]">
+                <span className="font-semibold text-[#1d1e1c]">Monochrome Single-Tone</span>
                 <span className="font-mono text-[10px]">Single-Color Use</span>
               </div>
 
               <div className={`size-48 rounded-2xl flex items-center justify-center border transition-all duration-300 ${bgClasses[selectedBg]}`}>
-                <LogoIcon size={logoSize} variant="white" className="text-white" />
+                <LogoIcon size={logoSize} variant="white" className="text-[#1d1e1c]" />
               </div>
 
-              <div className="w-full flex items-center gap-2 pt-2 border-t border-white/10">
+              <div className="w-full flex items-center gap-2 pt-2 border-t border-[#f1f0ec]">
                 <button
                   onClick={() => copyToClipboard('<LogoIcon size={32} variant="white" />', "logo-white")}
-                  className="flex-1 py-1.5 px-3 rounded-lg bg-white/[0.05] hover:bg-white/10 text-xs font-medium text-[#f1f0ec] flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  className="flex-1 py-2 px-3 rounded-xl bg-[#fff8f1] hover:bg-[#fee3b5] text-xs font-semibold text-[#1d1e1c] flex items-center justify-center gap-1.5 transition-colors cursor-pointer border border-[#e3d6c5]"
                 >
-                  {copiedId === "logo-white" ? <Check size={13} className="text-[#00f575]" /> : <Copy size={13} />}
+                  {copiedId === "logo-white" ? <Check size={13} className="text-[#fa5d00]" /> : <Copy size={13} />}
                   Copy JSX
                 </button>
                 <a
                   href="/logo-white.svg"
                   download="silo-logo-white.svg"
-                  className="p-1.5 rounded-lg bg-white/[0.05] hover:bg-white/10 text-[#d0c9c4] hover:text-white transition-colors"
+                  className="p-2 rounded-xl bg-[#fff8f1] hover:bg-[#fee3b5] text-[#615f5c] hover:text-[#1d1e1c] transition-colors border border-[#e3d6c5]"
                   title="Download SVG"
                 >
                   <Download size={14} />
@@ -286,22 +285,22 @@ export default function BrandShowcasePage() {
             </div>
 
             {/* Card 4: Header Lockup */}
-            <div className="rounded-2xl border border-white/10 bg-[#2d2734]/50 p-6 flex flex-col items-center justify-between gap-6 hover:border-[#b997ff]/40 transition-all group">
-              <div className="w-full flex items-center justify-between text-xs text-[#a5a2a5]">
-                <span className="font-semibold text-[#f1f0ec]">Logo Lockup</span>
+            <div className="rounded-[20px] border border-[#e3d6c5] bg-[#ffffff] p-6 flex flex-col items-center justify-between gap-6 hover:shadow-[0_10px_30px_rgba(250,166,0,0.18)] transition-all group">
+              <div className="w-full flex items-center justify-between text-xs text-[#8e8b87]">
+                <span className="font-semibold text-[#1d1e1c]">Logo Lockup</span>
                 <span className="font-mono text-[10px]">Navigation & Header</span>
               </div>
 
               <div className={`size-48 rounded-2xl flex items-center justify-center border p-4 transition-all duration-300 ${bgClasses[selectedBg]}`}>
-                <LogoLockup iconSize={Math.min(logoSize, 36)} badge="ZK-Vault" />
+                <LogoLockup iconSize={Math.min(logoSize, 36)} badge="Zero-Knowledge" />
               </div>
 
-              <div className="w-full flex items-center gap-2 pt-2 border-t border-white/10">
+              <div className="w-full flex items-center gap-2 pt-2 border-t border-[#f1f0ec]">
                 <button
                   onClick={() => copyToClipboard('<LogoLockup href="/" iconSize={24} badge="Zero-Knowledge" />', "logo-lockup")}
-                  className="flex-1 py-1.5 px-3 rounded-lg bg-white/[0.05] hover:bg-white/10 text-xs font-medium text-[#f1f0ec] flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  className="flex-1 py-2 px-3 rounded-xl bg-[#fff8f1] hover:bg-[#fee3b5] text-xs font-semibold text-[#1d1e1c] flex items-center justify-center gap-1.5 transition-colors cursor-pointer border border-[#e3d6c5]"
                 >
-                  {copiedId === "logo-lockup" ? <Check size={13} className="text-[#00f575]" /> : <Copy size={13} />}
+                  {copiedId === "logo-lockup" ? <Check size={13} className="text-[#fa5d00]" /> : <Copy size={13} />}
                   Copy JSX
                 </button>
               </div>
@@ -311,19 +310,19 @@ export default function BrandShowcasePage() {
 
         {/* 2. Silvi Mascot & AI State Playground */}
         <section className="space-y-8">
-          <div className="border-b border-white/10 pb-4">
-            <h2 className="text-2xl font-bold text-[#f1f0ec] flex items-center gap-2.5">
-              <Sparkles className="size-5 text-[#00f575]" />
+          <div className="border-b border-[#e3d6c5] pb-4">
+            <h2 className="text-2xl font-bold text-[#1d1e1c] flex items-center gap-2.5">
+              <Sparkles className="size-5 text-[#fa5d00]" />
               Silvi AI Mascot & Mood States
             </h2>
-            <p className="text-xs text-[#a5a2a5] mt-0.5">
+            <p className="text-xs text-[#615f5c] mt-0.5">
               Interactive vector avatar with 9 expressive facial modes, dynamic volumetric glows, and status badges
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Preview Box */}
-            <div className="lg:col-span-5 rounded-3xl border border-white/15 bg-gradient-to-b from-[#2d2734] to-[#1c1624] p-8 flex flex-col items-center justify-center gap-6 shadow-[0_20px_50px_rgba(0,0,0,0.6)] text-center relative overflow-hidden">
+            <div className="lg:col-span-5 rounded-[20px] border border-[#e3d6c5] bg-[#ffffff] p-8 flex flex-col items-center justify-center gap-6 shadow-[rgba(250,166,0,0.25)_6px_4px_24px_0px] text-center relative overflow-hidden">
               <div className="absolute top-0 right-0 p-4">
                 <SilviBadge mood={activeSilviMood} label="Silvi" statusText={activeSilviMood.toUpperCase()} />
               </div>
@@ -333,16 +332,16 @@ export default function BrandShowcasePage() {
               </div>
 
               <div className="space-y-1">
-                <h3 className="text-lg font-bold text-[#f1f0ec] capitalize">Silvi · {activeSilviMood}</h3>
-                <p className="text-xs text-[#a5a2a5]">
+                <h3 className="text-lg font-bold text-[#1d1e1c] capitalize">Silvi · {activeSilviMood}</h3>
+                <p className="text-xs text-[#615f5c]">
                   {SILVI_MOODS.find((m) => m.mood === activeSilviMood)?.desc}
                 </p>
               </div>
 
-              <div className="flex items-center gap-2 w-full pt-4 border-t border-white/10">
+              <div className="flex items-center gap-2 w-full pt-4 border-t border-[#f1f0ec]">
                 <button
                   onClick={() => copyToClipboard(`<SilviAvatar size={48} mood="${activeSilviMood}" glow />`, "silvi-code")}
-                  className="flex-1 py-2 px-4 rounded-xl bg-[#b997ff] text-black font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-[#ff9efa] transition-colors cursor-pointer"
+                  className="flex-1 py-2.5 px-4 rounded-2xl bg-[#fa5d00] text-white font-semibold text-xs flex items-center justify-center gap-1.5 hover:brightness-95 transition-all cursor-pointer shadow-sm"
                 >
                   {copiedId === "silvi-code" ? <Check size={14} /> : <Copy size={14} />}
                   Copy Mood Component
@@ -356,23 +355,23 @@ export default function BrandShowcasePage() {
                 <button
                   key={item.mood}
                   onClick={() => setActiveSilviMood(item.mood)}
-                  className={`p-4 rounded-2xl border text-left flex flex-col gap-3 transition-all cursor-pointer ${
+                  className={`p-4 rounded-[16px] border text-left flex flex-col gap-3 transition-all cursor-pointer ${
                     activeSilviMood === item.mood
-                      ? "bg-[#2d2734] border-[#b997ff] shadow-[0_0_20px_rgba(185,151,255,0.2)]"
-                      : "bg-white/[0.03] border-white/10 hover:border-white/20 hover:bg-white/[0.05]"
+                      ? "bg-[#ffffff] border-[#fa5d00] shadow-[0_4px_16px_rgba(250,93,0,0.18)] ring-1 ring-[#fa5d00]"
+                      : "bg-[#ffffff] border-[#e3d6c5] hover:border-[#c0bbb6] hover:bg-[#fff8f1]"
                   }`}
                 >
                   <div className="flex items-center justify-between">
                     <SilviAvatar size={32} mood={item.mood} glow={false} />
                     <span className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded-full ${
-                      activeSilviMood === item.mood ? "bg-[#b997ff]/20 text-[#b997ff]" : "bg-white/5 text-[#a5a2a5]"
+                      activeSilviMood === item.mood ? "bg-[#fee3b5] text-[#fa5d00] font-semibold" : "bg-[#f1f0ec] text-[#615f5c]"
                     }`}>
                       {item.mood}
                     </span>
                   </div>
                   <div>
-                    <span className="text-xs font-semibold block text-[#f1f0ec]">{item.label}</span>
-                    <span className="text-[10px] text-[#a5a2a5] line-clamp-1">{item.desc}</span>
+                    <span className="text-xs font-semibold block text-[#1d1e1c]">{item.label}</span>
+                    <span className="text-[10px] text-[#615f5c] line-clamp-1">{item.desc}</span>
                   </div>
                 </button>
               ))}
@@ -382,13 +381,13 @@ export default function BrandShowcasePage() {
 
         {/* 3. Custom Website & Vault Icons Suite */}
         <section className="space-y-8">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#e3d6c5] pb-4">
             <div>
-              <h2 className="text-2xl font-bold text-[#f1f0ec] flex items-center gap-2.5">
-                <Shield className="size-5 text-[#b997ff]" />
+              <h2 className="text-2xl font-bold text-[#1d1e1c] flex items-center gap-2.5">
+                <Shield className="size-5 text-[#fa5d00]" />
                 Custom Website & Security Icons
               </h2>
-              <p className="text-xs text-[#a5a2a5] mt-0.5">
+              <p className="text-xs text-[#615f5c] mt-0.5">
                 Handcrafted SVG icon components designed for zero-knowledge storage, vaults, and permission workflows
               </p>
             </div>
@@ -396,23 +395,23 @@ export default function BrandShowcasePage() {
             {/* Filter & Search Bar */}
             <div className="flex items-center gap-3">
               <div className="relative">
-                <Search className="size-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#a5a2a5]" />
+                <Search className="size-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#8e8b87]" />
                 <input
                   type="text"
                   placeholder="Search icons..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-8 pr-3 py-1.5 rounded-xl bg-[#2d2734] border border-white/10 text-xs text-[#f1f0ec] placeholder-[#a5a2a5] focus:outline-none focus:border-[#b997ff]"
+                  className="pl-8 pr-3 py-1.5 rounded-xl bg-[#ffffff] border border-[#c0bbb6] text-xs text-[#1d1e1c] placeholder-[#8e8b87] focus:outline-none focus:border-[#fa5d00]"
                 />
               </div>
 
-              <div className="flex items-center gap-1 bg-[#2d2734] border border-white/10 p-1 rounded-xl text-xs">
+              <div className="flex items-center gap-1 bg-[#ffffff] border border-[#c0bbb6] p-1 rounded-xl text-xs shadow-sm">
                 {["all", "vault", "security", "files", "brand"].map((cat) => (
                   <button
                     key={cat}
                     onClick={() => setIconCategory(cat)}
                     className={`px-3 py-1 rounded-lg capitalize transition-colors cursor-pointer ${
-                      iconCategory === cat ? "bg-[#b997ff] text-black font-semibold" : "text-[#d0c9c4] hover:text-white"
+                      iconCategory === cat ? "bg-[#fa5d00] text-white font-semibold" : "text-[#615f5c] hover:text-[#1d1e1c]"
                     }`}
                   >
                     {cat}
@@ -431,22 +430,22 @@ export default function BrandShowcasePage() {
                 <div
                   key={icon.id}
                   onClick={() => copyToClipboard(icon.code, icon.id)}
-                  className="p-5 rounded-2xl border border-white/10 bg-[#2d2734]/40 hover:bg-[#2d2734] hover:border-[#b997ff]/40 flex flex-col items-center justify-between gap-4 text-center group cursor-pointer transition-all duration-200 hover:-translate-y-1"
+                  className="p-5 rounded-[20px] border border-[#e3d6c5] bg-[#ffffff] hover:border-[#fa5d00] hover:shadow-[0_8px_24px_rgba(250,166,0,0.2)] flex flex-col items-center justify-between gap-4 text-center group cursor-pointer transition-all duration-200 hover:-translate-y-1"
                 >
-                  <div className="size-12 rounded-xl bg-white/[0.04] flex items-center justify-center text-[#b997ff] group-hover:text-white group-hover:scale-110 transition-transform">
+                  <div className="size-12 rounded-2xl bg-[#fff8f1] border border-[#e3d6c5] flex items-center justify-center text-[#fa5d00] group-hover:scale-110 transition-transform">
                     <Comp size={iconPreviewScale} />
                   </div>
                   <div className="space-y-0.5">
-                    <span className="text-xs font-semibold block text-[#f1f0ec] group-hover:text-[#b997ff] transition-colors">
+                    <span className="text-xs font-semibold block text-[#1d1e1c] group-hover:text-[#fa5d00] transition-colors">
                       {icon.name}
                     </span>
-                    <span className="font-mono text-[10px] text-[#a5a2a5] block capitalize">
+                    <span className="font-mono text-[10px] text-[#8e8b87] block capitalize">
                       {icon.category}
                     </span>
                   </div>
-                  <div className="text-[10px] font-mono text-white/50 flex items-center gap-1 group-hover:text-white">
+                  <div className="text-[10px] font-mono text-[#8e8b87] flex items-center gap-1 group-hover:text-[#1d1e1c]">
                     {isCopied ? (
-                      <span className="text-[#00f575] flex items-center gap-1 font-semibold">
+                      <span className="text-[#fa5d00] flex items-center gap-1 font-semibold">
                         <Check size={11} /> Copied!
                       </span>
                     ) : (
@@ -463,12 +462,12 @@ export default function BrandShowcasePage() {
 
         {/* 4. SEO & Social Preview Cards */}
         <section className="space-y-8">
-          <div className="border-b border-white/10 pb-4">
-            <h2 className="text-2xl font-bold text-[#f1f0ec] flex items-center gap-2.5">
-              <Share2 className="size-5 text-[#00f575]" />
+          <div className="border-b border-[#e3d6c5] pb-4">
+            <h2 className="text-2xl font-bold text-[#1d1e1c] flex items-center gap-2.5">
+              <Share2 className="size-5 text-[#fa5d00]" />
               SEO & Social Share Preview Cards (1200×630)
             </h2>
-            <p className="text-xs text-[#a5a2a5] mt-0.5">
+            <p className="text-xs text-[#615f5c] mt-0.5">
               Live preview of social graph metadata, OpenGraph cards, Twitter cards, and PWA assets
             </p>
           </div>
@@ -476,42 +475,42 @@ export default function BrandShowcasePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Live Social Share Card Preview */}
             <div className="lg:col-span-8 space-y-4">
-              <div className="rounded-3xl border border-white/15 overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.7)] group relative">
+              <div className="rounded-[20px] border border-[#e3d6c5] overflow-hidden shadow-[rgba(0,0,0,0.15)_0px_8px_30px] group relative bg-white">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/og-image.png"
                   alt="Silo OpenGraph Preview"
                   className="w-full h-auto object-cover"
                 />
-                <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 text-xs font-mono text-[#00f575] flex items-center gap-1.5">
-                  <span className="size-2 rounded-full bg-[#00f575] animate-pulse" />
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-[#c0bbb6] text-xs font-mono text-[#fa5d00] font-semibold flex items-center gap-1.5 shadow-sm">
+                  <span className="size-2 rounded-full bg-[#fa5d00] animate-pulse" />
                   1200 × 630 PNG
                 </div>
               </div>
             </div>
 
             {/* Metadata Inspector Card */}
-            <div className="lg:col-span-4 rounded-3xl border border-white/10 bg-[#2d2734]/60 p-6 space-y-5 backdrop-blur-xl">
-              <h3 className="text-sm font-bold text-[#f1f0ec] uppercase tracking-wider text-[#b997ff]">
+            <div className="lg:col-span-4 rounded-[20px] border border-[#e3d6c5] bg-[#ffffff] p-6 space-y-5 shadow-[rgba(250,166,0,0.15)_4px_4px_20px_0px]">
+              <h3 className="text-sm font-bold text-[#1d1e1c] uppercase tracking-wider text-[#fa5d00]">
                 Active SEO Package
               </h3>
 
               <div className="space-y-3 text-xs">
-                <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 space-y-1">
-                  <span className="text-[#a5a2a5] font-mono text-[10px]">OpenGraph Image</span>
-                  <p className="text-[#f1f0ec] font-mono truncate">/public/og-image.png</p>
+                <div className="p-3 rounded-xl bg-[#fff8f1] border border-[#e3d6c5] space-y-1">
+                  <span className="text-[#8e8b87] font-mono text-[10px]">OpenGraph Image</span>
+                  <p className="text-[#1d1e1c] font-mono truncate">/public/og-image.png</p>
                 </div>
-                <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 space-y-1">
-                  <span className="text-[#a5a2a5] font-mono text-[10px]">Twitter Card</span>
-                  <p className="text-[#f1f0ec] font-mono truncate">/public/twitter-image.png</p>
+                <div className="p-3 rounded-xl bg-[#fff8f1] border border-[#e3d6c5] space-y-1">
+                  <span className="text-[#8e8b87] font-mono text-[10px]">Twitter Card</span>
+                  <p className="text-[#1d1e1c] font-mono truncate">/public/twitter-image.png</p>
                 </div>
-                <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 space-y-1">
-                  <span className="text-[#a5a2a5] font-mono text-[10px]">PWA Manifest</span>
-                  <p className="text-[#f1f0ec] font-mono truncate">/public/site.webmanifest</p>
+                <div className="p-3 rounded-xl bg-[#fff8f1] border border-[#e3d6c5] space-y-1">
+                  <span className="text-[#8e8b87] font-mono text-[10px]">PWA Manifest</span>
+                  <p className="text-[#1d1e1c] font-mono truncate">/public/site.webmanifest</p>
                 </div>
-                <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 space-y-1">
-                  <span className="text-[#a5a2a5] font-mono text-[10px]">Scalable Favicon</span>
-                  <p className="text-[#f1f0ec] font-mono truncate">/public/favicon.svg</p>
+                <div className="p-3 rounded-xl bg-[#fff8f1] border border-[#e3d6c5] space-y-1">
+                  <span className="text-[#8e8b87] font-mono text-[10px]">Scalable Favicon</span>
+                  <p className="text-[#1d1e1c] font-mono truncate">/public/favicon.svg</p>
                 </div>
               </div>
 
@@ -519,7 +518,7 @@ export default function BrandShowcasePage() {
                 <a
                   href="/og-image.png"
                   download="silo-og-image.png"
-                  className="w-full py-2.5 rounded-xl bg-white/[0.06] hover:bg-white/10 text-xs font-semibold text-[#f1f0ec] flex items-center justify-center gap-2 transition-colors"
+                  className="w-full py-3 rounded-2xl bg-[#fa5d00] hover:brightness-95 text-xs font-semibold text-white flex items-center justify-center gap-2 transition-all shadow-sm"
                 >
                   <Download size={14} /> Download Social Card
                 </a>

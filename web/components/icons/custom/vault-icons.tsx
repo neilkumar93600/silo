@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import type { BaseIconProps } from "../types";
 
 /**
- * Encrypted Vault Safe Box Icon
+ * Vault Safe Icon
  */
 export function VaultIcon({ size = 24, className, ...props }: BaseIconProps) {
   return (
@@ -11,30 +11,25 @@ export function VaultIcon({ size = 24, className, ...props }: BaseIconProps) {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"
-      aria-label="Vault Icon"
+      width={size}
+      height={size}
+      aria-label="Vault"
       role="img"
-      style={size ? { width: size, height: size } : undefined}
       className={cn("shrink-0 select-none", className)}
       {...props}
     >
-      <rect x="3" y="4" width="18" height="16" rx="3" stroke="#b997ff" strokeWidth="1.5" />
-      <rect x="5" y="6" width="14" height="12" rx="1.5" stroke="#e5e7eb" strokeOpacity="0.2" strokeWidth="1" />
-      <circle cx="12" cy="12" r="3.5" stroke="#00f575" strokeWidth="1.5" />
-      <circle cx="12" cy="12" r="1" fill="#00f575" />
-      <line x1="12" y1="8.5" x2="12" y2="7" stroke="#00f575" strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="15.5" y1="12" x2="17" y2="12" stroke="#00f575" strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="12" y1="15.5" x2="12" y2="17" stroke="#00f575" strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="8.5" y1="12" x2="7" y2="12" stroke="#00f575" strokeWidth="1.5" strokeLinecap="round" />
-      <circle cx="6" cy="7" r="0.75" fill="#b997ff" />
-      <circle cx="18" cy="7" r="0.75" fill="#b997ff" />
-      <circle cx="6" cy="17" r="0.75" fill="#b997ff" />
-      <circle cx="18" cy="17" r="0.75" fill="#b997ff" />
+      <rect x="2" y="3" width="20" height="18" rx="4" stroke="currentColor" strokeWidth="2" />
+      <circle cx="12" cy="12" r="4.5" stroke="currentColor" strokeWidth="1.75" />
+      <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+      <path d="M 12 7.5 L 12 9.5 M 12 14.5 L 12 16.5 M 7.5 12 L 9.5 12 M 14.5 12 L 16.5 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="18" cy="7" r="1" fill="currentColor" />
+      <circle cx="18" cy="17" r="1" fill="currentColor" />
     </svg>
   );
 }
 
 /**
- * Encrypted Folder Vault Icon
+ * Folder Vault with Lock Icon
  */
 export function FolderVaultIcon({ size = 24, className, ...props }: BaseIconProps) {
   return (
@@ -42,30 +37,26 @@ export function FolderVaultIcon({ size = 24, className, ...props }: BaseIconProp
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"
-      aria-label="Folder Vault Icon"
+      width={size}
+      height={size}
+      aria-label="Folder Vault"
       role="img"
-      style={size ? { width: size, height: size } : undefined}
       className={cn("shrink-0 select-none", className)}
       {...props}
     >
       <path
-        d="M 3 7 A 2 2 0 0 1 5 5 L 9 5 A 2 2 0 0 1 10.5 5.7 L 12 7 L 19 7 A 2 2 0 0 1 21 9 L 21 17 A 2 2 0 0 1 19 19 L 5 19 A 2 2 0 0 1 3 17 Z"
-        stroke="#b997ff"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
+        d="M 3 7 C 3 5.34 4.34 4 6 4 L 9.5 4 C 10.5 4 11.4 4.5 12 5.3 L 13.2 6.9 C 13.6 7.4 14.2 7.7 14.8 7.7 L 18 7.7 C 19.66 7.7 21 9.04 21 10.7 L 21 18 C 21 19.66 19.66 21 18 21 L 6 21 C 4.34 21 3 19.66 3 18 Z"
+        stroke="currentColor"
+        strokeWidth="2"
       />
-      {/* Front flap with micro-line */}
-      <path d="M 3 10 L 21 10" stroke="#e5e7eb" strokeOpacity="0.2" strokeWidth="1" />
-      {/* Embedded Mini Lock */}
-      <rect x="10.5" y="11.5" width="5" height="4" rx="1" fill="#2d2734" stroke="#00f575" strokeWidth="1" />
-      <path d="M 12 11.5 V 10 C 12 9.4 12.4 9 13 9 C 13.6 9 14 9.4 14 10 V 11.5" stroke="#00f575" strokeWidth="1" />
-      <circle cx="13" cy="13.5" r="0.5" fill="#00f575" />
+      <rect x="9" y="12" width="6" height="5" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M 10.5 12 L 10.5 10.5 C 10.5 9.67 11.17 9 12 9 C 12.83 9 13.5 9.67 13.5 10.5 L 13.5 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
 
 /**
- * Cloud Sync Encrypted Stream Icon
+ * Encrypted Cloud Sync Icon
  */
 export function CloudSyncIcon({ size = 24, className, ...props }: BaseIconProps) {
   return (
@@ -73,28 +64,27 @@ export function CloudSyncIcon({ size = 24, className, ...props }: BaseIconProps)
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"
-      aria-label="Cloud Sync Icon"
+      width={size}
+      height={size}
+      aria-label="Cloud Sync"
       role="img"
-      style={size ? { width: size, height: size } : undefined}
       className={cn("shrink-0 select-none", className)}
       {...props}
     >
       <path
-        d="M 6.5 17 A 4.5 4.5 0 0 1 6.5 8 A 6 6 0 0 1 17.5 7 A 5 5 0 0 1 17.5 17 Z"
-        stroke="#b997ff"
-        strokeWidth="1.5"
+        d="M 6.5 19 C 4.01 19 2 16.99 2 14.5 C 2 12.22 3.7 10.33 5.94 10.04 C 6.47 6.61 9.43 4 13 4 C 17.08 4 20.45 7.15 20.94 11.16 C 21.56 11.66 22 12.43 22 13.3 C 22 14.8 20.8 16 19.3 16"
+        stroke="currentColor"
+        strokeWidth="1.75"
         strokeLinecap="round"
-        strokeLinejoin="round"
       />
-      {/* Sync arrows in center */}
-      <path d="M 10 12 L 12 10 L 14 12" stroke="#00f575" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M 12 10 V 15" stroke="#00f575" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M 12 13 L 15 16 L 9 16 Z" fill="currentColor" />
+      <path d="M 12 16 L 12 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
 
 /**
- * Storage Gauge Meter Icon
+ * Encrypted Storage Gauge Icon
  */
 export function StorageGaugeIcon({ size = 24, className, ...props }: BaseIconProps) {
   return (
@@ -102,26 +92,16 @@ export function StorageGaugeIcon({ size = 24, className, ...props }: BaseIconPro
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"
-      aria-label="Storage Gauge Icon"
+      width={size}
+      height={size}
+      aria-label="Storage Gauge"
       role="img"
-      style={size ? { width: size, height: size } : undefined}
       className={cn("shrink-0 select-none", className)}
       {...props}
     >
-      <path
-        d="M 4 16 A 8 8 0 1 1 20 16"
-        stroke="#55505b"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M 4 16 A 8 8 0 0 1 14 8.5"
-        stroke="#00f575"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-      />
-      <circle cx="12" cy="15" r="2" fill="#b997ff" />
-      <line x1="12" y1="15" x2="15" y2="10" stroke="#f1f0ec" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M 4 17 C 3.37 15.5 3 13.8 3 12 C 3 7.03 7.03 3 12 3 C 16.97 3 21 7.03 21 12 C 21 13.8 20.63 15.5 20 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <path d="M 12 12 L 16 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="12" cy="12" r="2" fill="currentColor" />
     </svg>
   );
 }

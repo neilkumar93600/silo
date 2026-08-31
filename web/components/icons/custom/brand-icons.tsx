@@ -3,30 +3,30 @@ import { cn } from "@/lib/utils";
 import type { BaseIconProps } from "../types";
 
 /**
- * Doppler Brand Signature Asterisk Icon
+ * Brand Asterisk Starburst Icon
  */
-export function DopplerAsteriskIcon({ size = 20, className, ...props }: BaseIconProps) {
+export function DopplerAsteriskIcon({ size = 24, className, ...props }: BaseIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"
-      aria-label="Doppler Asterisk"
+      width={size}
+      height={size}
+      aria-label="Asterisk"
       role="img"
-      style={size ? { width: size, height: size } : undefined}
       className={cn("shrink-0 select-none", className)}
       {...props}
     >
-      <line x1="12" y1="2" x2="12" y2="22" stroke="#b997ff" strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="3.3" y1="7" x2="20.7" y2="17" stroke="#b997ff" strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="3.3" y1="17" x2="20.7" y2="7" stroke="#b997ff" strokeWidth="2.5" strokeLinecap="round" />
-      <circle cx="12" cy="12" r="2" fill="#00f575" />
+      <line x1="12" y1="2" x2="12" y2="22" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="3.34" y1="7" x2="20.66" y2="17" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="3.34" y1="17" x2="20.66" y2="7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
     </svg>
   );
 }
 
 /**
- * Cyber Beam Upload / Ingestion Icon
+ * Cyber Upload Arrow Icon
  */
 export function CyberUploadIcon({ size = 24, className, ...props }: BaseIconProps) {
   return (
@@ -34,36 +34,38 @@ export function CyberUploadIcon({ size = 24, className, ...props }: BaseIconProp
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"
-      aria-label="Cyber Upload"
+      width={size}
+      height={size}
+      aria-label="Upload"
       role="img"
-      style={size ? { width: size, height: size } : undefined}
       className={cn("shrink-0 select-none", className)}
       {...props}
     >
-      <path d="M 4 17 V 19 A 2 2 0 0 0 6 21 H 18 A 2 2 0 0 0 20 19 V 17" stroke="#b997ff" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M 12 3 L 12 15" stroke="#00f575" strokeWidth="2" strokeLinecap="round" />
-      <path d="M 7 8 L 12 3 L 17 8" stroke="#00f575" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M 4 17 V 19 C 4 20.1 4.9 21 6 21 H 18 C 19.1 21 20 20.1 20 19 V 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <path d="M 12 3 L 6 9 M 12 3 L 18 9 M 12 3 V 15" stroke="#fa5d00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
 /**
- * Monospace Terminal Prompt Icon
+ * Terminal Command Prompt Icon
  */
-export function TerminalPromptIcon({ size = 20, className, ...props }: BaseIconProps) {
+export function TerminalPromptIcon({ size = 24, className, ...props }: BaseIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"
-      aria-label="Terminal Prompt"
+      width={size}
+      height={size}
+      aria-label="Terminal"
       role="img"
-      style={size ? { width: size, height: size } : undefined}
       className={cn("shrink-0 select-none", className)}
       {...props}
     >
-      <path d="M 4 7 L 10 12 L 4 17" stroke="#00f575" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <line x1="12" y1="17" x2="20" y2="17" stroke="#b997ff" strokeWidth="2" strokeLinecap="round" />
+      <rect x="2" y="4" width="20" height="16" rx="3" stroke="currentColor" strokeWidth="1.75" />
+      <path d="M 6 9 L 10 12 L 6 15" stroke="#fa5d00" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="12" y1="15" x2="16" y2="15" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
     </svg>
   );
 }
